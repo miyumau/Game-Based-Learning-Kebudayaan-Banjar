@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* =====================================
+         DESKTOP RESPONSIF UNTUK SIGN UP
+      ===================================== */
+      @media (min-width: 769px) {
+        .untuklogin {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          margin-top: 30px;
+          gap: 15px;
+          position: relative;
+          z-index: 102;
+        }
+
+        .kotaklogin {
+          background-color: #b3c4fa;
+          border: 3.6px solid black;
+          border-radius: 90px;
+          width: 40vw;
+          max-width: 550px;
+          height: 100px;
+          box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.3);
+          z-index: 102;
+        }
+
+        .tulisansign {
+          margin-left: 3px;
+          margin-top: -110px;
+          text-align: center !important;
+          position: relative !important;
+          transform: none !important;
+          font-size: 35px !important;
+          max-width: 500px;
+        }
+
+        .textuser {
+          margin-left: 310px !important;
+        }
+
+        .passworduser {
+          margin-left: 305px !important;
+        }
+
+        #emailuser {
+          margin-left: 315px !important;
+        }
+
+        .btnsign {
+          background-color: rgba(255, 255, 255, 0.2); /* transparan halus */
+          background: transparent;
+          border: none;
+          box-shadow: none;
+        }
+
+        .sudah_ada_akun {
+          margin-left: 250px !important;
+        }
+
+        .username,
+        .password {
+          margin-left: 50px !important;
+        }
+        html,
+        body {
+          height: 100% !important;
+          overflow-y: auto !important; /* biar bisa scroll */
+        }
+
+        /* Bikin container besar supaya scroll bisa aktif */
+        body::after {
+          content: "";
+          display: block;
+          height: 150px; /*✅ Tambah ruang bawah agar tidak kepotong*/
+        }
+      }
+
+      /* =====================================
+         RESPONSIVE UNTUK MOBILE
+      ===================================== */
+      @media (max-width: 768px) {
+        body {
+          text-align: center;
+          overflow-y: auto !important; /* ✅ Aktifkan scroll untuk HP */
+        }
+
+        .untuklogin {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          margin-top: 25px;
+        }
+
+        .kotaklogin {
+          position: relative !important;
+          left: 0 !important;
+          top: 20px !important;
+          transform: none !important;
+          width: 85% !important;
+          max-width: 320px;
+          height: 65px !important;
+          border-radius: 40px !important;
+          margin: 0 auto !important;
+        }
+
+        .tulisansign {
+          position: relative !important;
+          left: -330px !important;
+          top: -50px !important;
+          transform: none !important;
+          margin-top: 0px !important;
+          font-size: 35px !important;
+          text-align: center !important;
+          white-space: nowrap;
+          text-align: center;
+        }
+
+        .kotak_biru {
+          display: none;
+        }
+
+        .kotak_biru_muda {
+          position: relative !important;
+          top: 0 !important;
+          left: 0 !important;
+          transform: none !important;
+          width: 85% !important;
+          max-width: 340px !important;
+          height: auto !important;
+          margin: 0 auto 40px auto !important;
+          border-radius: 40px !important;
+          padding: 25px 0 40px 0 !important;
+        }
+
+        .fleksibel2 {
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: center !important;
+          justify-content: center !important;
+          margin: 0 auto !important;
+        }
+
+        .textuser,
+        .passworduser {
+          margin: 15px 0 10px 0 !important;
+          text-align: center !important;
+          font-size: 20px !important;
+        }
+
+        .username,
+        .password {
+          width: 80% !important;
+          max-width: 280px !important;
+          height: 50px !important;
+          font-size: 18px !important;
+          margin: 0 auto 15px auto !important;
+          display: block !important;
+        }
+
+        .bgsign {
+          position: relative !important;
+          margin: 25px auto 0 auto !important;
+          width: 120px !important;
+          height: 40px !important;
+          border-radius: 40px !important;
+        }
+
+        .btnsign {
+          position: relative !important;
+          font-size: 20px !important;
+          text-align: center !important;
+          display: block !important;
+          margin: 6px auto 0 auto !important;
+        }
+
+        .sudah_ada_akun {
+          font-size: 15px !important;
+          text-align: center !important;
+          margin-top: 20px !important;
+          margin-left: 67px;
+          white-space: nowrap;
+          text-align: center;
+          width: auto !important;
+        }
+
+        .link_sudah_punya_akun {
+          display: inline-block !important;
+          margin-top: 5px !important;
+        }
+      }
+
+      html,
+      body {
+        height: auto !important;
+        overflow-y: auto !important;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+    </style>
+    <title>Sign Up</title>
+  </head>
+  <body>
+    <div class="untuklogin">
+      <div class="kotaklogin"></div>
+      <div class="tulisansign">
+        Daftar Game Based Learning Kebudayaan Banjar
+      </div>
+    </div>
+
+    <form method="POST">
+      <div>
+        <div class="kotak_biru"></div>
+        <div class="kotak_biru_muda">
+          <div class="fleksibel2">
+            <h2 class="textuser">Username</h2>
+            <input type="text" class="username" name="username" />
+
+            <h2 class="passworduser" id="emailuser">Email</h2>
+            <input type="email" class="password" name="email" required />
+
+            <h2 class="passworduser" id="passworduser">Password</h2>
+            <input type="password" class="password" name="password" required />
+          </div>
+
+          <div class="bgsign" id="bglogin">
+            <button type="submit" class="btnsign">Daftar</button>
+          </div>
+
+          <div class="sudah_ada_akun">
+            Sudah Punya Akun ?
+            <a href="{{ url_for('login') }}" class="link_sudah_punya_akun"
+              >Login</a
+            >
+          </div>
+        </div>
+      </div>
+    </form>
+  </body>
+</html>

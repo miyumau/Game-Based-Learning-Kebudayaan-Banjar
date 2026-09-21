@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stage 10 - Quiz</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/quiz.css') }}"
+    />
+    <style>
+      /* ===============================
+        🌟 RESPONSIVE MOBILE FIX
+      ================================ */
+      @media (max-width: 768px) {
+        body {
+          text-align: center;
+          overflow-x: hidden;
+        }
+        .back {
+          position: absolute !important;
+          width: 48px;
+          height: 48px;
+          top: 12px;
+          left: 12px;
+          margin: 0 !important;
+          z-index: 12000;
+        }
+        .gambar_back {
+          width: 28px;
+          height: 28px;
+          top: 10px;
+          left: 10px;
+        }
+        .kotak_materi_diatas {
+          width: 50%;
+          height: 60px;
+          margin-top: 20px;
+          border-radius: 40px;
+          font-size: 18px;
+        }
+        .tulisan_materi_diatas {
+          font-size: 22px;
+        }
+        .container-cerita {
+          width: 90%;
+          height: auto;
+          min-height: 400px;
+          top: 130px;
+          padding: 25px 20px;
+        }
+        .cerita {
+          font-size: 20px !important;
+          line-height: 1.6;
+          text-align: justify;
+        }
+        .cerita::first-letter {
+          font-size: 37.5px;
+          font-weight: 700;
+          color: #f5a623;
+          float: left;
+          margin-right: 6px;
+          margin-top: -20px;
+          margin-bottom: -10px;
+        }
+        #soal_lanjut {
+          position: relative;
+          margin-top: 25px;
+          font-size: 20px !important;
+          width: 80%;
+        }
+        .quiz-container {
+          width: 90%;
+          padding: 25px;
+          top: 150px;
+        }
+        .question {
+          font-size: 20px;
+        }
+        .options button {
+          width: 100%;
+          font-size: 18px;
+          padding: 12px;
+        }
+        .next-btn {
+          width: 60%;
+          font-size: 18px;
+          padding: 10px;
+        }
+        .result {
+          font-size: 18px;
+        }
+        .result-box {
+          font-size: 18px;
+          padding: 15px;
+        }
+        .materi-btn {
+          font-size: 18px;
+          padding: 10px 20px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="{{ url_for('quiz') }}">
+      <div class="back">
+        <img
+          src="/static/Image/back.png"
+          alt="gambar kembali"
+          class="gambar_back"
+        />
+      </div>
+    </a>
+
+    <div class="kotak_materi_diatas">
+      <div class="tulisan_materi_diatas">Stage 10 - Quiz</div>
+    </div>
+
+    <div class="quiz-container" style="display: none">
+      <div id="quiz">
+        <div class="question" id="question"></div>
+        <div class="options" id="options"></div>
+        <button class="next-btn" id="nextBtn">Next</button>
+      </div>
+      <div class="result" id="result"></div>
+    </div>
+
+    <div class="container-cerita">
+      <div class="cerita-scroll">
+        <p class="cerita">
+          Malam semakin larut 🌙, tapi kamu dan nenek tetap tekun mencari
+          petunjuk di setiap sudut rumah Bubungan Tinggi. Tangga ganjil, ukiran
+          burung enggang dan naga, hingga lantai Balai Bini yang berkilau,
+          semuanya menuntun matamu ke makna yang lebih dalam.
+          <br /><br />
+          Kamu menatap gulungan kain tua lagi. "Nek, aku mulai mengerti… Putu
+          Mayang melambangkan hubungan yang terjalin, Wadai Cincin keutuhan,
+          rumah Bubungan Tinggi keseimbangan, dan Balai Bini sebagai tempat
+          berkulturnya semua makna itu," gumammu sambil tersenyum 😊.
+          <br /><br />
+          Nenek mengangguk bangga. "Betul, Nak. Semua elemen ini saling terkait.
+          Filosofi setiap kue, setiap ukiran, setiap ruangan, mengajarkan kita
+          tentang kebersamaan, keharmonisan dengan alam, dan menghargai warisan
+          budaya." <br /><br />
+          Kamu menempelkan tanganmu di gulungan kain tua. Di bawah cahaya lampu,
+          tulisan halus itu akhirnya terlihat jelas: pesan rahasia tentang
+          kebersamaan dan keseimbangan hidup 🌟. <br /><br />
+          Nenek tersenyum hangat. "Sekarang, Nak, kamu sudah memahami inti dari
+          rumah dan kue tradisional Banjar. Bukan sekadar melihat atau
+          mencicipi, tapi menyadari makna di balik setiap elemen. Inilah akhir
+          perjalanan kuis kita, tapi awal untuk selalu menghargai budaya."
+          <br /><br />
+          Kamu menarik napas panjang, merasakan kebahagiaan sekaligus rasa
+          kagum. Semuanya terasa hidup: aroma manis Putu Mayang dan Wadai
+          Cincin, kayu ulin yang kokoh, ukiran yang memikat, semuanya
+          mengajarkan satu hal penting:
+          <i>menghargai budaya adalah bagian dari keseimbangan hidup.</i> 🌸✨
+        </p>
+      </div>
+      <button id="soal_lanjut" onclick="soal_lanjut()">Lanjut</button>
+    </div>
+
+    <script>
+      // ==============================
+      // DATA PERTANYAAN QUIZ
+      // ==============================
+      const quizData = [
+        {
+          question: "Apa fungsi utama rumah Bubungan Tinggi pada masa lalu?",
+          options: [
+            "Tempat tinggal bangsawan dan simbol keseimbangan",
+            "Hanya digunakan untuk upacara adat tertentu",
+            "Tempat menyimpan peralatan masak sehari-hari",
+            "Rumah untuk menampung hasil pertanian",
+          ],
+          answer: "Tempat tinggal bangsawan dan simbol keseimbangan",
+        },
+        {
+          question: "Mengapa tangga Bubungan Tinggi selalu berjumlah ganjil?",
+          options: [
+            "Melambangkan keterbatasan ukuran kayu ulin",
+            "Melambangkan kecepatan dalam naik-turun tangga",
+            "Melambangkan keseimbangan dan filosofi tradisi Banjar",
+            "Melambangkan kesesuaian dengan tinggi atap rumah",
+          ],
+          answer: "Melambangkan keseimbangan dan filosofi tradisi Banjar",
+        },
+        {
+          question: "Apa filosofi utama dari Wadai Cincin?",
+          options: [
+            "Melambangkan kesenangan saat menikmati kue",
+            "Melambangkan keutuhan dan keseimbangan hidup manusia",
+            "Melambangkan status sosial keluarga pembuat kue",
+            "Melambangkan kreativitas bentuk kue agar menarik pembeli",
+          ],
+          answer: "Melambangkan keutuhan dan keseimbangan hidup manusia",
+        },
+        {
+          question: "Putu Mayang biasanya dibentuk seperti apa?",
+          options: [
+            "Untaian panjang seperti tali, agar hubungan tidak terputus",
+            "Bulat seperti bola kecil, agar mudah dimakan",
+            "Dipotong kotak-kotak, agar bisa dikemas rapi",
+            "Dilipat seperti kipas, agar terlihat cantik",
+          ],
+          answer: "Untaian panjang seperti tali, agar hubungan tidak terputus",
+        },
+        {
+          question: "Apa fungsi Balai Bini di rumah Bubungan Tinggi?",
+          options: [
+            "Tempat berkumpul laki-laki, menyimpan senjata, dan simbol keberanian",
+            "Tempat berkumpul wanita, menyimpan pernak-pernik, dan simbol kebersamaan",
+            "Tempat khusus untuk menyimpan kue serta makanan tradisional",
+            "Tempat khusus untuk membuat alat pertanian tradisional",
+          ],
+          answer:
+            "Tempat berkumpul wanita, menyimpan pernak-pernik, dan simbol kebersamaan",
+        },
+        {
+          question:
+            "Kenapa ukiran burung enggang dan naga ada di Bubungan Tinggi?",
+          options: [
+            "Melambangkan keindahan agar terlihat indah dari sungai",
+            "Menunjukkan sebagai status sosial pemilik rumah",
+            "Melambangkan keseimbangan antara dunia atas dan bawah",
+            "Menunjukkan sebagai hiasan tanpa makna khusus",
+          ],
+          answer: "Melambangkan keseimbangan antara dunia atas dan bawah",
+        },
+        {
+          question:
+            "Apa yang menjadi makna tersembunyi dari seluruh elemen rumah dan kue Banjar?",
+          options: [
+            "Mengajarkan bagaimana resep tradisional kue dan dekorasi rumah",
+            "Menunjukan sebagai objek untuk dipelajari sejarahnya",
+            "Menunjukkan berapa banyak jumlah tangga dan ukuran ruangan",
+            "Mengajarkan kebersamaan, keharmonisan dengan alam, dan menghargai budaya",
+          ],
+          answer:
+            "Mengajarkan kebersamaan, keharmonisan dengan alam, dan menghargai budaya",
+        },
+        {
+          question:
+            "Bagaimana Putu Mayang dan Wadai Cincin saling terkait dengan filosofi rumah Bubungan Tinggi?",
+          options: [
+            "Keduanya merefleksikan nilai hubungan, keutuhan, dan keseimbangan hidup manusia",
+            "Keduanya dibuat agar bisa dikonsumsi di rumah",
+            "Keduanya sebagai dekorasi agar rumah terlihat menarik",
+            "Keduanya digunakan untuk menandai ruangan tertentu di rumah",
+          ],
+          answer:
+            "Keduanya merefleksikan nilai hubungan, keutuhan, dan keseimbangan hidup manusia",
+        },
+        {
+          question:
+            "Mengapa penting memahami pesan filosofis dari setiap elemen?",
+          options: [
+            "Untuk meniru bagaimana bentuk kue serta ukiran Banjar",
+            "Untuk menghafal semua nama-nama ruangan dan kue Banjar",
+            "Untuk mengetahui bagaimana cara membuat rumah adat Banjar",
+            "Untuk menghargai budaya, kebersamaan, dan keseimbangan hidup",
+          ],
+          answer:
+            "Untuk menghargai budaya, kebersamaan, and keseimbangan hidup",
+        },
+        {
+          question:
+            "Apa inti dari perjalanan pembelajaran Stage 1 hingga Stage 10?",
+          options: [
+            "Memahami filosofi budaya Banjar melalui rumah dan kue tradisional",
+            "Untuk sekadar mengetahui bagaimana bentuk kue dan ruangan rumah",
+            "Untuk mempelajari sejarah Banjar tanpa praktek langsung",
+            "Untuk mengetahui and memahami semua nama ukiran and kue Banjar",
+          ],
+          answer:
+            "Memahami filosofi budaya Banjar melalui rumah dan kue tradisional",
+        },
+      ];
+
+      let currentQuestion = 0;
+      let score = 0;
+      let startTime; // Variabel waktu mulai
+
+      const questionEl = document.getElementById("question");
+      const optionsEl = document.getElementById("options");
+      const nextBtn = document.getElementById("nextBtn");
+      const resultEl = document.getElementById("result");
+
+      function loadQuestion() {
+        const current = quizData[currentQuestion];
+        questionEl.textContent = current.question;
+        optionsEl.innerHTML = "";
+        nextBtn.style.display = "none";
+        current.options.forEach((opt) => {
+          const btn = document.createElement("button");
+          btn.textContent = opt;
+          btn.onclick = () => checkAnswer(btn, opt);
+          optionsEl.appendChild(btn);
+        });
+      }
+
+      function checkAnswer(btn, selected) {
+        const correct = quizData[currentQuestion].answer;
+        const buttons = optionsEl.querySelectorAll("button");
+        buttons.forEach((b) => (b.disabled = true));
+        if (selected === correct) {
+          btn.classList.add("correct");
+          score++;
+        } else {
+          btn.classList.add("wrong");
+          buttons.forEach((b) => {
+            if (b.textContent === correct) b.classList.add("correct");
+          });
+        }
+        nextBtn.style.display = "inline-block";
+      }
+
+      nextBtn.addEventListener("click", () => {
+        currentQuestion++;
+        if (currentQuestion < quizData.length) {
+          loadQuestion();
+        } else {
+          finishQuiz();
+        }
+      });
+
+      function finishQuiz() {
+        document.getElementById("quiz").style.display = "none";
+
+        // 1. Hitung durasi waktu pengerjaan
+        const endTime = new Date();
+        const durasiDetik = Math.floor((endTime - startTime) / 1000);
+
+        // Batas minimal lulus 100% (karena stage terakhir)
+        const minCorrect = Math.ceil(quizData.length / 1);
+
+        // 2. Kirim ke database (Stage 10)
+        fetch("/api/submit_quiz", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            game_name: "quiz",
+            stage: 10,
+            score: score,
+            total_soal: quizData.length,
+            time_taken: durasiDetik,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            resultEl.innerHTML = `<strong>Kamu menjawab ${score}/${quizData.length} dengan benar!</strong><br>
+                                  <small>Waktu pengerjaan: ${durasiDetik} detik</small><br><br>`;
+
+            if (data.passed) {
+              resultEl.innerHTML += `
+                <div class="result-box success">
+                    🎉 Selamat! Kamu telah menyelesaikan semua Stage dengan sempurna! 
+                    Terima kasih telah belajar budaya Banjar!
+                </div>`;
+              setTimeout(() => {
+                window.location.href = "{{ url_for('quiz') }}";
+              }, 4000);
+            } else {
+              resultEl.innerHTML += `
+                <div class="result-box fail">
+                    😢 Kamu hanya menjawab ${score} dari ${quizData.length} dengan benar.<br>
+                    <p>Pelajari kembali materinya sebelum mencoba lagi.</p>
+                    <a href="{{ url_for('materi') }}" class="materi-btn">📖 Lihat Materi</a>
+                </div>`;
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("Terjadi kesalahan saat menyimpan nilai.");
+          });
+      }
+
+      function shuffleQuestions(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+      }
+
+      function soal_lanjut() {
+        document.querySelector(".container-cerita").style.display = "none";
+        document.querySelector(".quiz-container").style.display = "block";
+        startTime = new Date(); // Catat waktu mulai di sini
+      }
+
+      // Inisialisasi awal
+      shuffleQuestions(quizData);
+      loadQuestion();
+    </script>
+  </body>
+</html>

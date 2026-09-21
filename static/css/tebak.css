@@ -1,0 +1,685 @@
+/* ====== UMUM ====== */
+body {
+  font-family: "Fredoka", sans-serif;
+  background-color: #f7f1e5;
+  text-align: center;
+  margin: 0;
+  overflow-x: hidden; /* supaya tidak geser ke samping */
+  overflow-y: auto; /* biar bisa discroll ke bawah */
+  scroll-behavior: smooth; /* biar halus saat di-scroll */
+}
+
+/* ====== TOMBOL KEMBALI ====== */
+.back {
+  background-color: #e6cfa9;
+  height: 80px;
+  width: 80px;
+  border-radius: 90px;
+  position: sticky;
+  top: 25px;
+  left: 25px;
+  border: 3.5px solid black;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  transition: transform 0.1s, background-color 0.2s;
+}
+
+.back:hover {
+  background-color: rgb(218, 25, 25);
+  transform: scale(1.05);
+}
+
+.gambar_back {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+
+/* ====== KOTAK JUDUL DI ATAS ====== */
+.kotak_materi_diatas {
+  background-color: #85d4ff;
+  height: 100px;
+  width: 500px;
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 90px;
+  border: 5px solid black;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  z-index: 200;
+}
+
+.tulisan_materi_diatas {
+  font-size: 38px;
+  font-weight: 600;
+  color: black;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ====== CARD GAMBAR ====== */
+.card {
+  background-color: white;
+  width: 600px;
+  border: 4px solid black;
+  border-radius: 25px;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.25);
+  margin: 170px auto 0 auto;
+  padding: 40px 20px;
+  text-align: center;
+  height: 480px;
+}
+
+.tebak-gambar {
+  width: 300px;
+  height: 280px;
+  object-fit: contain;
+  border-radius: 20px;
+  margin-bottom: 25px;
+}
+
+/* ====== INPUT DAN TOMBOL ====== */
+.input-jawaban {
+  font-size: 20px;
+  padding: 10px 20px;
+  border-radius: 15px;
+  border: 3px solid black;
+  text-align: center;
+  width: 250px;
+}
+
+.btn-kirim {
+  margin-top: 20px;
+  padding: 10px 30px;
+  background-color: #85d4ff;
+  border: 3px solid black;
+  border-radius: 20px;
+  font-size: 22px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-kirim:hover {
+  background-color: #58c1ff;
+  transform: scale(1.05);
+}
+
+/* ====== HASIL ====== */
+.hasil {
+  margin-top: 25px;
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.benar {
+  color: green;
+  animation: pop 0.5s ease;
+}
+
+.salah {
+  color: red;
+  animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  75% {
+    transform: translateX(10px);
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ====== POPUP ====== */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.popup.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup-content {
+  background: white;
+  border: 4px solid black;
+  border-radius: 20px;
+  padding: 30px 50px;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
+  animation: pop 0.4s ease;
+}
+/* ====== PERBAIKAN TAMPILAN CARD DAN INPUT ====== */
+.card {
+  background: linear-gradient(180deg, #ffffff 0%, #fdf3c5 100%);
+  border: 4px solid #000;
+  border-radius: 35px;
+  width: 1220px;
+  padding: 50px 30px;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease;
+  margin-top: 70px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.pertanyaan {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.input-jawaban {
+  font-size: 22px;
+  padding: 12px 25px;
+  border-radius: 20px;
+  border: 3px solid black;
+  width: 70%;
+  outline: none;
+  transition: box-shadow 0.3s ease;
+}
+
+.input-jawaban:focus {
+  box-shadow: 0 0 10px rgba(255, 217, 0, 0.8);
+}
+
+.btn-kirim {
+  background-color: #ffd84d;
+  color: black;
+  border: 3px solid black;
+  border-radius: 25px;
+  padding: 12px 35px;
+  font-size: 22px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+}
+
+.btn-kirim:hover {
+  background-color: #ffe16a;
+  transform: translateY(-2px);
+}
+
+.hasil {
+  margin-top: 20px;
+  font-size: 24px;
+  font-weight: 600;
+  position: relative;
+  top: -240px;
+  right: -320px;
+}
+
+/* Popup animasi */
+.popup-content {
+  background: linear-gradient(180deg, #fff7b0 0%, #fff 100%);
+  border: 4px solid #000;
+  border-radius: 25px;
+  padding: 35px 60px;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  animation: pop 0.4s ease;
+}
+
+.container-cerita {
+  position: relative;
+  top: 200px;
+  margin: auto;
+  width: 900px;
+  height: 450px;
+  background: #ffffff;
+  border-radius: 40px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+}
+/* 🌸 Kontainer teks cerita — bisa discroll tapi scrollbar disembunyikan */
+.container-cerita {
+  position: relative;
+  top: 200px;
+  margin: auto;
+  width: 900px;
+  height: 450px;
+  background: #ffffff;
+  border-radius: 40px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  overflow: hidden; /* supaya tidak keluar area */
+}
+.container-cerita {
+  position: relative;
+  top: 100px;
+  margin: auto;
+  width: 90%;
+  height: 380px;
+  background: #ffffff;
+  border-radius: 40px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  overflow: hidden;
+}
+.cerita-scroll {
+  flex: 1;
+  width: 100%;
+  overflow-y: auto;
+  padding-right: 10px;
+  margin-bottom: 60px; /* kasih jarak dari tombol */
+  scrollbar-width: none; /* Firefox */
+}
+
+.cerita-scroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+/* 🌷 Area teks bisa discroll lembut */
+.cerita-scroll {
+  flex: 1;
+  width: 100%;
+  overflow-y: auto;
+  padding-right: 10px;
+  margin-bottom: 70px;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+
+.cerita-scroll::-webkit-scrollbar {
+  display: none;
+}
+.cerita {
+  font-size: 20px;
+  font-size: 32px;
+  line-height: 1.8;
+  color: #333;
+  text-align: justify;
+  font-weight: 400;
+  padding: 10px 20px;
+  border-radius: 20px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 250, 230, 0.8) 100%
+  );
+  box-shadow: inset 0 0 10px rgba(255, 230, 150, 0.3);
+  transition: transform 0.3s ease;
+}
+.cerita:hover {
+  transform: scale(1.01);
+}
+
+/* ✨ Hiasan paragraf awal dan kata penting */
+.cerita::first-letter {
+  font-size: 57.5px;
+  font-weight: 700;
+  color: #f5a623;
+  float: left;
+  margin-right: 6px;
+}
+
+.cerita strong {
+  color: #ff6f61;
+  font-weight: 600;
+}
+.cerita {
+  animation: fadeInText 1s ease forwards;
+}
+/* 🌈 Tombol "Lanjut" bergaya cute */
+#soal_lanjut {
+  background-color: #ffe082; /* kuning pastel */
+  color: #000;
+  font-family: "Fredoka", sans-serif;
+  font-size: 28px !important;
+  font-weight: 600;
+  border: 3px solid #000;
+  border-radius: 25px;
+  padding: 14px 45px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 60px;
+  position: absolute;
+  bottom: 17px;
+}
+
+/* Efek hover */
+#soal_lanjut:hover {
+  background-color: #fff59d; /* kuning lebih cerah */
+  transform: scale(1.05);
+}
+
+/* Efek klik */
+#soal_lanjut:active {
+  transform: scale(0.95);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+/* ✨ Ikon panah bergerak lucu */
+#soal_lanjut span {
+  display: inline-block;
+  animation: arrowMove 1s infinite alternate;
+}
+
+@keyframes arrowMove {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(6px);
+  }
+}
+
+/* 🌈 Tombol "Lanjut" cute */
+#soal_lanjut {
+  background-color: #ffe082;
+  color: #000;
+  font-family: "Fredoka", sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  border: 3px solid #000;
+  border-radius: 25px;
+  padding: 14px 45px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: absolute;
+  bottom: 25px;
+}
+
+#soal_lanjut:hover {
+  background-color: #fff59d;
+  transform: scale(1.05);
+}
+
+#soal_lanjut:active {
+  transform: scale(0.95);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+#soal_lanjut span {
+  display: inline-block;
+  animation: arrowMove 1s infinite alternate;
+}
+
+@keyframes arrowMove {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(6px);
+  }
+}
+
+/* ======== GLOBAL FONT (Fredoka) ======== */
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap");
+
+* {
+  font-family: "Fredoka", sans-serif !important;
+}
+
+/* ===============================
+      🌟 RESPONSIVE UNTUK HP (≤768px)
+      =============================== */
+@media (max-width: 768px) {
+  body {
+    text-align: center;
+    overflow-x: hidden;
+  }
+
+  /* Tombol Back */
+  .back {
+    position: absolute !important;
+    width: 48px;
+    height: 48px;
+    top: 12px;
+    left: 12px;
+    margin: 0 !important;
+    z-index: 12000;
+  }
+
+  .gambar_back {
+    width: 28px;
+    height: 28px;
+    top: 10px;
+    left: 10px;
+  }
+
+  /* Kotak Judul */
+  .kotak_materi_diatas {
+    width: 55% !important;
+    height: 55px !important;
+    top: 10px !important;
+    border-radius: 40px !important;
+    border-width: 3px !important;
+    font-size: 20px !important;
+  }
+
+  .tulisan_materi_diatas {
+    font-size: 17px !important;
+    top: 16px !important;
+    left: 50% !important;
+    transform: translateX(-50%);
+    position: absolute !important;
+    white-space: nowrap; /* agar tetap 1 baris */
+    text-align: center;
+  }
+
+  /* Kontainer cerita */
+  .container-cerita {
+    width: 90% !important;
+    height: auto !important;
+    min-height: 380px !important;
+    top: 100px !important;
+    padding: 25px 20px !important;
+  }
+
+  .cerita {
+    font-size: 18px !important;
+    line-height: 2 !important;
+    text-align: justify !important;
+  }
+
+  #soal_lanjut {
+    position: relative !important;
+    margin-top: 25px !important;
+    font-size: 18px !important;
+    width: 80% !important;
+  }
+
+  /* Card Tebak Gambar */
+  .card {
+    width: 90% !important;
+    padding: 30px 15px !important;
+    margin-top: 100px !important;
+  }
+
+  .tebak-gambar {
+    width: 230px !important;
+    height: auto !important;
+    margin-bottom: 20px !important;
+  }
+
+  .pertanyaan {
+    font-size: 20px !important;
+  }
+
+  .input-jawaban {
+    width: 80% !important;
+    font-size: 18px !important;
+  }
+
+  .btn-kirim {
+    font-size: 18px !important;
+    padding: 10px 20px !important;
+  }
+
+  .hasil {
+    font-size: 18px !important;
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  /* Popup sukses */
+  .popup-content {
+    width: 80% !important;
+    font-size: 20px !important;
+    padding: 20px !important;
+  }
+
+  /* Huruf pertama besar */
+  .cerita::first-letter {
+    font-size: 37.5px;
+    font-weight: 700;
+    color: #f5a623;
+    float: left;
+    margin: -0.7px 6px 0 0; /* aman untuk mobile */
+  }
+  /* dari sini yang diubah */
+  .pertanyaan {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    position: relative;
+    top: 0px !important;
+    right: 0px !important;
+  }
+  .input-jawaban {
+    font-size: 20px;
+    padding: 10px 20px;
+    border-radius: 15px;
+    border: 3px solid black;
+    text-align: center;
+    width: 250px !important;
+    top: 0px !important;
+    right: 0px !important;
+  }
+  .btn-kirim {
+    background-color: #ffd84d;
+    color: black;
+    border: 3px solid black;
+    border-radius: 25px;
+    padding: 12px 35px;
+    font-size: 22px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    right: 0px !important;
+    top: 0px !important;
+  }
+  .card {
+    height: 540px;
+  }
+}
+.materi {
+  background-color: #ffd84d;
+  color: black;
+  border: 3px solid black;
+  border-radius: 25px;
+  padding: 12px 35px;
+  font-size: 22px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+}
+.pertanyaan {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin-top: 10px;
+  margin-bottom: 25px;
+  position: relative;
+  top: -300px;
+  right: -695px;
+  max-width: 500px;
+}
+.input-jawaban {
+  font-size: 20px;
+  padding: 10px 20px;
+  border-radius: 15px;
+  border: 3px solid black;
+  text-align: center;
+  width: 530px !important;
+  position: relative;
+  top: -290px;
+  right: -325px;
+}
+.btn-kirim {
+  background-color: #ffd84d;
+  color: black;
+  border: 3px solid black;
+  border-radius: 25px;
+  padding: 12px 35px;
+  font-size: 22px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+  position: relative;
+  top: -250px !important;
+  right: -325px !important;
+}

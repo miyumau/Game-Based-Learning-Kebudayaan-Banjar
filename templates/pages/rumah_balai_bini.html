@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Rumah Adat Balai Bini</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      root {
+        --bg: #bfe9ff;
+        --card: #ffffff;
+        --accent: #1fa77c;
+        --muted: #6b7280;
+        --shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
+        --radius: 14px;
+      }
+
+      * {
+        box-sizing: border-box;
+        font-family: "Fredoka", sans-serif;
+        font-weight: 500;
+      }
+
+      html,
+      body {
+        height: 100%;
+        background-color: #f7f1e5;
+      }
+
+      body {
+        margin: 0;
+        background: #f7f1e5;
+        padding: 130px;
+      }
+
+      .popup-info {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.7);
+        background: #fff7d1;
+        border: 3px solid #ffcf72;
+        border-radius: 20px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        padding: 25px 30px;
+        font-size: 18px;
+        max-width: 90%;
+        width: 400px;
+        text-align: center;
+        color: #5b4600;
+        z-index: 2000;
+        opacity: 0;
+        animation: popIn 0.4s ease forwards;
+      }
+
+      .back {
+        background-color: #e6cfa9;
+        height: 80px;
+        border-radius: 90px;
+        width: 80px;
+        left: 25px;
+        position: absolute;
+        top: 25px;
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+        border: 3.5px solid black;
+        transition: transform 0.1s, opacity 0.1s;
+      }
+
+      .back:hover {
+        background-color: rgb(218, 25, 25);
+        transform: scale(1.05);
+      }
+
+      .gambar_back {
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        left: 7px;
+        top: 7px;
+      }
+
+      .kotak_materi_diatas {
+        left: 0%;
+        position: relative;
+        margin: 30px auto 0px auto !important;
+        width: 500px;
+        top: -100px;
+      }
+
+      .tulisan_materi_diatas {
+        font-size: 38px !important;
+        position: absolute !important;
+        top: 25px !important;
+        left: 50% !important;
+        transform: translateX(-50%);
+        width: max-content;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        margin-top: -70px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      .left-card {
+        width: 100%;
+        grid-column: 1 / -1;
+      }
+
+      .left-card .image-wrap {
+        /* background: linear-gradient(180deg, #eaf8ff, #fff); */
+        border-radius: 10px;
+        padding: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
+      .left-card img {
+        width: 100%;
+        height: auto;
+        max-height: 600px;
+        object-fit: contain;
+        border-radius: 10px;
+        display: block;
+        box-shadow: 0 8px 20px rgba(16, 24, 40, 0.08);
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(90deg, #fff6d9, #fff1b8);
+        padding: 10px 12px;
+        border-radius: 10px;
+        margin-top: 12px;
+        font-weight: 700;
+        color: #614b00;
+        width: fit-content;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+      }
+
+      .badge:hover {
+        transform: scale(1.05);
+      }
+
+      .middle-row {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 20px;
+      }
+
+      .gallery-row {
+        display: block;
+      }
+
+      .card {
+        background: var(--card);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 18px;
+        overflow: hidden;
+      }
+      /* 🌸 Tampilan lebih cantik khusus card deskripsi */
+
+      .desc-card {
+        border: 2.5px solid #ffe6a1;
+        background: linear-gradient(180deg, #fffdf5, #fff8dc);
+        box-shadow: 0 8px 20px rgba(150, 110, 30, 0.15);
+        border-radius: 16px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .desc-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 24px rgba(150, 110, 30, 0.25);
+      }
+
+      .desc-card h3 {
+        margin: 0 0 12px 0;
+        font-size: 20px;
+        color: #5c3a00;
+        text-align: center;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+      }
+
+      .desc-card p {
+        color: #6b5430;
+        margin: 0;
+        line-height: 1.6;
+        font-size: 15px;
+        text-align: justify;
+        text-indent: 22px;
+        max-height: 140px;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        position: relative;
+      }
+
+      .desc-card p.expanded {
+        max-height: 10000px;
+      }
+
+      .see-more {
+        background: #ffe694;
+        border: none;
+        color: #4a3600;
+        font-weight: 700;
+        margin-top: 14px;
+        cursor: pointer;
+        border-radius: 10px;
+        padding: 8px 16px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        transition: background 0.2s, transform 0.15s;
+      }
+
+      .see-more:hover {
+        background: #ffdd6f;
+        transform: scale(1.05);
+      }
+
+      #desc {
+        font-size: 20px;
+      }
+      /* === Elemen lainnya tetap seperti aslinya === */
+
+      .video-card {
+        height: fit-content;
+        /* atau pakai height: auto; */
+        align-self: start;
+        /* ini penting! */
+      }
+
+      .video-card .video-thumb {
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        cursor: pointer;
+        box-shadow: 0 6px 16px rgba(2, 6, 23, 0.08);
+      }
+
+      .video-card img {
+        display: block;
+        width: 100%;
+        object-fit: cover;
+        min-height: 160px;
+      }
+
+      .play-btn {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.55);
+        border-radius: 50%;
+        width: 64px;
+        height: 64px;
+        display: grid;
+        place-items: center;
+        color: #fff;
+        font-size: 24px;
+      }
+
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .gallery-grid img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+        cursor: pointer;
+        display: block;
+        box-shadow: 0 6px 12px rgba(2, 6, 23, 0.06);
+      }
+
+      .gallery-footer {
+        margin-top: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .btn {
+        background: #ffe694;
+        border: none;
+        color: #4a3600;
+        font-weight: 700;
+        margin-top: 14px;
+        cursor: pointer;
+        border-radius: 10px;
+        padding: 8px 16px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        transition: background 0.2s, transform 0.15s;
+      }
+
+      .btn:hover {
+        background: #ffdd6f;
+        transform: scale(1.05);
+      }
+
+      .btn.ghost {
+        background: #ffe694;
+        color: #4a3600;
+      }
+
+      .btn.ghost:hover {
+        background: #ffdd6f;
+        transform: scale(1.05);
+      }
+
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(2, 6, 23, 0.6);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1200;
+        padding: 20px;
+      }
+
+      .modal {
+        background: #000;
+        max-width: 900px;
+        width: 30%;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(2, 6, 23, 0.6);
+        position: relative;
+        /* display: none; */
+      }
+
+      .modal iframe,
+      .modal video,
+      .modal img {
+        width: 100%;
+        height: 480px;
+        display: block;
+        border: 0;
+      }
+
+      .modal .close {
+        position: absolute;
+        right: 18px;
+        top: 14px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        border: 0;
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 700;
+        display: grid;
+        place-items: center;
+      }
+
+      .funfact-popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.7);
+        background: #fff7d1;
+        border: 3px solid #ffcf72;
+        border-radius: 20px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        padding: 25px 30px;
+        font-size: 18px;
+        max-width: 90%;
+        width: 400px;
+        text-align: center;
+        color: #5b4600;
+        z-index: 2000;
+        opacity: 0;
+        animation: popIn 0.4s ease forwards;
+      }
+
+      @keyframes popIn {
+        0% {
+          transform: translate(-50%, -50%) scale(0.7);
+          opacity: 0;
+        }
+        70% {
+          transform: translate(-50%, -50%) scale(1.05);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 1;
+        }
+      }
+      /* Responsif tetap buat hp */
+
+      @media (max-width: 768px) {
+        body {
+          padding: 20px;
+        }
+        .middle-row {
+          grid-template-columns: 1fr;
+        }
+        .desc-card p {
+          font-size: 15px;
+          text-indent: 18px;
+          max-height: 120px;
+        }
+        /* Tombol Back */
+        .back {
+          position: absolute !important;
+          width: 48px;
+          height: 48px;
+          top: 12px;
+          left: 12px;
+          margin: 0 !important;
+          z-index: 12000;
+        }
+        .gambar_back {
+          width: 28px !important;
+          height: 28px !important;
+          top: 7px !important;
+          left: 7px !important;
+          position: absolute;
+        }
+        /* Kotak judul atas */
+        .kotak_materi_diatas {
+          top: 0px !important;
+          left: 36% !important;
+          transform: translateX(-50%);
+          width: 70% !important;
+          height: 60px !important;
+          border-width: 3px;
+          border-radius: 40px;
+          margin: 0 !important;
+          z-index: 9000;
+          position: relative !important;
+          margin: 0px auto 0px auto !important;
+        }
+        .tulisan_materi_diatas {
+          font-size: 18px !important;
+          position: fixed !important;
+          top: 15px !important;
+          left: 50% !important;
+          transform: translateX(-50%);
+          width: max-content;
+          text-align: center;
+        }
+        .container {
+          margin-top: 30px;
+        }
+        .modal {
+          background: #000;
+          max-width: 900px;
+          width: 100%;
+          border-radius: 12px;
+          overflow: hidden;
+          box-shadow: 0 20px 60px rgba(2, 6, 23, 0.6);
+          position: relative;
+          /* display: none; */
+        }
+        .modal iframe,
+        .modal video,
+        .modal img {
+          width: 100%;
+          height: 480px;
+          display: block;
+          border: 0;
+        }
+        .atap {
+          width: 13% !important;
+          background-color: rgba(0, 0, 0, 0) !important;
+          height: 5% !important;
+          position: absolute;
+          top: 7.6% !important;
+          left: 45% !important;
+        }
+        .tangga {
+          width: 17% !important;
+          background-color: rgba(0, 0, 0, 0) !important;
+          height: 15% !important;
+          position: absolute;
+          top: 80% !important;
+          left: 43.5% !important;
+        }
+        .tiang {
+          width: 1% !important;
+          background-color: rgba(0, 0, 0, 0) !important;
+          height: 70% !important;
+          position: absolute;
+          top: 16% !important;
+          left: 81.5% !important;
+        }
+        #tiang1 {
+          width: 1% !important;
+          background-color: rgba(0, 0, 0, 0) !important;
+          height: 78% !important;
+          top: 16% !important;
+          left: 64.5% !important;
+        }
+        #tiang2 {
+          width: 1% !important;
+          background-color: rgba(0, 0, 0, 0) !important;
+          height: 70% !important;
+          top: 16% !important;
+          left: 39.5% !important;
+        }
+        #tiang3 {
+          width: 1% !important;
+          background-color: rgba(0, 0, 0, 0) !important;
+          height: 70% !important;
+          top: 16% !important;
+          left: 19.2% !important;
+        }
+      }
+
+      .atap {
+        width: 14%;
+        background-color: rgba(0, 0, 0, 0);
+        height: 4%;
+        position: absolute;
+        top: 7%;
+        left: 45%;
+      }
+
+      .tangga {
+        width: 17.5%;
+        background-color: rgba(0, 0, 0, 0);
+        height: 18%;
+        position: absolute;
+        top: 80%;
+        left: 43%;
+      }
+
+      .tiang {
+        width: 1%;
+        background-color: rgba(0, 0, 0, 0);
+        height: 69%;
+        position: absolute;
+        top: 14.5%;
+        left: 82%;
+        transform-origin: top;
+        /* BAGIAN ATAS TETAP */
+        transform: skewX(4deg);
+        /* BAWAH BERGESER KE KANAN */
+      }
+
+      #tiang1 {
+        width: 1%;
+        height: 80%;
+        top: 14.2%;
+        left: 65%;
+        background-color: rgba(0, 0, 0, 0);
+        transform: skewX(1.5deg);
+        /* BAWAH BERGESER KE KANAN */
+        transform-origin: bottom;
+        /* BAGIAN ATAS TETAP */
+      }
+
+      #tiang2 {
+        width: 1%;
+        height: 83%;
+        top: 15%;
+        left: 39%;
+        background-color: rgba(0, 0, 0, 0);
+        transform: skewX(-2deg);
+        /* BAWAH BERGESER KE KANAN */
+        transform-origin: bottom;
+        /* BAGIAN ATAS TETAP */
+      }
+
+      #tiang3 {
+        width: 1%;
+        height: 80%;
+        top: 14%;
+        left: 18.5%;
+        background-color: rgba(0, 0, 0, 0);
+        transform: skewX(-3.5deg);
+        /* BAWAH BERGESER KE KANAN */
+        transform-origin: bottom;
+        /* BAGIAN ATAS TETAP */
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="{{ url_for('kumpulan_rumah') }}">
+      <div class="back">
+        <img
+          src="/static/Image/back.png"
+          alt="gambar kembali"
+          class="gambar_back"
+        />
+      </div>
+    </a>
+
+    <div class="kotak_materi_diatas">
+      <div class="tulisan_materi_diatas" style="left: 199px">
+        Rumah Balai Bini
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="card left-card" style="border: solid 3px black">
+        <div class="image-wrap">
+          <img
+            src="/static/Image/_rumah_balai_bini.jpg"
+            alt="Rumah adat Banjar"
+            style="border: solid 3px black"
+          />
+          <div class="atap"></div>
+          <div class="tangga"></div>
+          <div class="tiang"></div>
+          <div class="tiang" id="tiang1"></div>
+          <div class="tiang" id="tiang2"></div>
+          <div class="tiang" id="tiang3"></div>
+        </div>
+        <div style="text-align: center; font-size: 20px">
+          Lokasi : Jl. 9 November, Pangambangan Kelurahan Banua
+          Anyar, Banjarmasin.
+        </div>
+        <div class="badge" id="funfact-btn">Tahukah Kamu?</div>
+      </div>
+
+      <div class="middle-row">
+        <div class="card desc-card">
+          <h3>Rumah Adat Balai Bini</h3>
+          <p id="desc">
+            Balai Bini adalah rumah tradisional khas suku Banjar yang pada masa
+            Kesultanan Banjar dihuni oleh para putri sultan atau keluarga
+            bangsawan dari pihak perempuan. Rumah ini mencerminkan status
+            sosial, nilai budaya, dan filosofi arsitektur Banjar yang tinggi.
+            Bangunan induknya berbentuk segi empat memanjang dengan atap
+            berbentuk perisai, yang disebut rumah gajah. Atap perisai ini
+            memiliki makna perlindungan terhadap wanita, sekaligus menunjukkan
+            kehati-hatian dan rasa hormat terhadap anggota keluarga perempuan
+            pada masa itu.
+            <br /><br />
+            Di kanan dan kiri bangunan induk terdapat anjung, yaitu ruang
+            tambahan yang beratap pisang sasikat. Bentuk atapnya menyerupai
+            sesisir pisang yang rapi sehingga dinamakan demikian. Anjung tidak
+            hanya menambah ruang fungsional, tetapi juga memperkuat simetri
+            estetika rumah, memberikan keseimbangan visual yang penting dalam
+            arsitektur tradisional Banjar. Bagian depan rumah memiliki satu
+            pintu utama dan jendela di kanan dan kiri, sedangkan terasnya
+            dikelilingi pagar kayu berukir kembang bogam atau bentuk geometris
+            yang disebut kandang rasi, sama seperti pada rumah Bubungan Tinggi.
+            Kandang rasi ini menambah keindahan rumah sekaligus menjadi simbol
+            seni ukir khas Banjar. <br /><br />
+            Atap bagian depan rumah disebut atap sindang langit, yaitu atap
+            tanpa plafon yang menaungi emper depan rumah. Empat tiang besar
+            menyangga teras depan, membuat rumah terlihat kokoh dan megah.
+            Seluruh atap rumah menggunakan sirap kayu ulin yang tahan air,
+            sementara bangunan utama juga menggunakan kayu ulin atau kayu besi
+            yang kuat, tahan rayap, dan bisa bertahan ratusan tahun. Rumah Balai
+            Bini tidak dicat pada masa dahulu; warnanya mengikuti kayu alami
+            dari coklat kekuningan hingga coklat tua seiring waktu, dihiasi
+            ukiran khas Banjar yang indah dan penuh filosofi. <br /><br />
+            Rumah Balai Bini biasanya menghadap ke arah sungai, karena
+            masyarakat Banjar sangat bergantung pada kehidupan sungai. Sungai
+            menjadi jalur transportasi utama, media perdagangan, serta bagian
+            penting dalam kehidupan sehari-hari masyarakat. Rumah ini
+            menunjukkan keseimbangan antara fungsi, keindahan, dan nilai
+            tradisi, sekaligus menjadi simbol penting dari sejarah dan budaya
+            suku Banjar.
+          </p>
+          <button id="toggle-desc" class="see-more">Baca Selengkapnya ▼</button>
+        </div>
+
+        <div class="card video-card" style="border: solid 3px black">
+          <h4>Video Edukasi</h4>
+          <div class="video-thumb" id="open-video">
+            <img
+              src="/static/Image/thumbnail_balai_bini.jpg "
+              alt="Thumbnail video"
+              style="border: solid 3px black"
+            />
+            <div class="play-btn">▶</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card right-card gallery-row" style="border: solid 3px black">
+        <h4>Galeri Foto</h4>
+        <div class="gallery-grid" id="gallery">
+          <img
+            src="/static/Image/1_rumah_balai_bini.jpg"
+            alt="Foto rumah adat 1"
+            style="border: solid 3px black"
+          />
+          <img
+            src="/static/Image/2_rumah_balai_bini.jpg"
+            alt="Foto rumah adat 2"
+            style="border: solid 3px black"
+          />
+          <img
+            src="/static/Image/3_rumah_balai_bini.jpg"
+            alt="Foto rumah adat 3"
+            style="border: solid 3px black"
+          />
+          <img
+            src="/static/Image/4_rumah_balai_bini.jpg"
+            alt="Foto rumah adat 4"
+            style="border: solid 3px black"
+          />
+          <img
+            src="/static/Image/5_rumah_balai_bini.jpg"
+            alt="Foto rumah adat 3"
+            style="border: solid 3px black"
+          />
+          <img
+            src="/static/Image/6_rumah_balai_bini.jpg"
+            alt="Foto rumah adat 3"
+            style="border: solid 3px black"
+          />
+          <img
+            src="/static/Image/7_rumah_balai_bini.jpg"
+            alt="Foto rumah adat 3"
+            style="border: solid 3px black"
+          />
+          <img
+            src="/static/Image/8_rumah_balai_bini.jpg"
+            alt="Foto rumah adat 3"
+            style="border: solid 3px black"
+          />
+          <img
+            src="/static/Image/9_rumah_balai_bini.jpg"
+            alt="Foto rumah adat 3"
+            style="border: solid 3px black"
+          />
+          <img
+            src="/static/Image/10_rumah_balai_bini.jpg"
+            alt="Foto rumah adat 3"
+            style="border: solid 3px black"
+          />
+          <img
+            src="/static/Image/11_rumah_balai_bini.jpg"
+            alt="Foto rumah adat 3"
+            style="border: solid 3px black"
+          />
+          <img
+            src="/static/Image/12_rumah_balai_bini.jpg"
+            alt="Foto rumah adat 3"
+            style="border: solid 3px black"
+          />
+          <img
+            src="/static/Image/13_rumah_balai_bini.jpg"
+            alt="Foto rumah adat 3"
+            style="border: solid 3px black"
+          />
+          <img
+            src="/static/Image/14_rumah_balai_bini.jpg"
+            alt="Foto rumah adat 3"
+            style="border: solid 3px black"
+          />
+          <img
+            src="/static/Image/15_rumah_balai_bini.jpg"
+            alt="Foto rumah adat 3"
+            style="border: solid 3px black"
+          />
+          <img
+            src="/static/Image/16_rumah_balai_bini.jpg"
+            alt="Foto rumah adat 3"
+            style="border: solid 3px black"
+          />
+          <img
+            src="/static/Image/17_rumah_balai_bini.jpg"
+            alt="Foto rumah adat 3"
+            style="border: solid 3px black"
+          />
+          <img
+            src="/static/Image/18_rumah_balai_bini.jpg"
+            alt="Foto rumah adat 3"
+            style="border: solid 3px black"
+          />
+          <img
+            src="/static/Image/19_rumah_balai_bini.jpg"
+            alt="Foto rumah adat 3"
+            style="border: solid 3px black"
+          />
+          <img
+            src="/static/Image/20_rumah_balai_bini.jpg"
+            alt="Foto rumah adat 3"
+            style="border: solid 3px black"
+          />
+        </div>
+        <div class="gallery-footer">
+          <button class="btn ghost" id="view-first">Lihat Pertama</button>
+          <button class="btn" id="open-gallery">Lihat Semua Foto (20)</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal-backdrop" class="modal-backdrop">
+      <div class="modal">
+        <button class="close" id="modal-close">✕</button>
+        <div id="modal-content"></div>
+      </div>
+    </div>
+    <img src="/static/Image/ornamen.png" class="ornamen-banjar" />
+    <img
+      src="/static/Image/ornamen_2.png"
+      class="ornamen-banjar"
+      style="left: -200px; bottom: -130px; width: 700px"
+    />
+    <script>
+      // === FUNGSI DESKRIPSI (tidak diubah) ===
+      const desc = document.getElementById("desc");
+      const toggleBtn = document.getElementById("toggle-desc");
+      toggleBtn.addEventListener("click", () => {
+        desc.classList.toggle("expanded");
+        toggleBtn.textContent = desc.classList.contains("expanded")
+          ? "Tutup ▲"
+          : "Lihat Selengkapnya ▼";
+      });
+
+      // === MODAL UTAMA (tidak diubah tampilan) ===
+      const backdrop = document.getElementById("modal-backdrop");
+      const modalContent = document.getElementById("modal-content");
+      const closeBtn = document.getElementById("modal-close");
+
+      function openModal(html) {
+        modalContent.innerHTML = html;
+        backdrop.style.display = "flex";
+      }
+
+      function closeModal() {
+        backdrop.style.display = "none";
+        modalContent.innerHTML = "";
+      }
+
+      closeBtn.addEventListener("click", closeModal);
+      backdrop.addEventListener("click", (e) => {
+        if (e.target === backdrop) closeModal();
+      });
+
+      // === VIDEO ===
+      document.getElementById("open-video").addEventListener("click", () => {
+        const yt = `
+            <iframe
+              src="https://www.youtube.com/embed/8G8Dsp7HRIE?si=tCdiXMPkjvOICRW7"
+              title="Video Edukasi Rumah Adat"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>`;
+        openModal(yt);
+      });
+
+      // === GALERI ===
+      const galleryImgs = Array.from(document.querySelectorAll("#gallery img"));
+      let currentIndex = 0;
+
+      function showImage(index) {
+        const img = galleryImgs[index];
+        if (!img) return;
+        const full = img.getAttribute("data-full") || img.src;
+        const imageHTML = `
+            <div style="position: relative;">
+              <img src="${full}" alt="${img.alt}" style="width:100%;border:0;display:block;">
+              <button id="prev-img" style="position:absolute;top:50%;left:10px;transform:translateY(-50%);
+                background:rgba(0,0,0,0.5);color:white;border:none;font-size:28px;
+                width:45px;height:45px;border-radius:50%;cursor:pointer;">‹</button>
+              <button id="next-img" style="position:absolute;top:50%;right:10px;transform:translateY(-50%);
+                background:rgba(0,0,0,0.5);color:white;border:none;font-size:28px;
+                width:45px;height:45px;border-radius:50%;cursor:pointer;">›</button>
+            </div>`;
+        openModal(imageHTML);
+
+        // tombol next/prev
+        document.getElementById("prev-img").onclick = (e) => {
+          e.stopPropagation();
+          currentIndex =
+            (currentIndex - 1 + galleryImgs.length) % galleryImgs.length;
+          showImage(currentIndex);
+        };
+        document.getElementById("next-img").onclick = (e) => {
+          e.stopPropagation();
+          currentIndex = (currentIndex + 1) % galleryImgs.length;
+          showImage(currentIndex);
+        };
+      }
+
+      // klik gambar
+      galleryImgs.forEach((img, i) => {
+        img.addEventListener("click", () => {
+          currentIndex = i;
+          showImage(currentIndex);
+        });
+      });
+
+      // tombol "Lihat Pertama"
+      document.getElementById("view-first").addEventListener("click", () => {
+        if (galleryImgs.length > 0) {
+          currentIndex = 0;
+          showImage(currentIndex);
+        }
+      });
+
+      // tombol "Lihat Semua Foto"
+      const viewAllBtn = document.getElementById("open-gallery");
+      let galleryExpanded = false;
+
+      viewAllBtn.addEventListener("click", () => {
+        const gallery = document.getElementById("gallery");
+        const imgs = gallery.querySelectorAll("img");
+        if (!galleryExpanded) {
+          // tampilkan semua foto
+          imgs.forEach((img) => (img.style.display = "block"));
+          gallery.style.maxHeight = "none";
+          gallery.style.overflow = "visible";
+          viewAllBtn.textContent = `Tutup Galeri ▲`;
+          galleryExpanded = true;
+        } else {
+          // sembunyikan foto ke-5 dan seterusnya
+          imgs.forEach((img, idx) => {
+            img.style.display = idx < 4 ? "block" : "none";
+          });
+          viewAllBtn.textContent = `Lihat Semua Foto (${galleryImgs.length})`;
+          galleryExpanded = false;
+        }
+      });
+
+      // sembunyikan gambar di atas 4 pada awal
+      const imgs = document.querySelectorAll("#gallery img");
+      if (imgs.length > 4) {
+        imgs.forEach((img, idx) => {
+          if (idx >= 4) img.style.display = "none";
+        });
+      }
+
+      // === FUN FACT POPUP ===
+      const funFacts = [
+        "Rumah Balai Bini adalah rumah yang disiapkan khusus sebagai tempat tinggal bagi para putri, istri raja, atau kerabat wanita bangsawan. 👸",
+        "Berbeda dari Rumah Bubungan Tinggi, Balai Bini menggunakan Atap Perisai (disebut juga Atap Gajah) yang bentuknya lebih lebar dan tidak terlalu menjulang. 🏡",
+        "Bentuk atap perisai ini melambangkan perlindungan dan keanggunan, sesuai dengan status sosial tinggi penghuni wanitanya. ✨",
+        "Rumah ini sering memiliki Anjung (sayap samping) yang khas, disebut Pisang Sasikat (sisir pisang), karena bentuknya yang berderet rapi. 🍌",
+        "Sama seperti rumah raja, Balai Bini juga dibangun menggunakan kayu ulin, si kayu besi khas Kalimantan, yang melambangkan kekokohan status. 🪵",
+        "Ukiran yang menghiasi Balai Bini cenderung lebih halus dan feminin, sering menggunakan motif bunga-bungaan (kembang-kembangan). 🌸",
+        "Tata ruang di dalamnya didesain lebih tertutup (privat) untuk menjaga kehormatan dan kesopanan para putri dari pandangan luar. 🤫",
+        "Nama 'Balai Bini' sendiri berarti 'Balai Perempuan' atau tempat berkumpulnya para wanita penting dalam lingkungan kerajaan. 💖",
+        "Ruangan di Balai Bini dulunya juga sering digunakan para putri untuk belajar seni, seperti membatik, menenun, atau merangkai bunga. 🧵",
+        "Karena fungsinya lebih untuk hunian privat, ukuran Rumah Balai Bini biasanya lebih kecil dan sederhana dibanding rumah untuk upacara kerajaan. 🤏",
+      ];
+      const funFactBtn = document.getElementById("funfact-btn");
+
+      funFactBtn.addEventListener("click", () => {
+        const fact = funFacts[Math.floor(Math.random() * funFacts.length)];
+        const popup = document.createElement("div");
+        popup.className = "funfact-popup";
+        popup.textContent = fact;
+        document.body.appendChild(popup);
+        const removePopup = () => {
+          popup.remove();
+          document.removeEventListener("click", removePopup);
+        };
+        setTimeout(() => {
+          document.addEventListener("click", removePopup);
+        }, 100);
+      });
+      // === POPUP UNTUK ATAP ===
+      function showInfoPopup(text) {
+        openModal(`<div class="popup-info" style="position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.7);
+        background: #fff7d1;
+        border: 3px solid #ffcf72;
+        border-radius: 20px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        padding: 25px 30px;
+        font-size: 18px;
+        max-width: 90%;
+        width: 400px;
+        text-align: center;
+        color: #5b4600;
+        z-index: 2000;
+        opacity: 0;
+        animation: popIn 0.4s ease forwards;">${text}</div>`);
+      }
+      document.querySelector(".atap").addEventListener("click", () => {
+        showInfoPopup("Ini adalah atap Balai Bini.");
+      });
+      document.querySelector(".tangga").addEventListener("click", () => {
+        showInfoPopup("Ini adalah tangga Balai Bini.");
+      });
+      document.querySelector(".tiang").addEventListener("click", () => {
+        showInfoPopup("Ini adalah tiang Balai Bini.");
+      });
+      document.querySelector("#tiang1").addEventListener("click", () => {
+        showInfoPopup("Ini adalah tiang Balai Bini.");
+      });
+      document.querySelector("#tiang2").addEventListener("click", () => {
+        showInfoPopup("Ini adalah tiang Balai Bini.");
+      });
+      document.querySelector("#tiang3").addEventListener("click", () => {
+        showInfoPopup("Ini adalah tiang Balai Bini.");
+      });
+    </script>
+  </body>
+</html>

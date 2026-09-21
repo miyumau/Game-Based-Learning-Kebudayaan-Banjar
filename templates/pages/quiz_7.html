@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stage 7 - Quiz</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/quiz.css') }}"
+    />
+    <style>
+      /* ===============================
+        🌟 RESPONSIVE MOBILE FIX
+      ================================ */
+      @media (max-width: 768px) {
+        body {
+          text-align: center;
+          overflow-x: hidden;
+        }
+        /* Tombol Back */
+        .back {
+          position: absolute !important;
+          width: 48px;
+          height: 48px;
+          top: 12px;
+          left: 12px;
+          margin: 0 !important;
+          z-index: 12000;
+        }
+        .gambar_back {
+          width: 28px;
+          height: 28px;
+          top: 10px;
+          left: 10px;
+        }
+        /* Judul atas */
+        .kotak_materi_diatas {
+          width: 50%;
+          height: 60px;
+          margin-top: 20px;
+          border-radius: 40px;
+          font-size: 18px;
+        }
+        .tulisan_materi_diatas {
+          font-size: 22px;
+        }
+        /* Cerita container */
+        .container-cerita {
+          width: 90%;
+          height: auto;
+          min-height: 400px;
+          top: 130px;
+          padding: 25px 20px;
+        }
+        .cerita {
+          font-size: 20px !important;
+          line-height: 1.6;
+          text-align: justify;
+        }
+        /* Huruf pertama besar */
+        .cerita::first-letter {
+          font-size: 37.5px;
+          font-weight: 700;
+          color: #f5a623;
+          float: left;
+          margin-right: 6px;
+          margin-top: -20px;
+          margin-bottom: -10px;
+        }
+        #soal_lanjut {
+          position: relative;
+          margin-top: 25px;
+          font-size: 20px !important;
+          width: 80%;
+        }
+        /* Quiz container */
+        .quiz-container {
+          width: 90%;
+          padding: 25px;
+          top: 150px;
+        }
+        .question {
+          font-size: 20px;
+        }
+        .options button {
+          width: 100%;
+          font-size: 18px;
+          padding: 12px;
+        }
+        .next-btn {
+          width: 60%;
+          font-size: 18px;
+          padding: 10px;
+        }
+        .result {
+          font-size: 18px;
+        }
+        .result-box {
+          font-size: 18px;
+          padding: 15px;
+        }
+        .materi-btn {
+          font-size: 18px;
+          padding: 10px 20px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="{{ url_for('quiz') }}">
+      <div class="back">
+        <img
+          src="/static/Image/back.png"
+          alt="gambar kembali"
+          class="gambar_back"
+        />
+      </div>
+    </a>
+
+    <div class="kotak_materi_diatas">
+      <div class="tulisan_materi_diatas">Stage 7 - Quiz</div>
+    </div>
+
+    <div class="quiz-container" style="display: none">
+      <div id="quiz">
+        <div class="question" id="question"></div>
+        <div class="options" id="options"></div>
+        <button class="next-btn" id="nextBtn">Next</button>
+      </div>
+      <div class="result" id="result"></div>
+    </div>
+
+    <div class="container-cerita">
+      <div class="cerita-scroll">
+        <p class="cerita">
+          Hari itu, kamu ikut nenek menghadiri festival budaya Banjar di tepi
+          sungai. Banyak rumah Bubungan Tinggi dipamerkan, lengkap dengan ukiran
+          kayu yang indah. “Lihat, Nak,” kata nenek sambil menunjuk salah satu
+          rumah, “rumah ini tinggi dan kuat, seperti pohon kehidupan. Orang dulu
+          percaya rumah seperti ini membawa keberuntungan dan keharmonisan.”
+          🌳<br /><br />
+          Kamu berkeliling melihat pengrajin ukir kayu sedang bekerja. Setiap
+          garis dan pola tampak rumit, tapi nenek bilang, “Setiap ukiran punya
+          cerita, Nak. Ada simbol alam atas dan alam bawah yang disamarkan
+          karena ajaran budaya.”<br /><br />
+          Setelah puas, aroma manis dari kue-kue tradisional menarik
+          perhatianmu. Di salah satu stan, nenek menunjuk Wadai Cincin yang
+          hangat dan berkilau. “Ini favorit masyarakat Banjar,” kata nenek.
+          “Bentuknya unik, biasanya ada lubang di tengah, dulu ada empat lubang
+          sebagai simbol empat arah mata angin.”<br /><br />
+          Kamu mencoba kue itu and merasa senang. “Lembut dan manis, Nek!” Nenek
+          tersenyum. “Selain enak, kue ini juga mengajarkan kita tentang
+          kebersamaan dan keseimbangan, sama seperti rumah-rumah Bubungan Tinggi
+          yang kamu lihat tadi.” 🌺<br /><br />
+          Di festival, kamu melihat anak-anak menari, orang dewasa memainkan
+          alat musik tradisional, and pedagang tersenyum ramah. Kamu berpikir,
+          “Budaya Banjar itu bukan cuma rumah and kue, tapi juga rasa,
+          interaksi, and cara hidup yang harmonis.” ✨
+        </p>
+      </div>
+      <button id="soal_lanjut" onclick="soal_lanjut()">Lanjut</button>
+    </div>
+
+    <script>
+      // ==============================
+      // DATA PERTANYAAN QUIZ
+      // ==============================
+      const quizData = [
+        {
+          question:
+            "Apa makna rumah Bubungan Tinggi yang tinggi and kuat menurut nenek?",
+          options: [
+            "Melambangkan kekuatan fisik pemilik rumah secara langsung",
+            "Sebagai simbol pohon kehidupan yang membawa keberuntungan and keharmonisan",
+            "Menunjukkan status sosial keluarga bangsawan yang tinggal di rumah tersebut",
+            "Agar rumah terlihat megah and menonjol dari kejauhan oleh semua orang",
+          ],
+          answer:
+            "Sebagai simbol pohon kehidupan yang membawa keberuntungan and keharmonisan",
+        },
+        {
+          question: "Mengapa ukiran pada rumah Bubungan Tinggi disamarkan?",
+          options: [
+            "Agar rumah terlihat lebih modern and menarik perhatian para wisatawan",
+            "Supaya pengunjung lebih tertarik untuk melihat rumah dari dekat and kagum",
+            "Agar lebih mudah dibuat oleh pengrajin muda tanpa mengurangi keindahan",
+            "Karena ajaran budaya melarang penggambaran makhluk bernyawa secara jelas",
+          ],
+          answer:
+            "Karena ajaran budaya melarang penggambaran makhluk bernyawa secara jelas",
+        },
+        {
+          question:
+            "Berapa lubang tradisional yang ada pada Wadai Cincin, and apa maknanya?",
+          options: [
+            "Satu lubang yang menjadi simbol keindahan and kemegahan kue secara keseluruhan",
+            "Dua lubang yang melambangkan keseimbangan dunia serta kehidupan akhirat manusia",
+            "Empat lubang, melambangkan empat arah mata angin and keseimbangan alam sekitar",
+            "Tiga lubang yang menandakan hubungan keluarga, persaudaraan, and ikatan sosial",
+          ],
+          answer:
+            "Empat lubang, melambangkan empat arah mata angin and keseimbangan alam sekitar",
+        },
+        {
+          question:
+            "Apa filosofi Wadai Cincin selain bentuk and rasa manisnya?",
+          options: [
+            "Sebagai camilan biasa yang dimakan tanpa memikirkan makna budaya sama sekali",
+            "Hanya simbol kemegahan keluarga bangsawan and status sosial masyarakatnya",
+            "Melambangkan keutuhan, kebersamaan, and keseimbangan hidup manusia dengan alam",
+            "Untuk menunjukkan kreativitas pengrajin kue and keindahan bentuk semata",
+          ],
+          answer:
+            "Melambangkan keutuhan, kebersamaan, and keseimbangan hidup manusia dengan alam",
+        },
+        {
+          question:
+            "Selain rumah and kue, apa yang nenek tekankan tentang budaya Banjar di festival?",
+          options: [
+            "Hanya penting bagi pengrajin kayu and pedagang kue yang ikut berpartisipasi",
+            "Rasa, interaksi sosial, and cara hidup yang harmonis dalam komunitas Banjar",
+            "Sekadar hiburan untuk anak-anak and wisatawan yang datang melihat festival",
+            "Hanya tentang keindahan pakaian tradisional and pertunjukan seni panggung",
+          ],
+          answer:
+            "Rasa, interaksi sosial, and cara hidup yang harmonis dalam komunitas Banjar",
+        },
+        {
+          question:
+            "Apa yang menarik perhatianmu setelah melihat rumah Bubungan Tinggi?",
+          options: [
+            "Aroma kue-kue tradisional yang tersebar di festival membuatmu penasaran",
+            "Tinggi tiang and bentuk tangga rumah yang mengagumkan mata setiap pengunjung",
+            "Alat musik yang dimainkan pengunjung saat melihat rumah membuat suasana ceria",
+            "Ukiran naga di ujung penampih rumah terlihat rumit and penuh makna simbolik",
+          ],
+          answer:
+            "Aroma kue-kue tradisional yang tersebar di festival membuatmu penasaran",
+        },
+        {
+          question:
+            "Bagaimana nenek menjelaskan kesamaan filosofi antara rumah Bubungan Tinggi and Wadai Cincin?",
+          options: [
+            "Keduanya mengajarkan tentang kebersamaan and keseimbangan dalam kehidupan sehari-hari",
+            "Keduanya dibuat menggunakan kayu and tepung secara tradisional tanpa mesin modern",
+            "Keduanya memiliki warna coklat alami dari bahan kayu and gula merah asli Banjar",
+            "Keduanya hanya digunakan untuk acara festival and perayaan adat tertentu saja",
+          ],
+          answer:
+            "Keduanya mengajarkan tentang kebersamaan and keseimbangan dalam kehidupan sehari-hari",
+        },
+        {
+          question:
+            "Apa kesan terakhirmu tentang budaya Banjar setelah mengikuti festival bersama nenek?",
+          options: [
+            "Budaya Banjar hanya tentang rumah and kue tradisional yang dimiliki masyarakat",
+            "Budaya Banjar merupakan kombinasi seni, rasa, and interaksi sosial yang harmonis",
+            "Budaya Banjar hanya penting bagi para bangsawan and pengrajin yang terlibat",
+            "Budaya Banjar lebih menekankan hiburan daripada pendidikan budaya yang nyata",
+          ],
+          answer:
+            "Budaya Banjar merupakan kombinasi seni, rasa, and interaksi sosial yang harmonis",
+        },
+      ];
+
+      let currentQuestion = 0;
+      let score = 0;
+      let startTime; // Variabel waktu mulai
+
+      const questionEl = document.getElementById("question");
+      const optionsEl = document.getElementById("options");
+      const nextBtn = document.getElementById("nextBtn");
+      const resultEl = document.getElementById("result");
+
+      function loadQuestion() {
+        const current = quizData[currentQuestion];
+        questionEl.textContent = current.question;
+        optionsEl.innerHTML = "";
+        nextBtn.style.display = "none";
+        current.options.forEach((opt) => {
+          const btn = document.createElement("button");
+          btn.textContent = opt;
+          btn.onclick = () => checkAnswer(btn, opt);
+          optionsEl.appendChild(btn);
+        });
+      }
+
+      function checkAnswer(btn, selected) {
+        const correct = quizData[currentQuestion].answer;
+        const buttons = optionsEl.querySelectorAll("button");
+        buttons.forEach((b) => (b.disabled = true));
+        if (selected === correct) {
+          btn.classList.add("correct");
+          score++;
+        } else {
+          btn.classList.add("wrong");
+          buttons.forEach((b) => {
+            if (b.textContent === correct) b.classList.add("correct");
+          });
+        }
+        nextBtn.style.display = "inline-block";
+      }
+
+      nextBtn.addEventListener("click", () => {
+        currentQuestion++;
+        if (currentQuestion < quizData.length) {
+          loadQuestion();
+        } else {
+          finishQuiz();
+        }
+      });
+
+      function finishQuiz() {
+        document.getElementById("quiz").style.display = "none";
+
+        // 1. Hitung durasi waktu pengerjaan
+        const endTime = new Date();
+        const durasiDetik = Math.floor((endTime - startTime) / 1000);
+
+        const minCorrect = Math.ceil(quizData.length / 2);
+
+        // 2. Kirim ke database (Stage 7)
+        fetch("/api/submit_quiz", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            game_name: "quiz",
+            stage: 7,
+            score: score,
+            total_soal: quizData.length,
+            time_taken: durasiDetik,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            resultEl.innerHTML = `<strong>Kamu menjawab ${score}/${quizData.length} dengan benar!</strong><br>
+                                  <small>Waktu pengerjaan: ${durasiDetik} detik</small><br><br>`;
+
+            if (data.passed) {
+              resultEl.innerHTML += `
+                <div class="result-box success">
+                    🎉 Selamat! Kamu berhasil menjawab minimal ${minCorrect} soal dengan benar.<br>
+                    Stage berikutnya telah terbuka!
+                </div>`;
+              setTimeout(() => {
+                window.location.href = "{{ url_for('quiz') }}";
+              }, 3500);
+            } else {
+              resultEl.innerHTML += `
+                <div class="result-box fail">
+                    😢 Kamu hanya menjawab ${score} dari ${quizData.length} dengan benar.<br>
+                    <p>Pelajari kembali materinya sebelum mencoba lagi.</p>
+                    <a href="{{ url_for('materi') }}" class="materi-btn">📖 Lihat Materi</a>
+                </div>`;
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("Terjadi kesalahan saat menyimpan nilai.");
+          });
+      }
+
+      function shuffleQuestions(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+      }
+
+      function soal_lanjut() {
+        document.querySelector(".container-cerita").style.display = "none";
+        document.querySelector(".quiz-container").style.display = "block";
+        startTime = new Date(); // Mulai hitung waktu tepat saat kuis muncul
+      }
+
+      // Inisialisasi awal
+      shuffleQuestions(quizData);
+      loadQuestion();
+    </script>
+  </body>
+</html>

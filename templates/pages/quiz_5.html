@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stage 5 - Quiz</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/quiz.css') }}"
+    />
+    <style>
+      /* ===============================
+        🌟 RESPONSIVE MOBILE FIX
+      ================================ */
+      @media (max-width: 768px) {
+        body {
+          text-align: center;
+          overflow-x: hidden;
+        }
+        .back {
+          position: absolute !important;
+          width: 48px;
+          height: 48px;
+          top: 12px;
+          left: 12px;
+          margin: 0 !important;
+          z-index: 12000;
+        }
+        .gambar_back {
+          width: 28px;
+          height: 28px;
+          top: 10px;
+          left: 10px;
+        }
+        .kotak_materi_diatas {
+          width: 50%;
+          height: 60px;
+          margin-top: 20px;
+          border-radius: 40px;
+          font-size: 18px;
+        }
+        .tulisan_materi_diatas {
+          font-size: 22px;
+        }
+        .container-cerita {
+          width: 90%;
+          height: auto;
+          min-height: 400px;
+          top: 130px;
+          padding: 25px 20px;
+        }
+        .cerita {
+          font-size: 20px !important;
+          line-height: 1.6;
+          text-align: justify;
+        }
+        .cerita::first-letter {
+          font-size: 37.5px;
+          font-weight: 700;
+          color: #f5a623;
+          float: left;
+          margin-right: 6px;
+          margin-top: -20px;
+          margin-bottom: -10px;
+        }
+        #soal_lanjut {
+          position: relative;
+          margin-top: 25px;
+          font-size: 20px !important;
+          width: 80%;
+        }
+        .quiz-container {
+          width: 90%;
+          padding: 25px;
+          top: 150px;
+        }
+        .question {
+          font-size: 20px;
+        }
+        .options button {
+          width: 100%;
+          font-size: 18px;
+          padding: 12px;
+        }
+        .next-btn {
+          width: 60%;
+          font-size: 18px;
+          padding: 10px;
+        }
+        .result {
+          font-size: 18px;
+        }
+        .result-box {
+          font-size: 18px;
+          padding: 15px;
+        }
+        .materi-btn {
+          font-size: 18px;
+          padding: 10px 20px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="{{ url_for('quiz') }}">
+      <div class="back">
+        <img
+          src="/static/Image/back.png"
+          alt="gambar kembali"
+          class="gambar_back"
+        />
+      </div>
+    </a>
+
+    <div class="kotak_materi_diatas">
+      <div class="tulisan_materi_diatas">Stage 5 - Quiz</div>
+    </div>
+
+    <div class="quiz-container" style="display: none">
+      <div id="quiz">
+        <div class="question" id="question"></div>
+        <div class="options" id="options"></div>
+        <button class="next-btn" id="nextBtn">Next</button>
+      </div>
+      <div class="result" id="result"></div>
+    </div>
+
+    <div class="container-cerita">
+      <div class="cerita-scroll">
+        <p class="cerita">
+          Setelah sebelumnya melihat Wadai Cincin secara singkat, kini nenek
+          menjelaskan lebih lengkap. “Wadai Cincin adalah salah satu jajanan
+          tradisional khas Banjar yang masih sering dibuat dan digemari hingga
+          saat ini. Bentuknya bulat menyerupai cincin, dengan bagian tengah yang
+          dilubangi.”🍩<br /><br />
+          “Pada tradisi lama, setiap Wadai Cincin memiliki empat lubang kecil
+          yang melambangkan empat penjuru mata angin: timur, barat, utara, dan
+          selatan. Empat lubang ini melambangkan siklus alam dan keseimbangan
+          lingkungan tempat manusia hidup, serta diyakini melindungi manusia
+          dari gangguan makhluk gaib.” 🌏<br /><br />
+          Nenek menambahkan, “Kue ini dibuat dari tepung beras yang dihaluskan,
+          dicampur dengan gula merah, sedikit garam, dan air. Adonan didiamkan
+          semalaman agar lebih lembut, lalu dicetak bulat di atas tutup toples,
+          bagian tengahnya dilubangi dengan jari, kemudian digoreng hingga
+          matang. Setelah matang, Wadai Cincin ditiriskan agar minyaknya kering
+          dan siap disajikan.” 🍳<br /><br />
+          “Rasanya manis dan kenyal, teksturnya lembut tapi tidak rapuh. Selain
+          sebagai jajanan sehari-hari, Wadai Cincin juga sarat makna filosofis,
+          yakni melambangkan keutuhan, kebersamaan, dan keseimbangan hidup
+          manusia dengan alam sekitarnya.” 😋<br /><br />
+          Nenek tersenyum sambil menunjuk kue yang tersusun rapi di piring.
+          “Wadai Cincin mudah ditemui di pasar tradisional Kalimantan Selatan,
+          sering dijadikan bagian dari perayaan atau kegiatan adat Banjar.
+          Kehadiran kue ini membuktikan bahwa kuliner tradisional Banjar masih
+          hidup dan lestari.” 🌿<br /><br />
+          Kamu mengangguk kagum. “Wah, ternyata Wadai Cincin bukan sekadar kue,
+          tapi punya filosofi dan cerita panjang juga ya, Nek!” Nenek menepuk
+          tanganmu dengan hangat, “Betul, Nak. Semua yang kami wariskan punya
+          makna, dari rumah hingga makanan. Setiap kue dan rumah adat adalah
+          simbol budaya kami.” ✨
+        </p>
+      </div>
+      <button id="soal_lanjut" onclick="soal_lanjut()">Lanjut</button>
+    </div>
+
+    <script>
+      // ==============================
+      // DATA PERTANYAAN QUIZ
+      // ==============================
+      const quizData = [
+        {
+          question: "Apa bentuk khas dari Wadai Cincin?",
+          options: [
+            "Bentuknya bulat menyerupai cincin dengan lubang di bagian tengahnya",
+            "Mempunyai bentuk segitiga kecil dengan tiga lubang di pusatnya",
+            "Berbentuk persegi panjang lengkap dengan satu lubang di tengahnya",
+            "Terbuat menyerupai hati dengan empat lubang di sekeliling kue",
+          ],
+          answer:
+            "Bentuknya bulat menyerupai cincin dengan lubang di bagian tengahnya",
+        },
+        {
+          question:
+            "Berapa jumlah lubang kecil pada Wadai Cincin menurut tradisi lama?",
+          options: [
+            "Hanya terdapat satu lubang kecil di bagian tengah kue",
+            "Terdapat dua lubang kecil di bagian kue yang berbeda-beda",
+            "Memiliki tiga lubang kecil yang disusun membentuk segitiga",
+            "Memiliki empat lubang kecil yang menjadi simbol budaya Banjar",
+          ],
+          answer:
+            "Memiliki empat lubang kecil yang menjadi simbol budaya Banjar",
+        },
+        {
+          question: "Apa makna empat lubang pada Wadai Cincin?",
+          options: [
+            "Hanya digunakan sebagai hiasan agar kue terlihat lebih cantik",
+            "Melambangkan empat penjuru mata angin dan keseimbangan alam sekitar",
+            "Supaya kue lebih mudah matang saat digoreng di atas minyak panas",
+            "Menunjukkan ukuran dan harga kue bagi pedagang di pasar tradisional",
+          ],
+          answer:
+            "Melambangkan empat penjuru mata angin dan keseimbangan alam sekitar",
+        },
+        {
+          question:
+            "Bahan utama apa yang digunakan untuk membuat Wadai Cincin?",
+          options: [
+            "Tepung terigu dicampur gula putih, mentega, dan garam",
+            "Tepung beras, gula merah, sedikit garam, dan air",
+            "Tepung jagung, santan kelapa, gula pasir, dan air",
+            "Tepung tapioka, madu murni, dan minyak kelapa",
+          ],
+          answer: "Tepung beras, gula merah, sedikit garam, dan air",
+        },
+        {
+          question: "Mengapa adonan Wadai Cincin didiamkan semalaman?",
+          options: [
+            "Supaya rasanya menjadi lebih manis dan enak saat dimakan nanti",
+            "Supaya mudah dibentuk menjadi bentuk cincin yang diinginkan semua orang",
+            "Agar teksturnya lebih lembut dan mudah digoreng hingga matang merata",
+            "Agar warna kue berubah menjadi coklat keemasan saat matang sempurna",
+          ],
+          answer:
+            "Agar teksturnya lebih lembut dan mudah digoreng hingga matang merata",
+        },
+        {
+          question: "Selain sebagai jajanan, apa filosofi Wadai Cincin?",
+          options: [
+            "Melambangkan sebagai kue favorit masyarakat Banjar untuk acara pesta dan syukuran",
+            "Melambangkan status sosial keluarga yang membuat kue ini di rumahnya sendiri",
+            "Melambangkan sebagai kue penghibur anak-anak saat mengikuti upacara adat atau festival lokal",
+            "Melambangkan keutuhan keluarga, kebersamaan, dan keseimbangan hidup manusia dengan alam sekitar",
+          ],
+          answer:
+            "Melambangkan keutuhan keluarga, kebersamaan, dan keseimbangan hidup manusia dengan alam sekitar",
+        },
+        {
+          question:
+            "Di mana Wadai Cincin mudah ditemui dan biasanya disajikan?",
+          options: [
+            "Di supermarket modern atau restoran cepat saji dengan harga yang tinggi",
+            "Hanya disediakan di rumah-houses bangsawan atau keluarga kerajaan Banjar",
+            "Di pasar tradisional Kalimantan Selatan dan pada berbagai perayaan adat Banjar",
+            "Di festival kuliner internasional yang menampilkan jajanan tradisional Kalimantan",
+          ],
+          answer:
+            "Di pasar tradisional Kalimantan Selatan dan pada berbagai perayaan adat Banjar",
+        },
+      ];
+
+      let currentQuestion = 0;
+      let score = 0;
+      let startTime; // Variabel waktu mulai
+
+      const questionEl = document.getElementById("question");
+      const optionsEl = document.getElementById("options");
+      const nextBtn = document.getElementById("nextBtn");
+      const resultEl = document.getElementById("result");
+
+      function loadQuestion() {
+        const current = quizData[currentQuestion];
+        questionEl.textContent = current.question;
+        optionsEl.innerHTML = "";
+        nextBtn.style.display = "none";
+        current.options.forEach((opt) => {
+          const btn = document.createElement("button");
+          btn.textContent = opt;
+          btn.onclick = () => checkAnswer(btn, opt);
+          optionsEl.appendChild(btn);
+        });
+      }
+
+      function checkAnswer(btn, selected) {
+        const correct = quizData[currentQuestion].answer;
+        const buttons = optionsEl.querySelectorAll("button");
+        buttons.forEach((b) => (b.disabled = true));
+        if (selected === correct) {
+          btn.classList.add("correct");
+          score++;
+        } else {
+          btn.classList.add("wrong");
+          buttons.forEach((b) => {
+            if (b.textContent === correct) b.classList.add("correct");
+          });
+        }
+        nextBtn.style.display = "inline-block";
+      }
+
+      nextBtn.addEventListener("click", () => {
+        currentQuestion++;
+        if (currentQuestion < quizData.length) {
+          loadQuestion();
+        } else {
+          finishQuiz();
+        }
+      });
+
+      function finishQuiz() {
+        document.getElementById("quiz").style.display = "none";
+
+        // 1. Hitung durasi waktu pengerjaan
+        const endTime = new Date();
+        const durasiDetik = Math.floor((endTime - startTime) / 1000);
+
+        const minCorrect = Math.ceil(quizData.length / 2);
+
+        // 2. Kirim ke database (Stage 5)
+        fetch("/api/submit_quiz", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            game_name: "quiz",
+            stage: 5,
+            score: score,
+            total_soal: quizData.length,
+            time_taken: durasiDetik,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            resultEl.innerHTML = `<strong>Kamu menjawab ${score}/${quizData.length} dengan benar!</strong><br>
+                                  <small>Waktu pengerjaan: ${durasiDetik} detik</small><br><br>`;
+
+            if (data.passed) {
+              resultEl.innerHTML += `
+                <div class="result-box success">
+                    🎉 Selamat! Kamu berhasil menjawab minimal ${minCorrect} soal dengan benar.<br>
+                    Stage berikutnya telah terbuka!
+                </div>`;
+              setTimeout(() => {
+                window.location.href = "{{ url_for('quiz') }}";
+              }, 3500);
+            } else {
+              resultEl.innerHTML += `
+                <div class="result-box fail">
+                    😢 Kamu hanya menjawab ${score} dari ${quizData.length} dengan benar.<br>
+                    <p>Pelajari kembali materinya sebelum mencoba lagi.</p>
+                    <a href="{{ url_for('materi') }}" class="materi-btn">📖 Lihat Materi</a>
+                </div>`;
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("Terjadi kesalahan saat menyimpan nilai.");
+          });
+      }
+
+      function shuffleQuestions(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+      }
+
+      function soal_lanjut() {
+        document.querySelector(".container-cerita").style.display = "none";
+        document.querySelector(".quiz-container").style.display = "block";
+        startTime = new Date(); // Mulai hitung waktu tepat saat kuis muncul
+      }
+
+      // Inisialisasi awal
+      shuffleQuestions(quizData);
+      loadQuestion();
+    </script>
+  </body>
+</html>

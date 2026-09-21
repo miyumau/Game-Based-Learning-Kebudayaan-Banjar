@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stage 4 Tebak Gambar</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tebak.css') }}" />
+
+    <style>
+        * {
+            font-family: "Fredoka", sans-serif !important;
+        }
+        
+        body {
+            font-family: "Fredoka", sans-serif;
+            background-color: #f7f1e5;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        
+        .gambar-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+        }
+        
+        .tebak-gambar {
+            width: 750px;
+            max-width: 100%;
+            height: auto;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                text-align: center;
+                overflow-x: hidden;
+            }
+            .back {
+                position: absolute !important;
+                width: 48px;
+                height: 48px;
+                top: 12px;
+                left: 12px;
+                margin: 0 !important;
+                z-index: 12000;
+            }
+            .gambar_back {
+                width: 28px;
+                height: 28px;
+            }
+            .kotak_materi_diatas {
+                width: 55% !important;
+                height: 55px !important;
+                top: 10px !important;
+            }
+            .tebak-gambar {
+                width: 90% !important;
+                max-width: 440px !important;
+            }
+            .gambar-container{
+                width: 100% !important;
+            }
+            /* dari sini yang diubah */
+            .pertanyaan {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-top: 10px;
+            margin-bottom: 25px;
+            position: relative;
+            top: 0px !important;
+            right: 0px !important;
+            max-width: 10000px;
+         }
+            .input-jawaban {
+            font-size: 20px;
+            padding: 10px 20px;
+            border-radius: 15px;
+            border: 3px solid black;
+            text-align: center;
+            width: 250px !important;
+            top: 0px !important;
+            right: 0px !important;
+            }
+            .btn-kirim {
+            background-color: #ffd84d;
+            color: black;
+            border: 3px solid black;
+            border-radius: 25px;
+            padding: 12px 35px;
+            font-size: 22px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+            text-decoration: none;
+            right: 0px !important;
+            top: 0px !important;
+            }
+            .card{
+                height: 540px;
+            }
+            .hasil {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: 600;
+            position: relative;
+            top: 0px;
+            right: 0px;
+            }
+        }
+        /* ======== FIX PALING WAJIB ======== */
+        
+        .popup {
+            display: none !important;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            z-index: 999999999 !important;
+            align-items: center !important;
+            justify-content: center !important;
+            background: rgba(0, 0, 0, 0.55) !important;
+            backdrop-filter: blur(3px);
+        }
+        /* Konten popup harus di atas SEMUA elemen */
+        
+        .popup-content {
+            z-index: 1000000000 !important;
+        }
+        
+        .popup.show {
+            display: flex !important;
+        }
+        
+        .popup-content {
+            width: 85%;
+            max-width: 420px;
+            background: #ffffff;
+            padding: 35px 28px;
+            border-radius: 26px;
+            box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.35);
+            /* animasi */
+            animation: popupZoom 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        
+        @keyframes popupZoom {
+            0% {
+                transform: scale(0.6);
+                opacity: 0;
+                filter: blur(4px);
+            }
+            70% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                filter: blur(0px);
+            }
+        }
+        
+        .score-text {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 8px 0 2px 0;
+            color: #2ecc71;
+        }
+        
+        .score-value {
+            font-size: 64px;
+            font-weight: 900;
+            margin: 6px 0;
+            color: #27ae60;
+            text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15);
+            letter-spacing: -1px;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="{{ url_for('tebak_gambar') }}">
+        <div class="back">
+            <img src="/static/Image/back.png" alt="kembali" class="gambar_back" />
+        </div>
+    </a>
+
+    <div class="kotak_materi_diatas">
+        <div class="tulisan_materi_diatas">Stage 4 Tebak Gambar</div>
+    </div>
+
+    <div class="container-cerita">
+        <div class="cerita-scroll">
+            <p class="cerita">Setelah puas di rumah Sultan, kalian berjalan ke bangunan di sebelahnya. Rumah ini terlihat lebih anggun dengan atap berbentuk perisai 🛡️. "Kalau tadi rumah Raja, ini pasti tempat tinggal para putri atau keluarga perempuan," tebakmu. Ayo
+                sebutkan nama rumah cantik ini! ✨</p>
+        </div>
+        <button id="soal_lanjut" onclick="startTebakGame()">Lanjut</button>
+    </div>
+
+    <div class="card" style="display: none">
+        <div id="gameStatus" style="
+          width: 100%;
+          text-align: center;
+          margin-bottom: 15px;
+          display: none;
+        ">
+            <div style="
+            width: 100%;
+            height: 14px;
+            background: #a80000;
+            border-radius: 10px;
+            overflow: hidden;
+          ">
+                <div id="timeBar" style="
+              width: 100%;
+              height: 100%;
+              background: linear-gradient(90deg, #00e100, #18b500);
+            "></div>
+            </div>
+
+            <div style="font-size: 20px; margin-top: 10px">
+                ❤️ Nyawa: <span id="lifeCount">3</span>
+            </div>
+        </div>
+
+        <div class="gambar-container">
+            <img src="/static/Image/_rumah_balai_bini.jpg" class="tebak-gambar" />
+        </div>
+
+        <h2 class="pertanyaan">Apa nama rumah adat tempat tinggal para putri Sultan?</h2>
+
+        <div class="input-container">
+            <input type="text" id="jawaban" class="input-jawaban" placeholder="Masukkan jawaban..." />
+            <button class="btn-kirim" onclick="cekJawaban()">Kirim</button>
+        </div>
+
+        <div id="hasil" class="hasil"></div>
+    </div>
+
+    <div class="popup" id="popupSuccess" style="display: none">
+        <div class="popup-content" style="text-align: center">
+            <div style="font-size: 50px">🌟</div>
+            <h2>Hebat Sekali!</h2>
+            <div class="score-text">Jawaban Kamu Benar 🎉</div>
+            <div class="score-value" id="scoreDisplay">0</div>
+            <p style="font-size: 18px; opacity: 0.8">Nilai kamu dari jawaban ini</p>
+
+            <a href="{{ url_for('tebak_gambar') }}" class="materi">Lanjut Soal berikutnya</a>
+        </div>
+    </div>
+
+    <div class="popup" id="popupFail" style="display: none">
+        <div class="popup-content" style="text-align: center">
+            <div style="font-size: 50px">💔</div>
+            <h2>Waktunya Habis / Nyawa Habis 😢</h2>
+            <p style="font-size: 20px">Coba lagi ya 💪</p>
+            <a href="{{ url_for('materi') }}" class="materi">📖 Lihat Materi</a>
+            </button>
+        </div>
+    </div>
+
+    <script src="/static/js/script.js"></script>
+
+    <script>
+        /* ===============================
+            SCRIPT ASLI TETAP ADA
+        =============================== */
+        const jawabanBenar = {
+            "rumah balai bini": 100,
+            "balai bini": 90,
+            "rumah putri": 80,
+        };
+
+        /* ===============================
+            🔥 SISTEM MATCHING DITAMBAHKAN
+        =============================== */
+
+        let lives = 3;
+        let maxTime = 60;
+        let startTime = 0;
+        let timerInterval = null;
+
+        function startGameSystem() {
+            document.getElementById("gameStatus").style.display = "block";
+            startTime = Date.now();
+
+            timerInterval = setInterval(() => {
+                let elapsed = Math.floor((Date.now() - startTime) / 1000);
+                let remaining = maxTime - elapsed;
+                let percent = Math.max((remaining / maxTime) * 100, 0);
+
+                document.getElementById("timeBar").style.width = percent + "%";
+
+                if (remaining <= 0) {
+                    clearInterval(timerInterval);
+                    gameFail();
+                }
+            }, 200);
+        }
+
+        function gameFail() {
+            clearInterval(timerInterval);
+            document.getElementById("popupFail").classList.add("show");
+        }
+
+        function cekJawaban() {
+            const input = document
+                .getElementById("jawaban")
+                .value.trim()
+                .toLowerCase();
+
+            // jika salah
+            if (jawabanBenar[input] === undefined) {
+                lives--;
+                document.getElementById("lifeCount").textContent = lives;
+
+                // nyawa habis
+                if (lives <= 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById("popupFail").classList.add("show");
+                    return;
+                }
+
+                // tampilkan pesan salah, TAPI tidak popup
+                document.getElementById("hasil").textContent = "❌ Salah, coba lagi!";
+                document.getElementById("hasil").className = "hasil salah";
+                return;
+            }
+
+            // jika benar
+            clearInterval(timerInterval);
+
+            // ambil nilai berdasarkan jawaban
+            const nilai = jawabanBenar[input];
+
+            // HITUNG WAKTU YANG DIHABISKAN
+            const waktuHabis = Math.floor((Date.now() - startTime) / 1000);
+
+            // --- KIRIM KE DATABASE (TERMASUK WAKTU) ---
+            fetch("/api/submit_quiz", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    game_name: "tebak", // Menandakan ini game Tebak Gambar
+                    stage: 4, // STAGE 4
+                    score: nilai,
+                    total_soal: 1, 
+                    time_taken: waktuHabis // Kirim waktu ke database
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Nilai & Waktu tersimpan:", data);
+            })
+            .catch(error => console.error("Gagal simpan nilai:", error));
+
+            // tampilkan ke popup
+            // animasi angka naik
+            let current = 0;
+            const count = setInterval(() => {
+                current += 5;
+                if (current >= nilai) {
+                    current = nilai;
+                    clearInterval(count);
+                }
+                document.getElementById("scoreDisplay").textContent = current;
+            }, 25);
+
+            // tampilkan popup
+            document.getElementById("popupSuccess").classList.add("show");
+        }
+
+        function startTebakGame() {
+            document.querySelector(".container-cerita").style.display = "none";
+            document.querySelector(".card").style.display = "block";
+            startGameSystem();
+        }
+    </script>
+</body>
+
+</html>

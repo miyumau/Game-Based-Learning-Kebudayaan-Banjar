@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stage 2 - Quiz</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/quiz.css') }}"
+    />
+
+    <style>
+      /* ===============================
+        🌟 RESPONSIVE MOBILE FIX
+      ================================ */
+      @media (max-width: 768px) {
+        body {
+          text-align: center;
+          overflow-x: hidden;
+        }
+        .back {
+          position: absolute !important;
+          width: 48px;
+          height: 48px;
+          top: 12px;
+          left: 12px;
+          margin: 0 !important;
+          z-index: 12000;
+        }
+        .gambar_back {
+          width: 28px;
+          height: 28px;
+          top: 10px;
+          left: 10px;
+        }
+        .kotak_materi_diatas {
+          width: 50%;
+          height: 60px;
+          margin-top: 20px;
+          border-radius: 40px;
+          font-size: 18px;
+        }
+        .tulisan_materi_diatas {
+          font-size: 22px;
+        }
+        .container-cerita {
+          width: 90%;
+          height: auto;
+          min-height: 400px;
+          top: 130px;
+          padding: 25px 20px;
+        }
+        .cerita {
+          font-size: 20px !important;
+          line-height: 1.6;
+          text-align: justify;
+        }
+        #soal_lanjut {
+          position: relative;
+          margin-top: 25px;
+          font-size: 20px !important;
+          width: 80%;
+        }
+        .quiz-container {
+          width: 90%;
+          padding: 25px;
+          top: 150px;
+        }
+        .question {
+          font-size: 20px;
+        }
+        .options button {
+          width: 100%;
+          font-size: 18px;
+          padding: 12px;
+        }
+        .next-btn {
+          width: 60%;
+          font-size: 18px;
+          padding: 10px;
+        }
+        .result {
+          font-size: 18px;
+        }
+        .result-box {
+          font-size: 18px;
+          padding: 15px;
+        }
+        .materi-btn {
+          font-size: 18px;
+          padding: 10px 20px;
+        }
+        .cerita::first-letter {
+          font-size: 37.5px;
+          font-weight: 700;
+          color: #f5a623;
+          float: left;
+          margin-right: 6px;
+          margin-top: -20px;
+          margin-bottom: -10px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="{{ url_for('quiz') }}">
+      <div class="back">
+        <img
+          src="/static/Image/back.png"
+          alt="gambar kembali"
+          class="gambar_back"
+        />
+      </div>
+    </a>
+
+    <div class="kotak_materi_diatas">
+      <div class="tulisan_materi_diatas">Stage 2 - Quiz</div>
+    </div>
+
+    <div class="quiz-container" style="display: none">
+      <div id="quiz">
+        <div class="question" id="question"></div>
+        <div class="options" id="options"></div>
+        <button class="next-btn" id="nextBtn">Next</button>
+      </div>
+      <div class="result" id="result"></div>
+    </div>
+
+    <div class="container-cerita">
+      <div class="cerita-scroll">
+        <p class="cerita">
+          Kamu melangkah masuk ke Rumah Bubungan Tinggi, rumah khas suku Banjar
+          di Kalimantan Selatan. Dahulu, rumah ini menjadi kediaman Sultan
+          Banjar dan melambangkan keseimbangan antara dunia atas dan dunia bawah
+          🌿. <br /><br />Di ujung atap, ukiran burung enggang melambangkan alam
+          atas, sementara ukiran naga di bagian bawah rumah melambangkan alam
+          bawah. Nenek menjelaskan, “Ukiran-ukiran ini sengaja disamarkan karena
+          ajaran Islam melarang penggambaran makhluk bernyawa secara jelas.”
+          <br /><br />
+          Bentuk rumah menyerupai pohon kehidupan 🌳, melambangkan keharmonisan
+          antara manusia, alam, dan Tuhan. Rumah terbuat dari kayu ulin yang
+          kuat dan tahan rayap, bisa bertahan ratusan tahun. Lantai rumah
+          ditopang tiang dengan jarak ±2 meter dari tanah, dan anak tangganya
+          selalu berjumlah ganjil 🏠. <br /><br />Teras dikelilingi pagar
+          berukir kembang bogam yang disebut kandang rasi. Atapnya terbuat dari
+          papan tipis kayu ulin (sirap) yang tahan air. Dahulu, rumah tidak
+          dicat, warnanya mengikuti kayu alami, dari coklat kekuningan hingga
+          coklat kehitaman seiring waktu. <br /><br />
+          Rumah Bubungan Tinggi sangat terkait dengan kebudayaan Banjar. Selain
+          seni ukir, rumah ini digunakan untuk pertunjukan wayang kulit Banjar
+          dan selalu menghadap sungai 🌊, mencerminkan budaya sungai Banjar
+          sebagai jalur transportasi dan kebutuhan hidup sehari-hari. Kini,
+          rumah jenis ini sudah jarang dijumpai, karena masyarakat lebih memilih
+          rumah modern 🏘️. <br /><br />
+          Kamu terkagum melihat semua detail ini 😍. Nenek tersenyum, “Setiap
+          ukiran dan bagian rumah ini memiliki makna. Rumah ini bukan hanya
+          tempat tinggal, tapi juga simbol budaya dan filosofi hidup kami,
+          Nak.”✨
+        </p>
+      </div>
+      <button id="soal_lanjut" onclick="soal_lanjut()">Lanjut</button>
+    </div>
+
+    <script>
+      // ==============================
+      // DATA PERTANYAAN QUIZ
+      // ==============================
+      const quizData = [
+        {
+          question: "Ukiran naga pada Rumah Bubungan Tinggi melambangkan ...",
+          options: ["Dunia Atas", "Dunia Bawah", "Dunia Maya", "Dunia Laut"],
+          answer: "Dunia Bawah",
+        },
+        {
+          question:
+            "Ukiran burung enggang pada Rumah Bubungan Tinggi melambangkan ...",
+          options: ["Gunung", "Dunia Atas", "Dunia Bawah", "Kehidupan laut"],
+          answer: "Dunia Atas",
+        },
+        {
+          question:
+            "Mengapa ukiran burung enggang dan naga dibuat samar oleh orang Banjar?",
+          options: [
+            "Karena orang Banjar ingin menghemat kayu",
+            "Karena ukiran samar lebih estetis dan unik",
+            "Karena ukirannya terlalu sulit untuk dibuat detail",
+            "Karena ajaran Islam melarang gambar makhluk hidup secara nyata",
+          ],
+          answer:
+            "Karena ajaran Islam melarang gambar makhluk hidup secara nyata",
+        },
+        {
+          question:
+            "Rumah Bubungan Tinggi disebut menyerupai pohon kehidupan karena ...",
+          options: [
+            "Melambangkan keharmonisan antara manusia, alam, dan Tuhan",
+            "Bentuknya menyerupai pohon yang tumbuh di halaman rumah",
+            "Sebagai tempat untuk menanam tanaman di rumah",
+            "Agar rumah bisa dibuat bertingkat dengan mudah",
+          ],
+          answer: "Melambangkan keharmonisan antara manusia, alam, dan Tuhan",
+        },
+        {
+          question:
+            "Apa fungsi Rumah Bubungan Tinggi selain sebagai tempat tinggal?",
+          options: [
+            "Hanya untuk menyimpan barang berharga keluarga dan warisan",
+            "Tempat pertunjukan wayang kulit Banjar dan simbol budaya",
+            "Digunakan sebagai rumah wisata modern untuk pengunjung lokal",
+            "Tempat latihan anggota keluarga atau warga dalam kegiatan adat",
+          ],
+          answer: "Tempat pertunjukan wayang kulit Banjar dan simbol budaya",
+        },
+      ];
+
+      let currentQuestion = 0;
+      let score = 0;
+      let startTime; // Variabel waktu mulai
+
+      const questionEl = document.getElementById("question");
+      const optionsEl = document.getElementById("options");
+      const nextBtn = document.getElementById("nextBtn");
+      const resultEl = document.getElementById("result");
+
+      function loadQuestion() {
+        const current = quizData[currentQuestion];
+        questionEl.textContent = current.question;
+        optionsEl.innerHTML = "";
+        nextBtn.style.display = "none";
+        current.options.forEach((opt) => {
+          const btn = document.createElement("button");
+          btn.textContent = opt;
+          btn.onclick = () => checkAnswer(btn, opt);
+          optionsEl.appendChild(btn);
+        });
+      }
+
+      function checkAnswer(btn, selected) {
+        const correct = quizData[currentQuestion].answer;
+        const buttons = optionsEl.querySelectorAll("button");
+        buttons.forEach((b) => (b.disabled = true));
+        if (selected === correct) {
+          btn.classList.add("correct");
+          score++;
+        } else {
+          btn.classList.add("wrong");
+          buttons.forEach((b) => {
+            if (b.textContent === correct) b.classList.add("correct");
+          });
+        }
+        nextBtn.style.display = "inline-block";
+      }
+
+      nextBtn.addEventListener("click", () => {
+        currentQuestion++;
+        if (currentQuestion < quizData.length) {
+          loadQuestion();
+        } else {
+          finishQuiz();
+        }
+      });
+
+      function finishQuiz() {
+        document.getElementById("quiz").style.display = "none";
+
+        // 1. Hitung durasi waktu
+        const endTime = new Date();
+        const durasiDetik = Math.floor((endTime - startTime) / 1000);
+
+        const minCorrect = Math.ceil(quizData.length / 2);
+
+        // 2. Kirim ke database
+        fetch("/api/submit_quiz", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            game_name: "quiz",
+            stage: 2, // Stage 2
+            score: score,
+            total_soal: quizData.length,
+            time_taken: durasiDetik,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            resultEl.innerHTML = `<strong>Kamu menjawab ${score}/${quizData.length} dengan benar!</strong><br>
+                                  <small>Waktu pengerjaan: ${durasiDetik} detik</small><br><br>`;
+
+            if (data.passed) {
+              resultEl.innerHTML += `
+                <div class="result-box success">
+                    🎉 Selamat! Kamu berhasil menjawab minimal ${minCorrect} soal dengan benar.<br>
+                    Stage berikutnya telah terbuka!
+                </div>`;
+              setTimeout(() => {
+                window.location.href = "{{ url_for('quiz') }}";
+              }, 3500);
+            } else {
+              resultEl.innerHTML += `
+                <div class="result-box fail">
+                    😢 Kamu hanya menjawab ${score} dari ${quizData.length} dengan benar.<br>
+                    <p>Pelajari kembali materinya sebelum mencoba lagi.</p>
+                    <a href="{{ url_for('materi') }}" class="materi-btn">📖 Lihat Materi</a>
+                </div>`;
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+
+      function shuffleQuestions(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+      }
+
+      function soal_lanjut() {
+        document.querySelector(".container-cerita").style.display = "none";
+        document.querySelector(".quiz-container").style.display = "block";
+        startTime = new Date(); // Catat waktu mulai saat kuis dimulai
+      }
+
+      // Inisialisasi
+      shuffleQuestions(quizData);
+      loadQuestion();
+    </script>
+  </body>
+</html>

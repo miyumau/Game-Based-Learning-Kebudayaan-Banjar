@@ -1,0 +1,671 @@
+body {
+  font-family: "Fredoka", sans-serif;
+  background-color: #f7f1e5;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* 🔹 Kotak nama di atas (pakai CSS kamu) */
+.kotak_materi_diatas {
+  background-color: #85d4ff;
+  height: 110px;
+  width: 533px;
+  z-index: 200;
+  position: absolute;
+  border-radius: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 30px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  border: 3px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tulisan_materi_diatas {
+  font-size: 50px;
+  font-family: "Fredoka";
+  font-weight: 500;
+  color: black;
+}
+
+.question {
+  font-size: 20px;
+  font-family: "Fredoka";
+  font-weight: 500;
+}
+
+.options button {
+  width: 100%;
+  font-size: 18px;
+  padding: 12px;
+  font-family: "Fredoka";
+  font-weight: 500;
+}
+
+.next-btn {
+  width: 60%;
+  font-size: 18px;
+  padding: 10px;
+  font-family: "Fredoka";
+  font-weight: 500;
+  color: black !important;
+}
+
+/* 🔸 Card utama quiz */
+.quiz-container {
+  position: relative;
+  top: 200px;
+  margin: auto;
+  width: 900px;
+  background: #ffffff;
+  border-radius: 40px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  padding: 40px;
+}
+
+.question {
+  font-size: 26px;
+  color: #222;
+  margin: 30px 0 20px 0;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.options button {
+  width: 80%;
+  background-color: #f5ce5b;
+  border: 3px solid black;
+  border-radius: 25px;
+  padding: 15px;
+  font-size: 22px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s ease;
+  color: #000;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.options button:hover {
+  transform: scale(1.05);
+  background-color: #f8dc7b;
+}
+
+.next-btn {
+  background-color: #71b871;
+  border: 3px solid black;
+  border-radius: 25px;
+  color: white;
+  padding: 12px 35px;
+  font-size: 20px;
+  cursor: pointer;
+  margin-top: 25px;
+  display: none;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.next-btn:hover {
+  background-color: #5fa85f;
+  transform: scale(1.05);
+}
+
+.result {
+  font-size: 24px;
+  margin-top: 30px;
+  color: #000;
+}
+
+.correct {
+  background-color: #71b871 !important;
+  color: white;
+}
+
+.wrong {
+  background-color: #fa8e7d !important;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .quiz-container {
+    width: 90%;
+    padding: 25px;
+    top: 180px;
+  }
+
+  .options button {
+    width: 100%;
+    font-size: 18px;
+  }
+
+  .kotak_materi_diatas {
+    width: 90%;
+    height: 90px;
+  }
+
+  .tulisan_materi_diatas {
+    font-size: 36px;
+  }
+}
+
+/* buat back atau kembali */
+.back {
+  background-color: #e6cfa9;
+  height: 80px;
+  border-radius: 90px;
+  width: 80px;
+  left: 25px;
+  position: absolute;
+  top: 25px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  border: 3.5px solid black;
+  transition: transform 0.1s, opacity 0.1s;
+}
+
+.back:hover {
+  background-color: rgb(218, 25, 25);
+  transform: scale(1.05);
+}
+
+.gambar_back {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+
+/* button materi kembali */
+/* ✨ Hasil akhir quiz */
+.result-box {
+  margin-top: 25px;
+  padding: 25px;
+  border-radius: 25px;
+  border: 3px solid black;
+  font-size: 22px;
+  font-weight: 500;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s ease;
+}
+
+.result-box.success {
+  background-color: #71b871;
+  color: white;
+}
+
+.result-box.fail {
+  background-color: #fa8e7d;
+  color: white;
+}
+
+/* Tombol Lihat Materi */
+.materi-btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 12px 30px;
+  background-color: #f5ce5b;
+  border: 3px solid black;
+  border-radius: 25px;
+  font-size: 20px;
+  color: black;
+  text-decoration: none;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.2s ease;
+}
+
+.materi-btn:hover {
+  background-color: #ffe680;
+  transform: scale(1.05);
+}
+
+.container-cerita {
+  position: relative;
+  top: 200px;
+  margin: auto;
+  width: 900px;
+  height: 450px;
+  background: #ffffff;
+  border-radius: 40px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  padding: 40px;
+}
+
+/* 🌈 Tombol "Lanjut" bergaya cute */
+#soal_lanjut {
+  background-color: #ffe082;
+  /* kuning pastel */
+  color: #000;
+  font-family: "Fredoka", sans-serif;
+  font-size: 28px !important;
+  font-weight: 600;
+  border: 3px solid #000;
+  border-radius: 25px;
+  padding: 14px 45px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 60px;
+  position: absolute;
+  bottom: 17px;
+}
+
+/* Efek hover */
+#soal_lanjut:hover {
+  background-color: #fff59d;
+  /* kuning lebih cerah */
+  transform: scale(1.05);
+}
+
+/* Efek klik */
+#soal_lanjut:active {
+  transform: scale(0.95);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Posisi tombol di tengah */
+.container-cerita {
+  display: flex;
+  justify-content: center;
+}
+
+/* ✨ Ikon panah bergerak lucu */
+#soal_lanjut span {
+  display: inline-block;
+  animation: arrowMove 1s infinite alternate;
+}
+
+@keyframes arrowMove {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(6px);
+  }
+}
+
+.result-box {
+  margin-top: 30px;
+  border-radius: 25px;
+  padding: 20px;
+  font-size: 22px;
+  border: 3px solid black;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.result-box.success {
+  background-color: #71b871;
+  color: white;
+}
+
+.result-box.fail {
+  background-color: #fa8e7d;
+  color: white;
+}
+
+.materi-btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 12px 25px;
+  background-color: #85d4ff;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 600;
+  color: black;
+  border: 3px solid black;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.materi-btn:hover {
+  background-color: #a8e2ff;
+  transform: scale(1.05);
+}
+
+/* 🌸 Kontainer teks cerita — bisa discroll tapi scrollbar disembunyikan */
+.container-cerita {
+  position: relative;
+  top: 200px;
+  margin: auto;
+  width: 900px;
+  height: 450px;
+  background: #ffffff;
+  border-radius: 40px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  overflow: hidden;
+  /* supaya tidak keluar area */
+}
+
+.cerita-scroll {
+  flex: 1;
+  width: 100%;
+  overflow-y: auto;
+  padding-right: 10px;
+  margin-bottom: 60px;
+  /* kasih jarak dari tombol */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.cerita-scroll::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Edge */
+}
+
+/* 🌈 Tombol "Lanjut" cute */
+#soal_lanjut {
+  background-color: #ffe082;
+  color: #000;
+  font-family: "Fredoka", sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  border: 3px solid #000;
+  border-radius: 25px;
+  padding: 14px 45px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: absolute;
+  bottom: 25px;
+}
+
+#soal_lanjut:hover {
+  background-color: #fff59d;
+  transform: scale(1.05);
+}
+
+#soal_lanjut:active {
+  transform: scale(0.95);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+#soal_lanjut span {
+  display: inline-block;
+  animation: arrowMove 1s infinite alternate;
+}
+
+@keyframes arrowMove {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(6px);
+  }
+}
+
+.cerita {
+  font-size: 20px;
+}
+
+/* 🌸 Container Cerita */
+.container-cerita {
+  position: relative;
+  top: 200px;
+  margin: auto;
+  width: 90%;
+  height: 480px;
+  background: #ffffff;
+  border-radius: 40px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* 🌷 Area teks bisa discroll lembut */
+.cerita-scroll {
+  flex: 1;
+  width: 100%;
+  overflow-y: auto;
+  padding-right: 10px;
+  margin-bottom: 70px;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+
+.cerita-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* 🌼 Teks cerita */
+.cerita {
+  font-size: 32px;
+  line-height: 1.8;
+  color: #333;
+  text-align: justify;
+  font-weight: 400;
+  padding: 10px 20px;
+  border-radius: 20px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 250, 230, 0.8) 100%
+  );
+  box-shadow: inset 0 0 10px rgba(255, 230, 150, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.cerita:hover {
+  transform: scale(1.01);
+}
+
+/* ✨ Hiasan paragraf awal dan kata penting */
+.cerita::first-letter {
+  font-size: 57.5px;
+  font-weight: 700;
+  color: #f5a623;
+  float: left;
+  margin-right: 6px;
+}
+
+.cerita strong {
+  color: #ff6f61;
+  font-weight: 600;
+}
+
+/* 🌈 Tombol "Lanjut" cute */
+#soal_lanjut {
+  background-color: #ffe082;
+  color: #000;
+  font-family: "Fredoka", sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  border: 3px solid #000;
+  border-radius: 25px;
+  padding: 14px 45px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: absolute;
+  bottom: 25px;
+}
+
+#soal_lanjut:hover {
+  background-color: #fff59d;
+  transform: scale(1.05);
+}
+
+#soal_lanjut:active {
+  transform: scale(0.95);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+#soal_lanjut span {
+  display: inline-block;
+  animation: arrowMove 1s infinite alternate;
+}
+
+@keyframes arrowMove {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(6px);
+  }
+}
+
+.cerita {
+  animation: fadeInText 1s ease forwards;
+}
+
+@keyframes fadeInText {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* quiz cuy */
+/* ===============================
+        🌟 RESPONSIVE MOBILE FIX
+      ================================ */
+@media (max-width: 768px) {
+  body {
+    text-align: center;
+    overflow-x: hidden;
+  }
+
+  /* Tombol Back */
+  .back {
+    position: absolute !important;
+    width: 48px;
+    height: 48px;
+    top: 12px;
+    left: 12px;
+    margin: 0 !important;
+    z-index: 12000;
+  }
+
+  .gambar_back {
+    width: 28px;
+    height: 28px;
+    top: 10px;
+    left: 10px;
+  }
+
+  /* Judul atas */
+  .kotak_materi_diatas {
+    width: 50%;
+    height: 60px;
+    margin-top: 20px;
+    border-radius: 40px;
+    font-size: 18px;
+  }
+
+  .tulisan_materi_diatas {
+    font-size: 22px;
+  }
+
+  /* Cerita container */
+  .container-cerita {
+    width: 90%;
+    height: auto;
+    min-height: 400px;
+    top: 130px;
+    padding: 25px 20px;
+  }
+
+  .cerita {
+    font-size: 20px !important;
+    line-height: 1.6;
+    text-align: justify;
+  }
+
+  /* Huruf pertama besar */
+  .cerita::first-letter {
+    font-size: 37.5px;
+    font-weight: 700;
+    color: #f5a623;
+    float: left;
+    margin-right: 6px;
+    margin-top: -20px;
+    margin-bottom: -10px;
+  }
+
+  #soal_lanjut {
+    position: relative;
+    margin-top: 25px;
+    font-size: 20px !important;
+    width: 80%;
+  }
+
+  /* Quiz container */
+  .quiz-container {
+    width: 90%;
+    padding: 25px;
+    top: 150px;
+  }
+
+  .question {
+    font-size: 20px;
+  }
+
+  .options button {
+    width: 100%;
+    font-size: 18px;
+    padding: 12px;
+  }
+
+  .next-btn {
+    width: 60%;
+    font-size: 18px;
+    padding: 10px;
+  }
+
+  .result {
+    font-size: 18px;
+  }
+
+  .result-box {
+    font-size: 18px;
+    padding: 15px;
+  }
+
+  .materi-btn {
+    font-size: 18px;
+    padding: 10px 20px;
+  }
+  /* Huruf pertama besar */
+  .cerita::first-letter {
+    font-size: 37.5px;
+    font-weight: 700;
+    color: #f5a623;
+    float: left;
+    margin: -0.7px 6px 0 0; /* aman untuk mobile */
+  }
+}

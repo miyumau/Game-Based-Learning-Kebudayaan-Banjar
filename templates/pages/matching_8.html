@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stage 8 Matching</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/matching.css') }}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      @media (max-width: 768px) {
+        .draggables {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 10px;
+          justify-items: center;
+        }
+        .card-item {
+          width: 120px !important; /* atau 100px sesuai kebutuhan */
+          height: 120px !important; /* samakan dengan width agar kotak proporsional */
+        }
+        body {
+          padding: 10px;
+          flex-direction: column;
+          align-items: center;
+        }
+        .back {
+          position: absolute !important;
+          width: 48px;
+          height: 48px;
+          top: 12px;
+          left: 12px;
+          margin: 0 !important;
+          z-index: 12000;
+        }
+        .gambar_back {
+          width: 28px;
+          height: 28px;
+          top: 10px;
+          left: 10px;
+        }
+        .kotak_materi_diatas {
+          width: fit-content !important;
+          min-width: 180px;
+          height: 50px;
+          margin: 0 auto;
+          text-align: center;
+        }
+        .tulisan_materi_diatas {
+          font-size: clamp(14px, 4vw, 20px);
+          margin: 4px auto;
+          white-space: nowrap;
+          text-align: center;
+        }
+        .board {
+          padding: 20px;
+          margin-top: 73px;
+        }
+        .card-item {
+          width: 150px;
+          height: 150px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 12px;
+          overflow: hidden;
+          background: #fff;
+          box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-item img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+        .dropzone-area {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+        .dropzone {
+          min-height: 80px;
+          font-size: 18px;
+        }
+        .controls {
+          flex-direction: column;
+        }
+        .container-cerita {
+          width: 80%;
+          height: auto;
+          min-height: 380px;
+          top: 430px;
+          padding: 25px 20px;
+        }
+        .cerita {
+          font-size: 20px !important;
+        }
+
+        #soal_lanjut {
+          font-size: 15px;
+          padding: 10px 25px;
+        }
+        .kotak_materi_diatas {
+          position: absolute;
+          top: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          text-align: center;
+          z-index: 10000;
+        }
+        /* Huruf pertama besar */
+        .cerita::first-letter {
+          font-size: 37.5px;
+          font-weight: 700;
+          color: #f5a623;
+          float: left;
+          margin: -0.7px 6px 0 0; /* aman untuk mobile */
+        }
+      }
+
+      .card-item.dragging {
+        opacity: 0.7;
+        transform: scale(1.1);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+      }
+
+      .dropzone.over {
+        border-color: #0b7b9b;
+        background: rgba(159, 227, 255, 0.3);
+        transform: scale(1.02);
+        transition: all 0.2s ease;
+      }
+
+      .drag-preview {
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.85;
+        width: 120px;
+        height: 120px;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        transition: transform 0.05s linear;
+      }
+      .drag-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+      .time-bar-container {
+        width: 100%;
+        height: 14px;
+        background: linear-gradient(90deg, #a80000, #ff0000);
+        border-radius: 10px;
+        overflow: hidden;
+        margin-top: 10px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .time-bar {
+        width: 0%;
+        height: 100%;
+
+        background: linear-gradient(90deg, #00e100, #18b500);
+        transition: width 0.2s linear;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="{{ url_for('matching') }}">
+      <div class="back">
+        <img
+          src="/static/Image/back.png"
+          alt="gambar kembali"
+          class="gambar_back"
+        />
+      </div>
+    </a>
+
+    <div class="container-cerita">
+      <div class="cerita-scroll">
+        <p class="cerita">
+          Kata Nenek, makan Putu Mayang itu ibarat sayur tanpa garam kalau tidak
+          pakai kuahnya! Putu Mayang butuh 'pasangan setia'-nya agar terasa
+          nikmat, yaitu kuah santan gula merah yang gurih dan manis. 🤤 Kita
+          perlu menyiapkan bahan-bahan untuk membuat kuah lezat ini. Coba
+          temukan bahan alam apa saja yang dibutuhkan untuk membuat kuah
+          pelengkap tersebut. 🥥
+        </p>
+      </div>
+      <button id="soal_lanjut" onclick="soal_lanjut2()">Lanjut</button>
+    </div>
+
+    <div class="wrap">
+      <div class="kotak_materi_diatas">
+        <div class="tulisan_materi_diatas">Stage 8 Matching</div>
+      </div>
+
+      <div class="board" id="board" style="display: none">
+        <div class="top-row">
+          <div class="time-bar-container">
+            <div class="time-bar" id="timeBar"></div>
+          </div>
+
+          <div class="status">
+            Tertempel: <span id="countDone">0</span>/<span
+              id="totalPairs"
+            ></span>
+          </div>
+          <div class="lives">❤️ <span id="lifeCount">3</span></div>
+        </div>
+
+        <div class="layout-desktop">
+          <div class="draggables" id="draggables"></div>
+
+          <div class="right-panel">
+            <div class="dropzone-area" id="dropzones"></div>
+            <div class="controls">
+              <button class="btn" id="checkBtn">Periksa Jawaban</button>
+              <button class="btn btn-yellow" id="resetBtn">Reset</button>
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="popup" id="popup">
+      <div class="emoji">🌟</div>
+      <h2>Hebat Sekali!</h2>
+      <p>Kamu berhasil mencocokkan semua gambar dengan benar 🎉</p>
+
+      <p style="font-size: 20px; font-weight: 600; color: #2ecc71">
+        Skor Kamu: <span id="winScore">0</span>
+      </p>
+      <p style="font-size: 18px; color: #27ae60">
+        Waktu Kamu: <span id="winTime">0</span> detik
+      </p>
+
+      <button class="btn-next" id="closePopup">
+        Lanjut ke Stage Berikutnya 🚀
+      </button>
+    </div>
+
+    <div class="popup-fail" id="popupFail">
+      <div class="cute-icon">💔</div>
+      <h2>Yah, Nyawamu Habis 😢</h2>
+      <p>
+        Tapi jangan sedih ya! 🌈<br />
+        Yuk pelajari lagi materinya supaya bisa lebih hebat!
+      </p>
+      <a href="{{ url_for('materi') }}" class="btn-cute">📖 Lihat Materi</a>
+    </div>
+
+    <div class="popup-wrong" id="popupWrong">
+      <div class="emoji">😅</div>
+      <h3>Masih Ada yang Salah!</h3>
+      <p>Sisa nyawa kamu: <span id="lifeLeft"></span> ❤️</p>
+      <button class="btn-ok" id="closeWrong">Coba Lagi 💪</button>
+    </div>
+
+    <script src="/static/js/script.js"></script>
+    <script>
+      /* 🔥 6 GAMBAR tapi DROPZONE cuma 3 */
+      const PAIRS = [
+        {
+          id: "p1",
+         img: "{{ url_for('static', filename='Image/daun_pandan.jpg') }}",
+          label: "daun pandan",
+        },
+        {
+          id: "p2",
+          img: "{{ url_for('static', filename='Image/tepung_maizena.jpeg') }}",
+          label: "tepung maizena",
+        },
+        {
+          id: "p3",
+          img: "{{ url_for('static', filename='Image/kuah_santan.jpg') }}",
+          label: "santan",
+        },
+
+        /* ⬇⬇⬇ Tambahan gambar bebas (tidak ada kolom dropzone untuk ini) ⬇⬇⬇ */
+        {
+          id: "x1",
+          img: "{{ url_for('static', filename='Image/keju.jpeg') }}",
+          label: "keju",
+        },
+        {
+          id: "x2",
+          img: "{{ url_for('static', filename='Image/gula_merah.jpg') }}",
+          label: "gula merah",
+        },
+        {
+          id: "x3",
+          img: "{{ url_for('static', filename='Image/mentega_pengecoh.jpeg') }}",
+          label: "tepung maizena",
+        },
+      ];
+
+      const draggablesEl = document.getElementById("draggables");
+      const dropzonesEl = document.getElementById("dropzones");
+      const countDoneEl = document.getElementById("countDone");
+      const totalPairsEl = document.getElementById("totalPairs");
+      const lifeEl = document.getElementById("lifeCount");
+      const popup = document.getElementById("popup");
+      const popupFail = document.getElementById("popupFail");
+      const popupWrong = document.getElementById("popupWrong");
+      const lifeLeft = document.getElementById("lifeLeft");
+
+      /* ⛔ Total pairs tetap 3 (dropzone hanya untuk id p1, p2, p3) */
+      let timerInterval = null;
+      let maxTime = 60; // ⏱️ maksimal 60 detik (bebas mau diganti)
+      let totalPairs = 3;
+      let correctCount = 0;
+      let lives = 3;
+      totalPairsEl.textContent = totalPairs;
+      let startTime = 0;
+      let wrongAttempts = 0;
+
+      const currentStage = 1; // Stage 1
+
+      function shuffle(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+      }
+
+      let dropData = {};
+
+      function build() {
+        draggablesEl.innerHTML = "";
+        dropzonesEl.innerHTML = "";
+        correctCount = 0;
+        lives = 3;
+        lifeEl.textContent = lives;
+        dropData = {};
+        countDoneEl.textContent = correctCount;
+
+        wrongAttempts = 0;
+        // Reset bar
+        const timeBar = document.getElementById("timeBar");
+        timeBar.style.width = "0%";
+
+        // Hapus timer lama
+        if (timerInterval) clearInterval(timerInterval);
+
+        const shuffledImages = shuffle([...PAIRS]);
+
+        shuffledImages.forEach((item) => {
+          const el = document.createElement("div");
+          el.className = "card-item";
+          el.draggable = true;
+          el.dataset.pair = item.id;
+          el.innerHTML = `<img src="${item.img}" alt="${item.label}">`;
+
+          el.addEventListener("dragstart", (e) => {
+            e.dataTransfer.setData("text/plain", item.id);
+            setTimeout(() => el.classList.add("dragging"), 0);
+          });
+          el.addEventListener("dragend", () => el.classList.remove("dragging"));
+
+          draggablesEl.appendChild(el);
+        });
+
+        /* ⛔ Dropzone hanya dibuat untuk p1, p2, p3 */
+        PAIRS.slice(0, totalPairs).forEach((target) => {
+          const zone = document.createElement("div");
+          zone.className = "dropzone";
+          zone.dataset.accept = target.id;
+          zone.textContent = target.label;
+
+          zone.addEventListener("dragover", (e) => e.preventDefault());
+          zone.addEventListener("dragenter", () => zone.classList.add("over"));
+          zone.addEventListener("dragleave", () =>
+            zone.classList.remove("over")
+          );
+          zone.addEventListener("drop", (e) => {
+            e.preventDefault();
+            zone.classList.remove("over");
+            const pairId = e.dataTransfer.getData("text/plain");
+            dropData[zone.dataset.accept] = pairId;
+
+            const imgEl = document.querySelector(`[data-pair='${pairId}']`);
+            if (imgEl) {
+              imgEl.style.display = "none";
+              zone.style.background = "#e8fff1";
+              zone.dataset.filled = "true";
+            }
+          });
+
+          dropzonesEl.appendChild(zone);
+        });
+      }
+
+      document.getElementById("checkBtn").addEventListener("click", () => {
+        correctCount = 0;
+        for (let key in dropData) {
+          if (dropData[key] === key) correctCount++;
+        }
+        countDoneEl.textContent = correctCount;
+
+        if (correctCount === totalPairs) {
+          // --- BERHASIL / MENANG ---
+          clearInterval(timerInterval);
+
+          // Hitung waktu pengerjaan (Durasi)
+          let endTime = Date.now();
+          let timeTaken = Math.floor((endTime - startTime) / 1000); // detik
+
+          // Rumus poin (bisa disesuaikan)
+          let score = 100 - timeTaken * 0.5 - wrongAttempts * 5;
+          score = Math.max(10, Math.floor(score)); // Skor minimal 10, dibulatkan
+
+          // --- KIRIM KE DATABASE ---
+          fetch("/api/submit_quiz", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              game_name: "matching", // Menandakan ini game Matching
+              stage: 8, // Stage 8
+              score: score,
+              total_soal: totalPairs,
+              time_taken: timeTaken, // Kirim durasi pengerjaan
+            }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log("Data Matching tersimpan:", data);
+            })
+            .catch((error) => console.error("Gagal simpan:", error));
+
+          // Tampilkan Popup Menang
+          document.getElementById("winScore").innerText = score;
+          document.getElementById("winTime").innerText = timeTaken;
+          popup.classList.add("show");
+        } else {
+          // --- SALAH ---
+          wrongAttempts++;
+          lives--;
+          lifeEl.textContent = lives;
+          if (lives <= 0) popupFail.classList.add("show");
+          else {
+            lifeLeft.textContent = lives;
+            popupWrong.classList.add("show");
+          }
+        }
+      });
+
+      document.getElementById("resetBtn").addEventListener("click", () => {
+        // 1. Munculkan kembali semua gambar
+        document.querySelectorAll(".card-item").forEach((card) => {
+          card.style.display = "flex";
+        });
+
+        // 2. Bersihkan dropzone
+        document.querySelectorAll(".dropzone").forEach((zone) => {
+          zone.style.background = "";
+          zone.dataset.filled = "false";
+          zone.classList.remove("over");
+        });
+
+        // 3. Kosongkan data hasil tempel
+        dropData = {};
+
+        // 4. Hitungan benar kembali ke 0
+        correctCount = 0;
+        countDoneEl.textContent = 0;
+      });
+
+      /* ✅ tombol lanjut ke stage berikutnya */
+      document.getElementById("closePopup").addEventListener("click", () => {
+        window.location.href = "{{ url_for('matching') }}";
+      });
+
+      document
+        .getElementById("closeWrong")
+        .addEventListener("click", () => popupWrong.classList.remove("show"));
+
+      function autoScrollOnDrag(e) {
+        const scrollSpeed = 15;
+        const y = e.touches ? e.touches[0].clientY : e.clientY;
+        const windowHeight = window.innerHeight;
+        if (y < 80) window.scrollBy(0, -scrollSpeed);
+        else if (y > windowHeight - 80) window.scrollBy(0, scrollSpeed);
+      }
+      function soal_lanjut2() {
+        // Sembunyikan cerita
+        document.querySelector(".container-cerita").style.display = "none";
+
+        // Tampilkan board
+        document.getElementById("board").style.display = "block";
+
+        // 🔥 Reset bar penuh
+        const timeBar = document.getElementById("timeBar");
+        timeBar.style.width = "100%";
+
+        // 🔥 Set waktu mulai
+        startTime = Date.now();
+
+        // 🔥 Mulai timer mundur (Bar Merah)
+        timerInterval = setInterval(() => {
+          let elapsed = Math.floor((Date.now() - startTime) / 1000);
+          let remaining = maxTime - elapsed;
+
+          let percent = Math.max((remaining / maxTime) * 100, 0);
+          timeBar.style.width = percent + "%";
+
+          if (remaining <= 0) {
+            clearInterval(timerInterval);
+            lives = 0;
+            lifeEl.textContent = 0;
+            popupFail.classList.add("show");
+          }
+        }, 200);
+      }
+
+      function enableTouchDrag() {
+        const draggables = document.querySelectorAll(".card-item");
+        draggables.forEach((el) => {
+          let preview = null;
+          el.addEventListener("touchstart", (e) => {
+            el.classList.add("dragging");
+            const imgSrc = el.querySelector("img").src;
+            preview = document.createElement("div");
+            preview.classList.add("drag-preview");
+            preview.innerHTML = `<img src="${imgSrc}" alt="">`;
+            document.body.appendChild(preview);
+          });
+          el.addEventListener("touchmove", (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            preview.style.left = `${touch.clientX}px`;
+            preview.style.top = `${touch.clientY}px`;
+            autoScrollOnDrag(e);
+            const elem = document.elementFromPoint(
+              touch.clientX,
+              touch.clientY
+            );
+            const overZone = elem?.closest(".dropzone");
+            document
+              .querySelectorAll(".dropzone")
+              .forEach((dz) => dz.classList.remove("over"));
+            if (overZone) overZone.classList.add("over");
+          });
+          el.addEventListener("touchend", (e) => {
+            el.classList.remove("dragging");
+            if (preview) preview.remove();
+            const touch = e.changedTouches[0];
+            const elem = document.elementFromPoint(
+              touch.clientX,
+              touch.clientY
+            );
+            const dropzone = elem?.closest(".dropzone");
+            if (dropzone) {
+              const pairId = el.dataset.pair;
+              dropData[dropzone.dataset.accept] = pairId;
+              el.style.display = "none";
+              dropzone.style.background = "#e8fff1";
+              dropzone.dataset.filled = "true";
+            }
+            document
+              .querySelectorAll(".dropzone")
+              .forEach((dz) => dz.classList.remove("over"));
+          });
+        });
+      }
+
+      build();
+      enableTouchDrag();
+    </script>
+  </body>
+</html>

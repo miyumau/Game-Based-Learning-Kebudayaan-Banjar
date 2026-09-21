@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Materi</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f7f1e5;
+      }
+      .kotak_materi_diatas {
+        left: -2%;
+        position: relative;
+        margin: 30px auto 0px auto !important;
+        width: 30%;
+      }
+      .tulisan_materi_diatas {
+        font-size: 50px !important;
+        position: fixed !important;
+        top: 55px !important;
+        left: 48% !important;
+        transform: translateX(-50%);
+        width: max-content;
+      }
+      .kotak_materi_panjang {
+        /* margin: 30px auto 0px auto !important;
+          position: relative;
+          top: 35px;
+          left: -15%; */
+        left: 20%;
+        width: 23% !important;
+      }
+      .tulisan_rumah_adat {
+        font-size: 34px;
+        top: -5px !important;
+      }
+      #tulisan_1,
+      #tulisan_2 {
+        top: -24px !important;
+      }
+
+      /* ============================
+          RESPONSIVE UNTUK HP (≤ 768px)
+        =============================== */
+      @media (max-width: 768px) {
+        body {
+          text-align: center;
+          overflow-x: hidden;
+        }
+
+        /* Tombol Back */
+        .back {
+          position: absolute !important;
+          width: 48px;
+          height: 48px;
+          top: 12px;
+          left: 12px;
+          margin: 0 !important;
+          z-index: 12000;
+        }
+        .gambar_back {
+          width: 28px;
+          height: 28px;
+          top: 10px;
+          left: 10px;
+        }
+
+        /* Kotak judul atas */
+        .kotak_materi_diatas {
+          top: 15px;
+          left: 15.5% !important;
+          transform: translateX(-50%);
+          width: 30% !important;
+          height: 60px !important;
+          border-width: 3px;
+          border-radius: 40px;
+          margin: 0 !important;
+          z-index: 9000;
+          position: relative !important;
+          margin: 0px auto 0px auto !important;
+        }
+
+        .tulisan_materi_diatas {
+          font-size: 18px !important;
+          position: fixed !important;
+          top: 20px !important;
+          left: 50% !important;
+          transform: translateX(-50%);
+          width: max-content;
+          text-align: center;
+        }
+
+        /* Kotak Materi Panjang */
+        .kotak_materi_panjang {
+          position: relative !important;
+          width: 260px !important;
+          height: 350px !important;
+          margin: 30px auto 10px auto !important; /* jarak antar kotak lebih rapat */
+          top: 80px !important;
+          left: 0% !important;
+          margin-top: -30px !important;
+          margin-bottom: 60px !important;
+        }
+
+        .kotak_materi_panjang img {
+          height: 150px !important;
+          margin-top: 60px !important;
+        }
+
+        /* Tulisan utama (judul kotak) */
+        .tulisan_rumah_adat {
+          text-align: center !important;
+        }
+
+        /* Hanya judul utama dibuat besar */
+        .tulisan_rumah_adat:first-of-type {
+          font-size: 34px !important; /* besar seperti desktop */
+          font-weight: 600 !important;
+          margin-top: 15px !important;
+        }
+
+        /* Tulisan deskripsi kecil (yang kedua) */
+        .tulisan_rumah_adat:nth-of-type(2) {
+          font-size: 18px !important; /* lebih kecil */
+          font-weight: 400 !important;
+          top: -15px !important;
+        }
+
+        /* Ornamen */
+        .ornamen-banjar {
+          width: 180px !important;
+          right: -30px !important;
+          bottom: -50px !important;
+        }
+
+        /* Hilangkan efek posisi absolut antar card */
+        #kotak_materi_2 {
+          left: 0 !important;
+          position: relative !important;
+        }
+
+        a {
+          text-decoration: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="{{ url_for('home') }}"
+      ><div class="back">
+        <img
+          src="/static/Image/back.png"
+          alt="gambar kembali"
+          class="gambar_back"
+        /></div
+    ></a>
+    <div class="kotak_materi_diatas">
+      <div
+        class="tulisan_materi_diatas"
+        style="left: -34%; position: relative; top: 30px; font-size: 41px"
+      >
+        Materi
+      </div>
+    </div>
+    <div>
+      <a href="{{ url_for('kumpulan_rumah') }}"
+        ><div class="kotak_materi_panjang">
+          <div class="rumah_adat">
+            <img src="/static/Image/home.png" alt="home" class="gambar_rumah" />
+            <p class="tulisan_rumah_adat">Rumah Adat</p>
+            <p
+              class="tulisan_rumah_adat"
+              id="tulisan_1"
+              style="font-size: 20px; top: -25px"
+            >
+              “Mari pelajari bentuk & ciri khas rumah Banjar.”
+            </p>
+          </div>
+        </div></a
+      >
+      <a href="{{ url_for('kumpulan_kue') }}"
+        ><div
+          class="kotak_materi_panjang"
+          id="kotak_materi_2"
+          style="left: 52.5%"
+        >
+          <div class="kue_banjar">
+            <img
+              src="/static/Image/food.png"
+              alt="food"
+              class="gambar_makanan"
+            />
+            <p class="tulisan_rumah_adat" id="kue">Kue Banjar</p>
+            <p
+              class="tulisan_rumah_adat"
+              id="tulisan_2"
+              style="font-size: 20px; top: -25px"
+            >
+              “Kenali kue tradisional Banjar yang populer.”
+            </p>
+          </div>
+        </div>
+      </a>
+    </div>
+    <img src="/static/Image/ornamen.png" class="ornamen-banjar" />
+    <img
+      src="/static/Image/ornamen_2.png"
+      class="ornamen-banjar"
+      style="left: -200px; bottom: -130px; width: 700px"
+    />
+  </body>
+</html>

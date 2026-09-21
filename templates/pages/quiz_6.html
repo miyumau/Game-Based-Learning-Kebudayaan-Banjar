@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stage 6 - Quiz</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/quiz.css') }}"
+    />
+    <style>
+      /* ===============================
+        🌟 RESPONSIVE MOBILE FIX
+      ================================ */
+      @media (max-width: 768px) {
+        body {
+          text-align: center;
+          overflow-x: hidden;
+        }
+        /* Tombol Back */
+        .back {
+          position: absolute !important;
+          width: 48px;
+          height: 48px;
+          top: 12px;
+          left: 12px;
+          margin: 0 !important;
+          z-index: 12000;
+        }
+        .gambar_back {
+          width: 28px;
+          height: 28px;
+          top: 10px;
+          left: 10px;
+        }
+        /* Judul atas */
+        .kotak_materi_diatas {
+          width: 50%;
+          height: 60px;
+          margin-top: 20px;
+          border-radius: 40px;
+          font-size: 18px;
+        }
+        .tulisan_materi_diatas {
+          font-size: 22px;
+        }
+        /* Cerita container */
+        .container-cerita {
+          width: 90%;
+          height: auto;
+          min-height: 400px;
+          top: 130px;
+          padding: 25px 20px;
+        }
+        .cerita {
+          font-size: 20px !important;
+          line-height: 1.6;
+          text-align: justify;
+        }
+        /* Huruf pertama besar */
+        .cerita::first-letter {
+          font-size: 37.5px;
+          font-weight: 700;
+          color: #f5a623;
+          float: left;
+          margin-right: 6px;
+          margin-top: -20px;
+          margin-bottom: -10px;
+        }
+        #soal_lanjut {
+          position: relative;
+          margin-top: 25px;
+          font-size: 20px !important;
+          width: 80%;
+        }
+        /* Quiz container */
+        .quiz-container {
+          width: 90%;
+          padding: 25px;
+          top: 150px;
+        }
+        .question {
+          font-size: 20px;
+        }
+        .options button {
+          width: 100%;
+          font-size: 18px;
+          padding: 12px;
+        }
+        .next-btn {
+          width: 60%;
+          font-size: 18px;
+          padding: 10px;
+        }
+        .result {
+          font-size: 18px;
+        }
+        .result-box {
+          font-size: 18px;
+          padding: 15px;
+        }
+        .materi-btn {
+          font-size: 18px;
+          padding: 10px 20px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="{{ url_for('quiz') }}">
+      <div class="back">
+        <img
+          src="/static/Image/back.png"
+          alt="gambar kembali"
+          class="gambar_back"
+        />
+      </div>
+    </a>
+
+    <div class="kotak_materi_diatas">
+      <div class="tulisan_materi_diatas">Stage 6 - Quiz</div>
+    </div>
+
+    <div class="quiz-container" style="display: none">
+      <div id="quiz">
+        <div class="question" id="question"></div>
+        <div class="options" id="options"></div>
+        <button class="next-btn" id="nextBtn">Next</button>
+      </div>
+      <div class="result" id="result"></div>
+    </div>
+
+    <div class="container-cerita">
+      <div class="cerita-scroll">
+        <p class="cerita">
+          Nenek tersenyum sambil mengambil sebuah piring berisi kue
+          berwarna-warni. “Sekarang kita belajar tentang Putu Mayang, Nak,”
+          ujarnya lembut. Di hadapanmu tampak untaian kue yang bentuknya seperti
+          tali-tali lembut yang disusun rapi. “Kue ini dinamakan Putu Mayang
+          karena bentuknya menyerupai lunjuran mayang yang berurai,” jelasnya.
+          🌸<br /><br />
+          “Di beberapa daerah, orang Banjar juga menyebutnya Puracit,” lanjut
+          nenek sambil memisahkan satu bagian kecil untuk kamu coba. “Walaupun
+          tampaknya sederhana, membuat Putu Mayang perlu ketelitian agar
+          bentuknya rapi.”<br /><br />
+          Nenek menunjuk bahan-bahannya. “Kue ini dibuat dari tepung beras,
+          tepung tapioka, santan, gula, dan sedikit garam. Semua bahan dimasak
+          di atas api kecil sampai adonannya mengental, lalu didinginkan.” 🍶<br /><br />
+          “Setelah itu,” nenek melanjutkan, “adonannya diberi tepung tapioka
+          lagi sedikit demi sedikit agar lebih kenyal. Lalu dibagi dua: satu
+          diberi pewarna merah, satunya lagi diberi pasta pandan untuk warna
+          hijau.” 🎨<br /><br />
+          Nenek memperagakan cara membentuknya dengan tangan. “Adonan yang sudah
+          diberi warna dimasukkan ke plastik segitiga sebagai cetakan. Kemudian
+          ditekan keluar hingga membentuk alur-alur panjang seperti lunjuran
+          mayang. Setelah disusun rapi, barulah dikukus sampai matang.” 🍃<br /><br />
+          Ia mengambil semangkuk kuah cokelat harum. “Putu Mayang biasanya
+          disajikan dengan kuah santan gula merah. Kuah ini dibuat dari campuran
+          santan, gula merah, garam, dan daun pandan, lalu ditambah sedikit
+          tepung maizena supaya lebih kental. Rasa manis dan gurihnya cocok
+          sekali dengan tekstur Putu Mayang yang lembut dan kenyal.” 😋<br /><br />
+          Nenek kemudian menatapmu dengan hangat. “Tapi, Nak… Putu Mayang bukan
+          hanya soal rasa.” Ia tersenyum, menunjuk untaian kue yang saling
+          menempel. “Meski bentuknya seperti alur yang terurai, semuanya tetap
+          saling terikat. Bagi orang Banjar, ini melambangkan kebersamaan dan
+          ikatan emosional antarmasyarakat. Walau hidup di tempat berbeda,
+          mereka tetap satu dalam budaya.” ✨<br /><br />
+          Kamu mengangguk kagum. “Indah sekali maknanya, Nek… ternyata setiap
+          kue punya cerita.” Nenek tertawa kecil, “Betul, Nak. Makanan
+          tradisional bukan hanya untuk dimakan, tapi untuk diingat dan
+          dihargai.” 🌿
+        </p>
+      </div>
+      <button id="soal_lanjut" onclick="soal_lanjut()">Lanjut</button>
+    </div>
+
+    <script>
+      // ==============================
+      // DATA PERTANYAAN QUIZ
+      // ==============================
+      const quizData = [
+        {
+          question: "Mengapa kue ini dinamakan Putu Mayang?",
+          options: [
+            "Karena rasanya manis seperti gula aren yang khas dan wangi",
+            "Karena bentuknya menyerupai lunjuran mayang yang berurai",
+            "Karena dibuat menggunakan cetakan berbentuk lingkaran kecil",
+            "Karena kue ini biasanya disajikan saat perayaan adat Banjar",
+          ],
+          answer: "Karena bentuknya menyerupai lunjuran mayang yang berurai",
+        },
+        {
+          question: "Di beberapa daerah, Putu Mayang juga dikenal dengan nama?",
+          options: [
+            "Puracit",
+            "Apam Habang",
+            "Bingka Banjar",
+            "Roti Beras Habang",
+          ],
+          answer: "Puracit",
+        },
+        {
+          question: "Apa saja bahan utama Putu Mayang?",
+          options: [
+            "Tepung beras, gula merah, santan, sedikit garam, dan air",
+            "Tepung terigu, santan, gula pasir, dan pewarna alami campuran",
+            "Tepung ketan, gula aren, santan, dan pasta pandan hijau alami",
+            "Tepung beras, tepung tapioka, santan, gula, dan sedikit garam",
+          ],
+          answer:
+            "Tepung beras, tepung tapioka, santan, gula, dan sedikit garam",
+        },
+        {
+          question: "Mengapa adonan Putu Mayang dibagi menjadi dua warna?",
+          options: [
+            "Satu diberi pewarna merah dan satu lagi diberi pasta pandan untuk hijau",
+            "Satu diberi gula merah and satu lagi diberi santan putih agar kontras",
+            "Satu dibentuk bulat and satu dibentuk lonjong untuk variasi bentuk",
+            "Satu dikukus and satu digoreng agar teksturnya berbeda dan unik",
+          ],
+          answer:
+            "Satu diberi pewarna merah dan satu lagi diberi pasta pandan untuk hijau",
+        },
+        {
+          question:
+            "Bagaimana proses membentuk Putu Mayang agar terlihat seperti lunjuran mayang?",
+          options: [
+            "Adonan digiling tipis lalu dipotong-potong sesuai ukuran yang diinginkan",
+            "Adonan dimasukkan ke plastik segitiga dan ditekan hingga membentuk alur panjang",
+            "Adonan dicetak di atas tutup toples dan diberi lubang di bagian tengahnya",
+            "Adonan dibentuk bulat dan digulung menjadi bentuk spiral yang rapi",
+          ],
+          answer:
+            "Adonan dimasukkan ke plastik segitiga dan ditekan hingga membentuk alur panjang",
+        },
+        {
+          question: "Dengan apa Putu Mayang biasanya disajikan?",
+          options: [
+            "Dengan parutan kelapa muda dan sirup pandan yang lezat",
+            "Dengan selai kacang dan madu alami yang menambah rasa",
+            "Dengan kuah santan gula merah yang manis dan gurih",
+            "Dengan saus cokelat dan taburan gula halus yang manis",
+          ],
+          answer: "Dengan kuah santan gula merah yang manis dan gurih",
+        },
+        {
+          question: "Apa makna simbolik Putu Mayang bagi masyarakat Banjar?",
+          options: [
+            "Melambangkan kebersamaan dan ikatan emosional antaranggota masyarakat",
+            "Melambangkan kemakmuran dan keberuntungan keluarga Banjar selalu",
+            "Melambangkan umur panjang dan kesehatan bagi pemakannya setiap waktu",
+            "Melambangkan keberanian dan kekuatan dalam budaya Banjar yang unik",
+          ],
+          answer:
+            "Melambangkan kebersamaan dan ikatan emosional antaranggota masyarakat",
+        },
+      ];
+
+      let currentQuestion = 0;
+      let score = 0;
+      let startTime; // Variabel waktu mulai
+
+      const questionEl = document.getElementById("question");
+      const optionsEl = document.getElementById("options");
+      const nextBtn = document.getElementById("nextBtn");
+      const resultEl = document.getElementById("result");
+
+      function loadQuestion() {
+        const current = quizData[currentQuestion];
+        questionEl.textContent = current.question;
+        optionsEl.innerHTML = "";
+        nextBtn.style.display = "none";
+        current.options.forEach((opt) => {
+          const btn = document.createElement("button");
+          btn.textContent = opt;
+          btn.onclick = () => checkAnswer(btn, opt);
+          optionsEl.appendChild(btn);
+        });
+      }
+
+      function checkAnswer(btn, selected) {
+        const correct = quizData[currentQuestion].answer;
+        const buttons = optionsEl.querySelectorAll("button");
+        buttons.forEach((b) => (b.disabled = true));
+        if (selected === correct) {
+          btn.classList.add("correct");
+          score++;
+        } else {
+          btn.classList.add("wrong");
+          buttons.forEach((b) => {
+            if (b.textContent === correct) b.classList.add("correct");
+          });
+        }
+        nextBtn.style.display = "inline-block";
+      }
+
+      nextBtn.addEventListener("click", () => {
+        currentQuestion++;
+        if (currentQuestion < quizData.length) {
+          loadQuestion();
+        } else {
+          finishQuiz();
+        }
+      });
+
+      function finishQuiz() {
+        document.getElementById("quiz").style.display = "none";
+
+        // 1. Hitung durasi waktu pengerjaan
+        const endTime = new Date();
+        const durasiDetik = Math.floor((endTime - startTime) / 1000);
+
+        const minCorrect = Math.ceil(quizData.length / 2);
+
+        // 2. Kirim ke database (Stage 6)
+        fetch("/api/submit_quiz", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            game_name: "quiz",
+            stage: 6,
+            score: score,
+            total_soal: quizData.length,
+            time_taken: durasiDetik,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            resultEl.innerHTML = `<strong>Kamu menjawab ${score}/${quizData.length} dengan benar!</strong><br>
+                                  <small>Waktu pengerjaan: ${durasiDetik} detik</small><br><br>`;
+
+            if (data.passed) {
+              resultEl.innerHTML += `
+                <div class="result-box success">
+                    🎉 Selamat! Kamu berhasil menjawab minimal ${minCorrect} soal dengan benar.<br>
+                    Stage berikutnya telah terbuka!
+                </div>`;
+              setTimeout(() => {
+                window.location.href = "{{ url_for('quiz') }}";
+              }, 3500);
+            } else {
+              resultEl.innerHTML += `
+                <div class="result-box fail">
+                    😢 Kamu hanya menjawab ${score} dari ${quizData.length} dengan benar.<br>
+                    <p>Pelajari kembali materinya sebelum mencoba lagi.</p>
+                    <a href="{{ url_for('materi') }}" class="materi-btn">📖 Lihat Materi</a>
+                </div>`;
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("Terjadi kesalahan saat menyimpan nilai.");
+          });
+      }
+
+      function shuffleQuestions(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+      }
+
+      function soal_lanjut() {
+        document.querySelector(".container-cerita").style.display = "none";
+        document.querySelector(".quiz-container").style.display = "block";
+        startTime = new Date(); // Mulai hitung waktu tepat saat kuis muncul
+      }
+
+      // Inisialisasi awal
+      shuffleQuestions(quizData);
+      loadQuestion();
+    </script>
+  </body>
+</html>

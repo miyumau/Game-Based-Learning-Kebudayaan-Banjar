@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kue Banjar</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <style>
+    p {
+      line-height: 1.6;
+    }
+    .kmateri {
+      background-image: radial-gradient(#ffffff20 1px, transparent 1px);
+      background-size: 5px 5px;
+    }
+  </style>
+  <body>
+    <a href="{{ url_for('materi') }}">
+      <div class="back">
+        <img
+          src="/static/Image/back.png"
+          alt="gambar kembali"
+          class="gambar_back"
+        />
+      </div>
+    </a>
+    <div class="kotak_materi_diatas">
+      <div class="tulisan_materi_diatas" id="rumah_1" style="left: 155px">
+        Kue Banjar
+      </div>
+    </div>
+    <div
+      class="kmateri"
+      style="display: block; background-color: #f4b9a6"
+      id="materi1"
+    >
+      <img
+        src="/static/Image/wadai_apam.png"
+        alt="rumah_gambar"
+        class="bubungan_tinggi"
+        style="left: 70px"
+      />
+      <div class="rumah_a">
+        <div class="nama_rumah" style="left: 125px">Wadai Apam Habang</div>
+      </div>
+      <div class="mtrumah_adat">
+        <p>
+          <strong>Wadai Apam</strong> merupakan salah satu
+          <strong>kue tradisional khas suku Banjar</strong> yang sangat populer
+          di Kalimantan Selatan. Kue ini biasanya disajikan dalam dua jenis,
+          yaitu <strong>apam habang</strong> (apam merah) dan
+          <strong>apam putih</strong>. Keduanya memiliki cara pengolahan yang
+          sama, hanya saja bahan pemanisnya berbeda — apam habang menggunakan
+          <strong>gula merah</strong>, sedangkan apam putih menggunakan
+          <strong>gula pasir putih</strong>.
+        </p>
+
+        <p>
+          Wadai apam dikenal sebagai
+          <strong>kue paling terkenal di Kalimantan Selatan</strong>, terutama
+          di daerah <strong>Hulu Sungai</strong>, khususnya di
+          <strong>Hulu Sungai Tengah, Barabai</strong>. Kue ini sering
+          dihidangkan pada berbagai acara adat, hajatan, maupun hari-hari besar
+          keagamaan.
+        </p>
+
+        <p>
+          <strong>Bahan utama</strong> yang digunakan untuk membuat wadai apam
+          antara lain <strong>tepung beras</strong>,
+          <strong>gula merah</strong>, dan <strong>tapai gumbili</strong> (tapai
+          dari singkong). Proses pembuatannya dimulai dengan merebus gula merah
+          hingga agak kental. Sementara itu, tepung beras dicampur dengan tapai
+          gumbili dan diaduk hingga rata.
+        </p>
+
+        <p>
+          Setelah itu, <strong>larutan gula merah</strong> dituangkan ke dalam
+          campuran tepung dan tapai sambil terus diaduk hingga menjadi
+          <strong>adonan kalis</strong>. Jumlah tepung dan gula biasanya
+          disesuaikan dengan banyaknya adonan yang diinginkan.
+        </p>
+
+        <p>
+          Adonan kemudian <strong>didiamkan beberapa saat</strong> hingga
+          <strong>kamir</strong> atau mengembang, tanda bahwa proses fermentasi
+          dari tapai sudah berjalan baik. Setelah itu, adonan dibentuk sesuai
+          selera dan <strong>dikukus hingga matang</strong>.
+        </p>
+
+        <p>
+          Tekstur wadai apam yang lembut serta aroma khas dari tapai dan gula
+          merah menjadikannya
+          <strong>simbol cita rasa manis tradisional Banjar</strong>. Hingga
+          kini, wadai apam masih sering dijumpai di pasar-pasar tradisional
+          maupun acara adat sebagai
+          <strong>warisan kuliner khas daerah Hulu Sungai</strong>.
+        </p>
+      </div>
+      <div class="lanjut" onclick="lanjut()">
+        <img
+          src="/static/Image/lanjut.png"
+          alt="gambar_lanjut"
+          class="gambar_lanjut"
+        />
+      </div>
+    </div>
+
+    <div
+      class="kmateri"
+      id="materi2"
+      style="display: none; background-color: #d9a58b"
+    >
+      <img
+        src="/static/Image/wadai_bingka.png"
+        alt="rumah_gambar"
+        class="bubungan_tinggi"
+        style="width: 460px; left: 165px; top: -57px"
+      />
+      <div class="rumah_a">
+        <div class="nama_rumah2" style="left: 166px">Wadai Bingka</div>
+      </div>
+      <div class="mtrumah_adat">
+        <p>
+          <strong>Wadai Bingka</strong> merupakan salah satu
+          <strong>kue tradisional khas suku Banjar</strong> yang terkenal dengan
+          cita rasa manis, lembut, dan berminyak. Seperti halnya pembuatan wadai
+          Banjar lainnya, bahan-bahan untuk mengolah bingka harus disiapkan
+          terlebih dahulu dengan cermat.
+        </p>
+
+        <p>
+          <strong>Bahan utama</strong> yang digunakan antara lain
+          <strong>santan bula-bula</strong> (santan kelapa yang direbus hingga
+          mengeluarkan minyak), <strong>telur bebek</strong>,
+          <strong>gula pasir</strong>, <strong>tepung terigu</strong>, dan
+          sedikit <strong>garam</strong>.
+        </p>
+
+        <p>
+          Proses pembuatannya dimulai dengan memasak santan hingga menjadi
+          <strong>bula-bula</strong>. Telur bebek dan gula dikocok hingga
+          gulanya hancur dan larut sempurna, kemudian ditambahkan sedikit garam.
+          Setelah itu, tepung terigu dimasukkan sedikit demi sedikit sambil
+          diaduk hingga menjadi <strong>adonan halus</strong>.
+        </p>
+
+        <p>
+          Sebelum adonan dimasukkan ke dalam tuangan (cetakan),
+          <strong>bula-bula</strong> dicampurkan ke dalam adonan agar saat
+          matang nanti, <strong>wadai bingka</strong> tampak berminyak dan
+          berkilau menarik. Tuangan bingka terlebih dahulu dipanaskan di atas
+          api dengan suhu yang diatur agar panasnya merata. Saat proses
+          pemasakan berlangsung, bagian atas tuangan ditutup dengan
+          <strong>panai panas</strong> supaya bingka matang sempurna di kedua
+          sisi.
+        </p>
+
+        <p>
+          <strong>Wadai Bingka</strong> memiliki berbagai macam nama dan rasa
+          tergantung pada bahan tambahan yang digunakan. Misalnya,
+          <strong>bingka kentang</strong> dibuat dengan menambahkan kentang
+          rebus ke dalam adonan. Untuk <strong>bingka tapai</strong>, digunakan
+          tapai beras yang diletakkan di atas adonan sebelum dikukus atau
+          dipanggang. Sedangkan <strong>bingka barandam</strong> menggunakan
+          bahan seperti <strong>telur ayam</strong>,
+          <strong>tepung terigu</strong>, <strong>gula pasir</strong>,
+          <strong>pandan</strong> sebagai pengharum, dan
+          <strong>adas manis</strong> untuk menambah aroma khas.
+        </p>
+
+        <p>
+          Bentuk tuangan bingka juga bervariasi, ada yang berbentuk
+          <strong>segi empat</strong>, <strong>bundar</strong>, hingga
+          <strong>bunga segi enam</strong>. Ragam bentuk dan cita rasa inilah
+          yang menjadikan Wadai Bingka sebagai
+          <strong>ikon kuliner tradisional Banjar</strong> yang tetap digemari
+          hingga kini.
+        </p>
+      </div>
+      <div class="lanjut" onclick="lanjut2()">
+        <img
+          src="/static/Image/lanjut.png"
+          alt="gambar_lanjut"
+          class="gambar_lanjut"
+        />
+      </div>
+      <div class="kembali" id="buat_kembali" onclick="kembali()">
+        <img
+          src="/static/Image/kembali.png"
+          alt="kembali"
+          class="gambar_lanjut"
+        />
+      </div>
+    </div>
+
+    <div
+      class="kmateri"
+      id="materi3"
+      style="display: none; background-color: #f4b9a6"
+    >
+      <img
+        src="/static/Image/wadai_cincin.png"
+        alt="rumah_gambar"
+        class="bubungan_tinggi"
+        style="height: 380px; top: -85px; width: 410px; left: 205px"
+      />
+      <div class="rumah_a">
+        <div class="nama_rumah2" style="left: 166px">Wadai Cincin</div>
+      </div>
+      <div class="mtrumah_adat">
+        <p>
+          <strong>Wadai Cincin</strong> merupakan salah satu dari
+          <strong>lima macam wadai khas Banjar</strong> yang masih sering
+          diproduksi dan dikonsumsi hingga kini. Kue ini menjadi bagian penting
+          dari warisan kuliner masyarakat Banjar yang dikenal manis dan gurih.
+        </p>
+
+        <p>
+          Pengolahan wadai cincin menggunakan bahan utama seperti
+          <strong>tepung beras</strong>, <strong>pisang kapas matang</strong>,
+          <strong>gula merah</strong>, <strong>sedikit garam</strong>, dan
+          <strong>minyak goreng</strong>. Bahan-bahan ini menciptakan perpaduan
+          rasa yang khas dan tekstur lembut pada hasil akhirnya.
+        </p>
+
+        <p>
+          Cara pembuatannya dimulai dengan
+          <strong>menyerut gula merah</strong> lalu mencampurkannya dengan
+          pisang kapas yang telah matang. Campuran tersebut diaduk hingga rata,
+          kemudian ditambahkan <strong>air putih</strong> dan sedikit
+          <strong>garam</strong>. Setelah itu,
+          <strong>tepung beras</strong> dimasukkan sedikit demi sedikit sambil
+          terus diaduk hingga menjadi <strong>adonan kental</strong> yang siap
+          digiling.
+        </p>
+
+        <p>
+          Adonan cincin kemudian
+          <strong>didiamkan selama kurang lebih enam jam</strong> agar
+          teksturnya menyatu dengan baik. Agar mudah dibentuk, adonan ditempa di
+          atas <strong>daun pisang</strong> yang telah diolesi sedikit minyak
+          goreng agar tidak lengket.
+        </p>
+
+        <p>
+          Setelah itu, adonan dibentuk bulat lalu dilepekkan dan
+          <strong>ditusuk menggunakan jari</strong> hingga terbentuk empat
+          lubang di tengahnya, menyerupai cincin. Potongan adonan yang sudah
+          dibentuk lalu digoreng dalam minyak panas hingga
+          <strong>berwarna kecoklatan</strong>. Saat menggoreng, adonan
+          dibolak-balik agar matangnya merata.
+        </p>
+
+        <p>
+          Setelah matang, wadai cincin diangkat dan
+          <strong>ditiriskan hingga minyaknya kering</strong>. Hasil akhirnya
+          adalah kue tradisional yang renyah di luar, lembut di dalam, dan
+          memiliki rasa manis khas dari perpaduan pisang dan gula merah. Hingga
+          kini, <strong>wadai cincin</strong> tetap menjadi sajian favorit
+          masyarakat Banjar dalam berbagai acara adat dan keluarga.
+        </p>
+      </div>
+      <div class="lanjut" onclick="lanjut3()">
+        <img
+          src="/static/Image/lanjut.png"
+          alt="gambar_lanjut"
+          class="gambar_lanjut"
+        />
+      </div>
+      <div class="kembali" id="buat_kembali" onclick="kembali2()">
+        <img
+          src="/static/Image/kembali.png"
+          alt="kembali"
+          class="gambar_lanjut"
+        />
+      </div>
+    </div>
+
+    <div
+      class="kmateri"
+      id="materi4"
+      style="display: none; background-color: #d9a58b"
+    >
+      <img
+        src="/static/Image/wadai_putu_mayang.png"
+        alt="rumah_gambar"
+        class="bubungan_tinggi"
+        style="left: 102px; height: 450px; top: -130px"
+      />
+      <div class="rumah_a">
+        <div class="nama_rumah2" style="left: 128px">Wadai Putu Mayang</div>
+      </div>
+      <div class="mtrumah_adat">
+        <p>
+          <strong>Wadai Putu Mayang</strong> dinamakan demikian karena juntaian
+          atau lunjurannya menyerupai <strong>mayang yang berurai</strong>. Di
+          beberapa daerah di Kalimantan Selatan, kue ini juga dikenal dengan
+          nama <strong>Puracit</strong>. Pembuatan wadai puracit ini terbilang
+          cukup rumit dan memerlukan ketelatenan.
+        </p>
+
+        <p>
+          <strong>Bahan utama</strong> yang digunakan untuk membuat wadai putu
+          mayang antara lain <strong>tepung beras</strong>,
+          <strong>tepung tapioka</strong>, <strong>santan kelapa</strong>, dan
+          <strong>gula</strong>. Cara pembuatannya dimulai dengan mencampurkan
+          semua bahan tersebut dalam wadah, lalu diaduk hingga rata sambil
+          dipanaskan di atas api kecil.
+        </p>
+
+        <p>
+          Setelah adonan menjadi <strong>kental</strong>, adonan diangkat dan
+          didinginkan terlebih dahulu. Selanjutnya, adonan dimasukkan ke dalam
+          <strong>cetakan putu mayang</strong> yang terbuat dari seng atau
+          aluminium, dengan lubang-lubang kecil sebesar jarum.
+        </p>
+
+        <p>
+          Di bawah cetakan tersebut sudah disiapkan
+          <strong>daun pisang</strong> yang telah diolesi dengan minyak kelapa
+          agar tidak lengket. Adonan yang telah dimasukkan ke cetakan kemudian
+          ditekan hingga keluar membentuk
+          <strong>lajuran-lajuran halus</strong>, lalu disusun bertumpuk-tumpuk
+          sesuai ukuran yang diinginkan.
+        </p>
+
+        <p>
+          <strong>Putu Mayang</strong> biasanya dibuat dalam dua varian warna,
+          yaitu <strong>habang (merah)</strong> dan <strong>putih</strong>. Putu
+          mayang merah menggunakan <strong>gula merah</strong> sebagai
+          pemanisnya, sedangkan versi putih dimasak tanpa gula, tetapi saat
+          disajikan biasanya ditambahkan
+          <strong>kuah rebusan gula merah</strong> dan
+          <strong>parutan kelapa muda</strong> untuk menambah cita rasa.
+        </p>
+      </div>
+      <div class="lanjut" onclick="lanjut4()">
+        <img
+          src="/static/Image/lanjut.png"
+          alt="gambar_lanjut"
+          class="gambar_lanjut"
+        />
+      </div>
+      <div class="kembali" id="buat_kembali" onclick="kembali3()">
+        <img
+          src="/static/Image/kembali.png"
+          alt="kembali"
+          class="gambar_lanjut"
+        />
+      </div>
+    </div>
+
+    <div
+      class="kmateri"
+      id="materi5"
+      style="display: none; background-color: #f4b9a6"
+    >
+      <img
+        src="/static/Image/wadai-roti_baras-habang.png"
+        alt="rumah_gambar"
+        class="bubungan_tinggi"
+        style="left: 140px"
+      />
+      <div class="rumah_a">
+        <div class="nama_rumah2" style="left: 96px">
+          Wadai Roti Baras Habang
+        </div>
+      </div>
+      <div class="mtrumah_adat">
+        <p>
+          <strong>Roti baras habang</strong>, atau roti beras merah, dinamakan
+          demikian karena warnanya yang <strong>merah kecoklatan</strong> akibat
+          campuran <strong>gula merah</strong> di dalamnya. Kue tradisional ini
+          memiliki cita rasa manis gurih dan aroma khas yang menggugah selera.
+        </p>
+
+        <p>
+          Bahan utama yang digunakan untuk membuat
+          <strong>roti baras habang</strong> adalah
+          <strong>tepung beras</strong>, <strong>gula merah</strong>,
+          <strong>tapai singkong</strong>, dan sedikit <strong>garam</strong>.
+          Cara membuatnya cukup sederhana: campurkan tepung beras, serutan gula
+          merah, dan tapai singkong, lalu tambahkan sedikit air sambil diaduk
+          hingga menjadi adonan yang lembut. Diamkan adonan tersebut beberapa
+          saat hingga mengembang.
+        </p>
+
+        <p>
+          Selanjutnya, siapkan <strong>cetakan kuningan</strong> berbentuk
+          bundar yang memiliki tujuh lubang. Panaskan cetakan di atas api dan
+          olesi dengan <strong>minyak kelapa</strong> agar tidak lengket.
+          Setelah cukup panas, tuangkan adonan ke dalam setiap lubang bisa diisi
+          penuh atau sepertiganya, sesuai selera. Sementara itu, panaskan
+          <strong>penutup cetakan (panai)</strong> yang akan digunakan untuk
+          menutup bagian atas. Dalam waktu kurang lebih
+          <strong>15 menit</strong>, roti baras habang akan matang sempurna dan
+          siap disajikan.
+        </p>
+      </div>
+
+      <div class="kembali" id="buat_kembali" onclick="kembali4()">
+        <img
+          src="/static/Image/kembali.png"
+          alt="kembali"
+          class="gambar_lanjut"
+        />
+      </div>
+    </div>
+    <img src="/static/Image/ornamen.png" class="ornamen-banjar" />
+    <img
+      src="/static/Image/ornamen_2.png"
+      class="ornamen-banjar"
+      style="left: -200px; bottom: -130px; width: 700px"
+    />
+    <script src="/static/js/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stage 3 - Quiz</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/quiz.css') }}"
+    />
+
+    <style>
+      /* ===============================
+        🌟 RESPONSIVE MOBILE FIX
+      ================================ */
+      @media (max-width: 768px) {
+        body {
+          text-align: center;
+          overflow-x: hidden;
+        }
+        .back {
+          position: absolute !important;
+          width: 48px;
+          height: 48px;
+          top: 12px;
+          left: 12px;
+          margin: 0 !important;
+          z-index: 12000;
+        }
+        .gambar_back {
+          width: 28px;
+          height: 28px;
+          top: 10px;
+          left: 10px;
+        }
+        .kotak_materi_diatas {
+          width: 50%;
+          height: 60px;
+          margin-top: 20px;
+          border-radius: 40px;
+          font-size: 18px;
+        }
+        .tulisan_materi_diatas {
+          font-size: 22px;
+        }
+        .container-cerita {
+          width: 90%;
+          height: auto;
+          min-height: 400px;
+          top: 130px;
+          padding: 25px 20px;
+        }
+        .cerita {
+          font-size: 20px !important;
+          line-height: 1.6;
+          text-align: justify;
+        }
+        .cerita::first-letter {
+          font-size: 37.5px;
+          font-weight: 700;
+          color: #f5a623;
+          float: left;
+          margin-right: 6px;
+          margin-top: -20px;
+          margin-bottom: -10px;
+        }
+        #soal_lanjut {
+          position: relative;
+          margin-top: 25px;
+          font-size: 20px !important;
+          width: 80%;
+        }
+        .quiz-container {
+          width: 90%;
+          padding: 25px;
+          top: 150px;
+        }
+        .question {
+          font-size: 20px;
+        }
+        .options button {
+          width: 100%;
+          font-size: 18px;
+          padding: 12px;
+        }
+        .next-btn {
+          width: 60%;
+          font-size: 18px;
+          padding: 10px;
+        }
+        .result {
+          font-size: 18px;
+        }
+        .result-box {
+          font-size: 18px;
+          padding: 15px;
+        }
+        .materi-btn {
+          font-size: 18px;
+          padding: 10px 20px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="{{ url_for('quiz') }}">
+      <div class="back">
+        <img
+          src="/static/Image/back.png"
+          alt="gambar kembali"
+          class="gambar_back"
+        />
+      </div>
+    </a>
+
+    <div class="kotak_materi_diatas">
+      <div class="tulisan_materi_diatas">Stage 3 - Quiz</div>
+    </div>
+
+    <div class="quiz-container" style="display: none">
+      <div id="quiz">
+        <div class="question" id="question"></div>
+        <div class="options" id="options"></div>
+        <button class="next-btn" id="nextBtn">Next</button>
+      </div>
+      <div class="result" id="result"></div>
+    </div>
+
+    <div class="container-cerita">
+      <div class="cerita-scroll">
+        <p class="cerita">
+          Setelah melihat Rumah Bubungan Tinggi, nenek mengajakmu ke Balai Bini
+          🌸. Ia tersenyum hangat dan berkata, “Dahulu rumah ini dihuni oleh
+          putri sultan atau keluarga bangsawan perempuan.” <br /><br />
+          Bentuk rumah segi empat memanjang dengan atap berbentuk perisai, yang
+          disebut rumah gajah, melambangkan perlindungan bagi wanita dan
+          menunjukkan kehati-hatian serta rasa hormat terhadap anggota keluarga
+          perempuan pada masa itu. <br /><br />
+          Di kanan dan kiri bangunan utama terdapat anjung dengan atap pisang
+          sasikat 🍌. Bentuk atapnya menyerupai sesisir pisang yang rapi,
+          sehingga dinamakan demikian. Anjung tidak hanya menambah ruang
+          fungsional tetapi juga memperkuat simetri estetika rumah. <br /><br />
+          Bagian depan rumah memiliki satu pintu utama dan jendela di kanan
+          serta kiri, sedangkan terasnya dikelilingi pagar kayu berukir kembang
+          bogam atau bentuk geometris yang disebut kandang rasi. <br /><br />
+          Empat tiang besar menyangga teras depan, membuat rumah tampak kokoh
+          dan megah 🏛️. Seluruh atap rumah menggunakan sirap kayu ulin yang
+          tahan air, sedangkan bangunan utama juga terbuat dari kayu ulin atau
+          kayu besi yang kuat dan tahan rayap. <br /><br />
+          Warna rumah mengikuti kayu alami dari coklat kekuningan hingga coklat
+          tua seiring waktu, dihiasi dengan ukiran khas Banjar yang indah dan
+          penuh filosofi ✨. <br /><br />
+          Rumah Balai Bini biasanya menghadap ke arah sungai 🌊, karena
+          masyarakat Banjar sangat bergantung pada kehidupan sungai.
+          <br /><br />
+          Kamu mengangguk kagum, merasakan suasana hangat dan penuh cerita di
+          Balai Bini. Nenek tersenyum, “Setiap ukiran dan bagian rumah ini
+          memiliki makna, Nak. Rumah ini bukan hanya tempat tinggal, tapi juga
+          simbol budaya dan filosofi hidup kami.” 😍
+        </p>
+      </div>
+      <button id="soal_lanjut" onclick="soal_lanjut()">Lanjut</button>
+    </div>
+
+    <script>
+      // ==============================
+      // DATA PERTANYAAN QUIZ
+      // ==============================
+      const quizData = [
+        {
+          question: "Siapa yang dahulu menghuni Balai Bini?",
+          options: [
+            "Para prajurit Kesultanan Banjar yang menjaga keamanan",
+            "Para putri sultan atau keluarga bangsawan perempuan",
+            "Pedagang pasar lokal yang berdagang setiap hari",
+            "Petani lokal yang tinggal di sekitar halaman rumah",
+          ],
+          answer: "Para putri sultan atau keluarga bangsawan perempuan",
+        },
+        {
+          question: "Apa bentuk atap utama Balai Bini dan maknanya?",
+          options: [
+            "Berbentuk perisai, melindungi wanita",
+            "Berbentuk pelana, melambangkan keberanian",
+            "Berbentuk datar, melambangkan kesederhanaan",
+            "Berbentuk segitiga, melambangkan keseimbangan",
+          ],
+          answer: "Berbentuk perisai, melindungi wanita",
+        },
+        {
+          question: "Apa itu anjung pada Balai Bini?",
+          options: [
+            "Teras depan rumah yang digunakan untuk menyambut tamu",
+            "Pintu utama rumah yang menghubungkan ruang dalam dan luar",
+            "Atap sindang langit yang menjadi ciri khas dekorasi rumah",
+            "Ruang tambahan di kanan dan kiri dengan atap pisang sasikat",
+          ],
+          answer: "Ruang tambahan di kanan dan kiri dengan atap pisang sasikat",
+        },
+        {
+          question: "Apa itu rumah gajah dalam Balai Bini?",
+          options: [
+            "Bangunan utama dengan atap perisai",
+            "Teras yang digunakan untuk pertunjukan budaya",
+            "Bangunan khusus penyimpanan barang berharga",
+            "Ruang tamu untuk menerima tamu kerajaan",
+          ],
+          answer: "Bangunan utama dengan atap perisai",
+        },
+        {
+          question: "Apa fungsi kandang rasi pada Balai Bini?",
+          options: [
+            "Hanya dekorasi tanpa makna khusus agar rumah mudah dipelihara",
+            "Tempat menyimpan peralatan dapur dan kebutuhan sehari-hari",
+            "Pagar kayu berpola ukiran khas Banjar yang menambah keindahan",
+            "Tempat penyimpanan senjata tradisional suku Banjar",
+          ],
+          answer:
+            "Pagar kayu berpola ukiran khas Banjar yang menambah keindahan",
+        },
+        {
+          question: "Mengapa Balai Bini biasanya menghadap sungai?",
+          options: [
+            "Supaya mudah dipelihara dan dilalui aktivitas sehari-hari",
+            "Agar terlihat megah dan memukau dari kejauhan",
+            "Hanya kebetulan arah bangunan tanpa makna khusus",
+            "Karena masyarakat Banjar dekat dengan kehidupan sungai",
+          ],
+          answer: "Karena masyarakat Banjar dekat dengan kehidupan sungai",
+        },
+      ];
+
+      let currentQuestion = 0;
+      let score = 0;
+      let startTime; // Variabel waktu mulai
+
+      const questionEl = document.getElementById("question");
+      const optionsEl = document.getElementById("options");
+      const nextBtn = document.getElementById("nextBtn");
+      const resultEl = document.getElementById("result");
+
+      function loadQuestion() {
+        const current = quizData[currentQuestion];
+        questionEl.textContent = current.question;
+        optionsEl.innerHTML = "";
+        nextBtn.style.display = "none";
+        current.options.forEach((opt) => {
+          const btn = document.createElement("button");
+          btn.textContent = opt;
+          btn.onclick = () => checkAnswer(btn, opt);
+          optionsEl.appendChild(btn);
+        });
+      }
+
+      function checkAnswer(btn, selected) {
+        const correct = quizData[currentQuestion].answer;
+        const buttons = optionsEl.querySelectorAll("button");
+        buttons.forEach((b) => (b.disabled = true));
+        if (selected === correct) {
+          btn.classList.add("correct");
+          score++;
+        } else {
+          btn.classList.add("wrong");
+          buttons.forEach((b) => {
+            if (b.textContent === correct) b.classList.add("correct");
+          });
+        }
+        nextBtn.style.display = "inline-block";
+      }
+
+      nextBtn.addEventListener("click", () => {
+        currentQuestion++;
+        if (currentQuestion < quizData.length) {
+          loadQuestion();
+        } else {
+          finishQuiz();
+        }
+      });
+
+      function finishQuiz() {
+        document.getElementById("quiz").style.display = "none";
+
+        // 1. Hitung durasi pengerjaan
+        const endTime = new Date();
+        const durasiDetik = Math.floor((endTime - startTime) / 1000);
+
+        const minCorrect = Math.ceil(quizData.length / 2);
+
+        // 2. Kirim ke database (Stage 3)
+        fetch("/api/submit_quiz", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            game_name: "quiz",
+            stage: 3,
+            score: score,
+            total_soal: quizData.length,
+            time_taken: durasiDetik,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            resultEl.innerHTML = `<strong>Kamu menjawab ${score}/${quizData.length} dengan benar!</strong><br>
+                                  <small>Waktu pengerjaan: ${durasiDetik} detik</small><br><br>`;
+
+            if (data.passed) {
+              resultEl.innerHTML += `
+                <div class="result-box success">
+                  🎉 Selamat! Kamu berhasil menjawab minimal ${minCorrect} soal dengan benar.<br>
+                  Stage berikutnya telah terbuka!
+                </div>`;
+
+              setTimeout(() => {
+                window.location.href = "{{ url_for('quiz') }}";
+              }, 3500);
+            } else {
+              resultEl.innerHTML += `
+                <div class="result-box fail">
+                  😢 Kamu hanya menjawab ${score} dari ${quizData.length} dengan benar.<br>
+                  <p>Pelajari kembali materinya sebelum mencoba lagi.</p>
+                  <a href="{{ url_for('materi') }}" class="materi-btn">📖 Lihat Materi</a>
+                </div>`;
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("Terjadi kesalahan saat menyimpan nilai.");
+          });
+      }
+
+      function shuffleQuestions(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+      }
+
+      function soal_lanjut() {
+        document.querySelector(".container-cerita").style.display = "none";
+        document.querySelector(".quiz-container").style.display = "block";
+        startTime = new Date(); // Mulai hitung waktu tepat saat quiz muncul
+      }
+
+      // Jalankan acak soal dan muat soal pertama
+      shuffleQuestions(quizData);
+      loadQuestion();
+    </script>
+  </body>
+</html>

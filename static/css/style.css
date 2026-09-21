@@ -1,0 +1,1393 @@
+/* buat background yang ada pada home */
+.bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../Image/Background_Home2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  /* geser posisi background */
+  background-position: center -206px; /* X = center, Y = 50px */
+  z-index: -1;
+  opacity: 0.87;
+}
+
+/* style konten */
+body {
+  font-family: "Fredoka";
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f7f1e5;
+  text-align: end;
+}
+/* untuk kotak login yang warna nya ada dua itu */
+.kotak_biru {
+  border: 3px solid black;
+  height: 600px;
+  width: 800px;
+  background-color: #839cff;
+  border-radius: 90px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+}
+
+.kotak_biru_muda {
+  height: 525px;
+  width: 725px;
+  background-color: #d2ddff;
+  border-radius: 90px;
+  border: 3px solid black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  color: black;
+  font-family: "Fredoka";
+  font-weight: 500;
+}
+
+/* untuk  input username pada logiin*/
+.username {
+  margin-top: -5px;
+  margin-right: 45px;
+  width: 620px;
+  height: 79px;
+  border-radius: 90px;
+  font-size: 30px;
+  background-color: #839cff;
+  color: black;
+  border: none;
+  font-family: "Fredoka";
+  font-weight: 500;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  border: 3px solid black;
+}
+/* untuk tulisan username pada login */
+.textuser {
+  margin-top: 75px;
+  margin-right: 305px;
+  color: black;
+  font-family: "Fredoka";
+  font-weight: 500;
+}
+/* untuk inputan password didalam login */
+.password {
+  margin-top: -5px;
+  margin-right: 45px;
+  width: 620px;
+  height: 79px;
+  border-radius: 90px;
+  font-size: 30px;
+  background-color: #839cff;
+  color: black;
+  border: none;
+  font-family: "Fredoka";
+  font-weight: 500;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  border: 3px solid black;
+}
+
+/* untuk tulisan passord dan email nya */
+.passworduser {
+  margin-top: 75px;
+  margin-right: 305px;
+  color: black;
+  font-family: "Fredoka";
+  font-weight: 500;
+}
+
+/* untuk menggeser item yang ada dalam dua kotak biru  */
+.fleksibel {
+  margin-top: -25px;
+  z-index: 100;
+}
+.fleksibel2 {
+  margin-top: -50px;
+  z-index: 100;
+}
+
+/* untuk btn login nya */
+.btnlogin {
+  font-size: 30px;
+  text-decoration: none;
+  color: black;
+  margin-top: 2px;
+  margin-left: -110px;
+  position: absolute;
+  font-family: "Fredoka";
+  font-weight: 500;
+}
+
+/* untuk btn sign nya */
+.btnsign {
+  font-size: 19px;
+  text-decoration: none;
+  color: black;
+  margin-top: 5px;
+  margin-left: -101px;
+  position: absolute;
+  font-family: "Fredoka";
+  font-weight: 500;
+}
+
+/* untuk latar belakang btnloginnya */
+.bgsign {
+  background-color: #deba03;
+  border-radius: 90px;
+  width: 150px;
+  height: 40px;
+  margin-left: 290px;
+  margin-top: 50px;
+  border: 3px solid black;
+}
+.bglogin {
+  background-color: #deba03;
+  border-radius: 90px;
+  width: 150px;
+  height: 46px;
+  margin-left: 290px;
+  margin-top: 50px;
+  border: 3px solid black;
+}
+
+/* untuk mengubah warna latar btnlogin jadi warna lain ketika corsor diarahkan ke item */
+.bglogin:hover {
+  background-color: #caac14;
+  transform: scale(1.05);
+}
+.bgsign:hover {
+  background-color: #caac14;
+  transform: scale(1.05);
+}
+
+/* buat menggeser semua item yang ada didalam kotak tulisan login yang ada diatas  */
+.untuklogin {
+  color: black;
+}
+
+/* untuk kotak loginnya */
+.kotaklogin {
+  background-color: #00b515;
+  height: 110px;
+  width: 533px;
+  z-index: 200;
+  position: absolute;
+  border-radius: 90px;
+  left: 500px;
+  top: 20px;
+  border: 3.6px solid black;
+}
+
+/* tulisan login */
+.tulisanlogin {
+  font-size: 50px;
+  margin-left: 706px;
+  position: absolute;
+  z-index: 300;
+  margin-top: 45px;
+  font-family: "Fredoka";
+  font-weight: 500;
+}
+
+/* tulisan login */
+.tulisansign {
+  font-size: 50px;
+  margin-left: 675px;
+  position: absolute;
+  z-index: 300;
+  margin-top: 45px;
+  font-family: "Fredoka";
+  font-weight: 500;
+}
+
+/* tulisan tidak ada akun */
+.belum_ada_akun {
+  color: black;
+  font-size: 19px;
+  margin-right: 220px;
+  margin-top: 11px;
+  font-family: "Fredoka";
+  font-weight: 500;
+}
+
+/* ini link buat belum punya akun */
+.link_belum_punya_akun {
+  text-decoration: none;
+  color: rgb(46, 36, 186);
+}
+.link_belum_punya_akun:hover {
+  color: #5275fe;
+}
+
+/* teks ada akun */
+.sudah_ada_akun {
+  color: black;
+  font-size: 19px;
+  margin-right: 282px;
+  margin-top: 3px;
+  font-family: "Fredoka";
+  font-weight: 500;
+  white-space: nowrap; /* agar tetap 1 baris */
+  text-align: center;
+}
+
+/* link jika sudah ada akun */
+.link_sudah_punya_akun {
+  text-decoration: none;
+  color: rgb(46, 36, 186);
+}
+.link_sudah_punya_akun:hover {
+  color: #5275fe;
+}
+
+/* tulisan password dan email*/
+#passworduser {
+  margin-top: 15px;
+}
+#emailuser {
+  margin-top: 15px;
+  margin-right: 330px;
+}
+#emailuserl {
+  margin-top: 57px;
+  margin-right: 330px;
+}
+
+#bglogin {
+  margin-top: 18px;
+}
+
+/* buat tombol x */
+
+.buatx {
+  background-color: #e6cfa9;
+  height: 80px;
+  width: 80px;
+  border-radius: 90px;
+  margin-left: 1440px;
+  margin-top: 10px;
+  z-index: 1;
+  /* display: none; */
+  font-size: medium;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  border: 3.5px solid black;
+  transition: transform 0.1s, opacity 0.1s;
+}
+.buatx:hover {
+  background-color: rgb(218, 25, 25);
+  transform: scale(1.05);
+}
+.linkx {
+  margin-right: 26px;
+  bottom: -15.4px;
+  position: relative;
+  text-decoration: none;
+  font-size: 40px;
+  color: black;
+  font-family: "Fredoka";
+  font-weight: 500;
+}
+/* buat orang x */
+
+.profil {
+  background-color: #e6cfa9;
+  height: 80px;
+  width: 80px;
+  border-radius: 90px;
+  margin-left: 1335px;
+  margin-top: -85px;
+  z-index: 1;
+  /* display: none; */
+  font-size: medium;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  border: 3.5px solid black;
+}
+.profil:hover {
+  background-color: #b1b1b1;
+  transform: scale(1.05);
+}
+.profiluser {
+  margin-right: 29px;
+  bottom: -28px;
+  position: relative;
+  text-decoration: none;
+  font-size: 30px;
+  color: black;
+}
+.gambarorang {
+  width: 50px;
+  height: 50px;
+  margin-left: -35.5px;
+  bottom: -4px;
+  position: absolute;
+}
+
+.tulisantemaa {
+  color: black;
+  right: 500px;
+  font-size: 50px;
+  font-family: "Fredoka";
+  font-weight: 500;
+}
+
+/* buat leaderboarnya */
+.leaderboard {
+  background-color: #e6cfa9;
+  height: 80px;
+  width: 80px;
+  border-radius: 90px;
+  top: 550px;
+  right: 20px;
+  z-index: 1;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  font-size: medium;
+  position: absolute;
+  border: 3.5px solid black;
+}
+.leaderboard:hover {
+  background-color: #b1b1b1;
+  transform: scale(1.05);
+}
+
+.gambar_leaderboard {
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+/* buat setting */
+.setting {
+  background-color: #e6cfa9;
+  height: 80px;
+  width: 80px;
+  border-radius: 90px;
+  right: 20px;
+  top: 650px;
+  z-index: 1;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  font-size: medium;
+  position: absolute;
+  border: 3.5px solid black;
+}
+.setting:hover {
+  background-color: #b1b1b1;
+  transform: scale(1.05);
+}
+
+.gambar_setting {
+  width: 55px;
+  height: 55px;
+  margin-right: 12.5px;
+  margin-top: 12.5px;
+}
+
+/* buat gambar tulisan */
+.gambartulisan {
+  height: 650px;
+  width: 650px;
+  position: absolute;
+  left: 440px;
+  top: -116px;
+}
+
+/* buat materi */
+.materi {
+  background-color: #deba03;
+  height: 120px;
+  width: 120px;
+  border-radius: 90px;
+  position: absolute;
+  right: 820px;
+  bottom: 250px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  border: 3.2px solid black;
+}
+.materi:hover {
+  background-color: #a38908;
+  transform: scale(1.05);
+}
+
+/* buat link game */
+.game {
+  background-color: #fa8e7d;
+  height: 120px;
+  width: 120px;
+  border-radius: 90px;
+  position: absolute;
+  left: 800px;
+  bottom: 251px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  border: 3.2px solid black;
+}
+.game:hover {
+  background-color: #b65749;
+  transform: scale(1.05);
+}
+
+/*buat materi buku */
+.buku {
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  right: 26px;
+  bottom: 22px;
+}
+
+/* buat gambar play */
+.play {
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  right: 20px;
+  bottom: 24px;
+}
+
+/* buat x  */
+.x {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  left: -38.5px;
+  bottom: -2.4px;
+}
+
+/* buat back atau kembali */
+.back {
+  background-color: #e6cfa9;
+  height: 80px;
+  border-radius: 90px;
+  width: 80px;
+  left: 25px;
+  position: absolute;
+  top: 25px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  border: 3.5px solid black;
+  transition: transform 0.1s, opacity 0.1s;
+}
+.back:hover {
+  background-color: rgb(218, 25, 25);
+  transform: scale(1.05);
+}
+.gambar_back {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+
+/* buat tulisan materi diatas tengah */
+.kotak_materi_diatas {
+  background-color: #85d4ff;
+  height: 110px;
+  width: 533px;
+  z-index: 200;
+  position: absolute;
+  border-radius: 90px;
+  margin-left: 500px;
+  margin-top: 30px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  border: 5px solid black;
+}
+.tulisan_materi_diatas {
+  font-size: 50px;
+  top: 20px;
+  position: absolute;
+  z-index: 300;
+  left: 185px;
+  font-family: "Fredoka";
+  font-weight: 500;
+  color: black;
+}
+
+/* buat materi rumah adat */
+.kotak_materi_panjang {
+  background-color: #deba03;
+  width: 300px;
+  height: 450px;
+  position: absolute;
+  border-radius: 50px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  left: 380px;
+  top: 200px;
+  border: 5px solid black;
+}
+.kotak_materi_panjang:hover {
+  background-color: #a38908;
+  transform: scale(1.05);
+}
+#kotak_materi_2 {
+  left: 850px;
+  background-color: #fa8e7d;
+}
+#kotak_materi_2:hover {
+  background-color: #b65749;
+  transform: scale(1.05);
+}
+
+/* gambar makanan */
+.gambar_makanan {
+  height: 200px;
+  left: 60px;
+  top: 50px;
+  position: absolute;
+}
+
+/* gambar rumah */
+.gambar_rumah {
+  height: 200px;
+  position: absolute;
+  left: 60px;
+  top: 50px;
+}
+
+/* tulisan rumah adat dan kue*/
+.tulisan_rumah_adat {
+  color: black;
+  font-size: 45px;
+  position: absolute;
+  font-family: "Fredoka";
+  font-weight: 500;
+  left: 28px;
+  bottom: 60px;
+}
+#kue {
+  left: 48px;
+}
+
+/* tulisan rumah adat diatas */
+#rumah_1 {
+  left: 132px;
+}
+
+.kmateri {
+  height: 565px;
+  width: 800px;
+  background-color: #c56759;
+  border-radius: 30px;
+  position: absolute;
+  left: 371px;
+  bottom: 30px;
+  border: 5px solid black;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* buat menghilangkan scroll bar sama agar bisa discroll */
+.mtrumah_adat {
+  width: 750px;
+  height: 150px;
+  overflow: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: black;
+  font-family: "Fredoka";
+  font-weight: 500;
+  text-align: justify;
+  border-radius: 30px;
+  font-size: 20px;
+  position: absolute;
+  bottom: 0px;
+  left: 15px;
+  border: none;
+  /* Hilangkan scrollbar */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+}
+
+.mtrumah_adat::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* buat tulisan rumah adat nya */
+.rumah_a {
+  background-color: rgb(215, 215, 215);
+  height: 76px;
+  width: 500px;
+  border-radius: 50px;
+  left: 150px;
+  bottom: 170px;
+  position: absolute;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  border: 5px solid black;
+}
+.nama_rumah {
+  color: black;
+  font-family: "Fredoka";
+  font-weight: 500;
+  font-size: 28px;
+  left: 98px;
+  bottom: 23px;
+  position: absolute;
+}
+.nama_rumah2 {
+  color: black;
+  font-family: "Fredoka";
+  font-weight: 500;
+  font-size: 28px;
+  left: 145px;
+  bottom: 23px;
+  position: absolute;
+}
+
+/* gambar rumah  */
+.bubungan_tinggi {
+  height: 350px;
+  position: absolute;
+  left: 111px;
+  top: -50px;
+  border-radius: 10px;
+  width: 570px;
+  filter: drop-shadow(0px 6px 10px rgba(0, 0, 0, 0.25));
+  /* box-shadow: 0px 5px 0px rgba(0, 0, 0, 0.22); */
+}
+
+/* buat tombol next sama back buat materi */
+.lanjut {
+  background-color: #e6cfa9;
+  height: 75px;
+  width: 90px;
+  border-radius: 30px;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.28);
+  position: absolute;
+  right: -120px;
+  top: 280px;
+  cursor: pointer;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  border: 4px solid black;
+}
+.lanjut:hover {
+  background-color: #b1b1b1;
+  transform: scale(1.05);
+}
+
+/* buat gambar lanjut */
+.gambar_lanjut {
+  height: 60px;
+  left: 15px;
+  top: 8.5px;
+  position: absolute;
+}
+/* buat kembali */
+.kembali {
+  background-color: #e6cfa9;
+  height: 75px;
+  width: 90px;
+  border-radius: 30px;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.28);
+  position: absolute;
+  left: -120px;
+  top: 288px;
+  cursor: pointer;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  border: 4px solid black;
+}
+.kembali:hover {
+  background-color: #b1b1b1;
+  transform: scale(1.05);
+}
+
+/* buat gameplay ke tiga */
+#kotak_materi_3 {
+  background-color: rgb(113, 184, 113);
+}
+#kotak_materi_3:hover {
+  background-color: rgb(84, 151, 84);
+}
+
+/* buat quiz */
+.quiz-container {
+  /* display: flex;
+  align-items: flex-start; */
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  width: 850px;
+  position: absolute;
+  left: 310px;
+  top: 180px;
+  height: 480px;
+  border: 4px solid black;
+}
+
+/* Timer vertikal */
+.timer-container {
+  width: 20px;
+  height: 370px;
+  background: #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  position: absolute;
+  left: -70px;
+  top: 60px;
+
+  border: 4px solid black;
+}
+
+.timer-bar {
+  width: 100%;
+  background: #007bff;
+  height: 100%;
+  transition: height 0.1s linear;
+}
+
+/* .content {
+  flex: 1;
+} */
+.question {
+  font-size: 18px;
+  left: 30px;
+  position: absolute;
+  font-family: "Fredoka";
+  font-weight: 500;
+  color: black;
+}
+.options {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  flex-wrap: wrap;
+  margin-top: 110px;
+  font-family: "Fredoka";
+  font-weight: 500;
+  color: black;
+}
+
+/* Gaya dasar tombol */
+.options button {
+  width: 120px;
+  padding: 20px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.3s;
+  height: 140px;
+  width: 200px;
+  border: 4px solid black;
+  box-shadow: 0 0px 5px rgba(0, 0, 0, 0.9);
+  font-family: "Fredoka";
+  font-weight: 500;
+  color: black;
+  font-size: 23px;
+}
+
+/* Warna berbeda untuk setiap tombol */
+.options button:nth-child(1) {
+  background-color: #e74c3c; /* merah */
+}
+
+.options button:nth-child(2) {
+  background-color: #3498db; /* biru */
+}
+
+.options button:nth-child(3) {
+  background-color: #2ecc71; /* hijau */
+}
+
+/* Efek hover */
+.options button:hover {
+  transform: scale(1.05);
+  opacity: 0.85;
+}
+
+.question-image {
+  width: 100%;
+  max-height: 250px;
+  object-fit: contain;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  margin-top: -30px;
+}
+.score {
+  text-align: center;
+  margin-top: 10px;
+  font-family: "Fredoka";
+  font-weight: 500;
+  color: black;
+  font-size: 40px;
+  position: absolute;
+  left: 277px;
+  top: 220px;
+}
+
+/* sagan matching nih */
+
+.game-area {
+  display: flex;
+  gap: 80px;
+}
+
+.drop-zones {
+  display: flex;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
+  gap: 100px;
+  /* align-items: center; */
+  position: absolute;
+  left: 235px;
+}
+.drag-items {
+  display: flex;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
+  gap: 100px;
+  /* align-items: center; */
+  position: absolute;
+  left: 235px;
+  top: 300px;
+}
+
+.item {
+  width: 167px;
+  height: 167px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: grab;
+  overflow: hidden;
+  background-color: white;
+  border: 2px solid #ccc;
+}
+
+.item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.zone {
+  width: 180px;
+  height: 180px;
+  border: 3px dashed #999;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center; /* Horizontal center */
+  align-items: center; /* Vertical center */
+  text-align: center; /* Kalau teksnya panjang, tetap rata tengah */
+  font-weight: bold;
+  background-color: #fafafa;
+  font-family: "Fredoka";
+  font-weight: 500;
+  font-size: 24px;
+  color: rgb(123, 122, 122);
+  box-sizing: border-box; /* Biar padding/border tidak ganggu ukuran */
+  padding: 10px; /* Biar teks tidak mepet pinggir */
+}
+
+.correct {
+  background-color: #7ed957 !important;
+  border: 3px solid #6cc644;
+  font-family: "Fredoka";
+  font-weight: 500;
+  color: black;
+  font-size: 25px;
+}
+
+.wrong {
+  background-color: #ff5c5c !important;
+  border: 3px solid #e04848;
+  font-family: "Fredoka";
+  font-weight: 500;
+  color: black;
+  font-size: 25px;
+}
+
+#result {
+  margin-top: 20px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+#scoreDisplay {
+  font-size: 30px;
+  margin-top: 10px;
+  color: #333;
+  display: none;
+  position: absolute;
+  top: 400px;
+  left: 640px;
+  font-family: "Fredoka";
+  font-weight: 500;
+  color: black;
+}
+
+#restartBtn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #4a90e2;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  display: none;
+  position: absolute;
+  left: 710px;
+  top: 450px;
+  font-family: "Fredoka";
+  font-weight: 500;
+  color: black;
+  border: 2px solid black;
+  box-shadow: 0 0px 1px rgba(0, 0, 0, 0.9);
+}
+
+#restartBtn:hover {
+  background-color: #3a7acc;
+}
+
+/* buat help */
+.help {
+  width: 670px;
+  height: 503.7px;
+  overflow: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: black;
+  font-family: "Fredoka";
+  font-weight: 500;
+  text-align: center;
+  border-radius: 30px;
+  font-size: 20px;
+  position: absolute;
+  top: 0px;
+  left: 15px;
+  border: none;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+}
+
+.help::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.help h2 {
+  font-size: 30px;
+  color: #0057b7;
+  margin-bottom: 10px;
+}
+
+.help h3 {
+  color: #0b5394;
+  margin-top: 15px;
+}
+
+.help ul {
+  text-align: left;
+  margin-left: 60px;
+}
+
+.help p {
+  text-align: justify;
+  margin: 10px 30px;
+}
+
+.help strong {
+  color: #1e3a8a;
+}
+
+.help em {
+  color: #10b981;
+  font-style: normal;
+}
+
+/* === STAGE POPUP === */
+.stage-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.stage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  width: 80%;
+  max-width: 700px;
+  padding: 15px 25px;
+  border-radius: 15px 15px 0 0;
+  font-family: "Fredoka", sans-serif;
+}
+
+.stage-header h2 {
+  font-size: 28px;
+  color: #333;
+}
+
+.close-btn {
+  background: crimson;
+  border: none;
+  color: white;
+  font-size: 20px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.stage-scroll {
+  width: 80%;
+  max-width: 700px;
+  background: #fff;
+  border-radius: 0 0 15px 15px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scroll-behavior: smooth;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Hilangkan scrollbar */
+.stage-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.stage-list {
+  display: inline-flex;
+  gap: 20px;
+}
+
+.stage-box {
+  width: 120px;
+  height: 120px;
+  background: #90caf9;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  position: relative;
+}
+
+.stage-box.locked {
+  background: #b0bec5;
+  cursor: not-allowed;
+}
+
+.stage-box.locked::after {
+  content: "🔒";
+  position: absolute;
+  font-size: 28px;
+  color: #333;
+}
+/* ===============================
+         AREA SCROLL UNTUK 9 KOTAK GAME
+         =============================== */
+.container-scroll {
+  position: relative;
+  margin: 220px auto 0 auto;
+  width: 85%; /* area scroll tidak seluruh layar */
+  height: 500px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 50px;
+  scroll-behavior: smooth;
+  border-radius: 30px;
+  padding: 20px;
+  box-sizing: border-box;
+  scrollbar-width: none; /* hilangkan scrollbar Firefox */
+  -ms-overflow-style: none;
+}
+
+.container-scroll::-webkit-scrollbar {
+  display: none; /* hilangkan scrollbar Chrome/Safari */
+}
+
+/* Override posisi absolut dari style.css */
+.container-scroll .kotak_materi_panjang {
+  position: relative !important;
+  flex: 0 0 auto;
+  top: 0 !important;
+  left: 0 !important;
+  margin: 0;
+}
+
+/* Sesuaikan ukuran agar proporsional */
+.kotak_materi_panjang {
+  width: 280px !important;
+  height: 420px !important;
+}
+
+/* Pastikan isi di tengah */
+.kotak_materi_panjang img {
+  position: relative !important;
+  display: block;
+  margin: 40px auto 0 auto;
+  left: 0 !important;
+  top: 0 !important;
+}
+
+.tulisan_rumah_adat {
+  position: relative !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  text-align: center;
+  margin-top: 25px;
+}
+/* Hilangkan garis bawah di semua link */
+.container-scroll a {
+  text-decoration: none;
+}
+
+/* Pastikan warna teks di dalam link tetap hitam */
+.container-scroll a .tulisan_rumah_adat {
+  color: black;
+}
+
+/* ============================
+   ORNAMEN BANJAR
+============================ */
+.ornamen-banjar {
+  position: fixed;
+  right: -90px;
+  bottom: -120px;
+  width: 140px;
+  opacity: 0.17;
+  z-index: -1;
+  pointer-events: none;
+  width: 420px;
+}
+
+/* ============================
+   PERBAIKAN TAMPILAN MATERI
+============================ */
+.kotak_materi_panjang {
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.kotak_materi_panjang:hover {
+  transform: scale(1.06);
+}
+
+/* Deskripsi card */
+.deskripsi-materi {
+  font-size: 20px;
+  text-align: center;
+  color: black;
+  font-family: "Fredoka";
+  margin-top: 10px;
+  width: 100%;
+  position: relative;
+  top: 130px;
+}
+
+/* Supaya teks judul card tidak terlalu bawah */
+.tulisan_rumah_adat {
+  bottom: -10px !important;
+  width: 100%;
+  text-align: center;
+  left: 0 !important;
+}
+/*  */
+/*  */
+/* ======== RESPONSIVE FIX UNTUK LOGIN ATAS ======== */
+.untuklogin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 30px;
+  gap: 15px;
+  position: relative;
+  z-index: 10;
+}
+
+.kotaklogin {
+  position: relative;
+  background-color: #00b515;
+  border: 3.6px solid black;
+  border-radius: 90px;
+  width: 40vw;
+  max-width: 550px;
+  height: 100px;
+  box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.3);
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+}
+
+.tulisanlogin {
+  position: relative;
+  font-size: clamp(35px, 4vw, 55px);
+  text-align: center;
+  color: black;
+  font-family: "Fredoka";
+  font-weight: 500;
+  margin-top: -70px;
+  left: 0 !important;
+  top: 0 !important;
+}
+/* --- CSS BARU UNTUK PROFIL RESPONSIF --- */
+.profil-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  backdrop-filter: blur(5px);
+}
+
+.profil-card {
+  background: #f7f1e5;
+  width: 90%;
+  max-width: 450px;
+  border-radius: 30px;
+  border: 4px solid #000;
+  padding: 30px;
+  box-shadow: 12px 12px 0px #000;
+  position: relative;
+  text-align: left;
+}
+
+.tutup-profil {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.profil-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.avatar-container {
+  width: 80px;
+  height: 80px;
+  background: #e6cfa9;
+  border-radius: 50%;
+  border: 3px solid #000;
+  margin: 0 auto 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.avatar-container img {
+  width: 60%;
+}
+
+.statistik-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.stat-box {
+  background: #fff;
+  padding: 12px;
+  border-radius: 15px;
+  border: 2px solid #000;
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-box span {
+  font-size: 11px;
+  color: #888;
+  text-transform: uppercase;
+}
+.stat-box strong {
+  font-size: 16px;
+  color: #000;
+}
+
+/* Warna Indikator Samping */
+.stat-box.quiz {
+  border-left: 8px solid #deba03;
+}
+.stat-box.tebak {
+  border-left: 8px solid #fa8e7d;
+}
+.stat-box.matching {
+  border-left: 8px solid #71b871;
+}
+.stat-box.waktu {
+  border-left: 8px solid #3498db;
+}
+
+.btn-logout {
+  background: #ff4d4d;
+  color: white;
+  padding: 10px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  border: 3px solid #000;
+  font-weight: bold;
+  transition: 0.2s;
+}
+.btn-logout:hover {
+  background: #cc0000;
+  transform: scale(1.05);
+}
+.stat-box small {
+  font-size: 13px;
+  color: #27ae60; /* Warna hijau biar terlihat seperti hadiah/poin */
+  font-weight: 700;
+  margin-top: 5px;
+  background: #f0fff4;
+  padding: 2px 8px;
+  border-radius: 8px;
+  width: fit-content;
+}
+
+.stat-box.quiz small {
+  color: #b88a00;
+  background: #fffdf0;
+} /* Kuning untuk Quiz */
+.stat-box.tebak small {
+  color: #c0392b;
+  background: #fff5f5;
+} /* Merah untuk Tebak */
+.stat-box.matching small {
+  color: #1e8449;
+  background: #f0fff4;
+} /* Hijau untuk Matching */
+.stat-box.waktu small {
+  color: #2980b9;
+  background: #f0f8ff;
+} /* Biru untuk Total */
+
+/* RESPONSIVE: Ubah jadi 1 kolom di HP */
+@media (max-width: 480px) {
+  .statistik-grid {
+    grid-template-columns: 1fr;
+  }
+  .profil-card {
+    padding: 20px;
+    width: 85%;
+  }
+}

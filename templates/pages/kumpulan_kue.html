@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rumah Adat Banjar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <style>
+      body {
+        margin: 0;
+        font-family: "Fredoka", sans-serif;
+        background-color: #f7f1e5;
+        /* overflow-x: hidden; */
+      }
+      html {
+        overflow-x: hidden;
+      }
+      .container {
+        width: 9  0%;
+        max-width: 1100px;
+        margin: auto;
+        padding: 30px 0;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+        margin-top: 70px;
+
+
+      }
+
+      /* Card */
+      .card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+        transition: 0.2s;
+        cursor: pointer;
+        text-decoration: none;
+        color: black;
+        border: 3.1px solid black;
+        height: 350px;
+      }
+
+      .card:hover {
+        transform: scale(1.03);
+      }
+
+      .card-body {
+        padding: 15px;
+        background: #fff;
+        text-align: center;
+      }
+
+      .card-color {
+        width: 100%;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        height: 275px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .card-color img {
+        max-width: 100%;
+       
+        /* object-fit: contain; */
+        display: block;
+        height: 100% !important;
+        width: 100%;
+        box-shadow: 2 4px 12px rgb(0, 0, 0);
+        
+      }
+
+      .label-box {
+        background: white;
+        border-radius: 20px;
+        padding: 6px 12px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 15px;
+        border: 2px solid #000000;
+        font-weight: 450;
+      }
+
+      .label-box img {
+        width: 20px;
+      }
+    
+      .kotak_materi_diatas {
+        left: -0.6%;
+        position: relative;
+        margin: 30px auto 0px auto !important;
+        width:400px;
+      }
+      .tulisan_materi_diatas {
+        font-size: 50px !important;
+        position: absolute !important;
+        top: 18px !important;
+        left: 51% !important;
+        transform: translateX(-50%);
+        width: max-content;
+      }
+
+      /* ===============================
+         RESPONSIVE UNTUK TABLET (≤ 900px)
+      ================================ */
+      @media (max-width: 900px) {
+        .container {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      /* ===============================
+         RESPONSIVE UNTUK HP (≤ 768px)
+      ================================ */
+      @media (max-width: 768px) {
+        body {
+          text-align: center;
+          overflow-x: hidden;
+        }
+
+        /* Tombol back */
+        .back {
+          position: absolute !important;
+          width: 48px;
+          height: 48px;
+          top: 12px;
+          left: 12px;
+          z-index: 9999;
+        }
+
+        .gambar_back {
+          width: 28px !important;
+          height: 28px !important;
+          top: 10px !important;
+          left: 10px !important;
+          position: absolute;
+        }
+
+        /* Kotak judul atas */
+        .kotak_materi_diatas {
+          top: 20px !important;
+          left: 22.2% !important;
+          transform: translateX(-50%);
+          width: 40% !important;
+          height: 60px !important;
+          border-width: 3px;
+          border-radius: 40px;
+          margin: 0 !important;
+          z-index: 9000;
+          position: relative !important;
+          margin: 0px auto 0px auto !important;
+        }
+
+        .tulisan_materi_diatas {
+          font-size: 18px !important;
+          position: fixed !important;
+          top: 20px !important;
+          left: 50% !important;
+          transform: translateX(-50%);
+          width: max-content;
+          text-align: center;
+        }
+
+        /* Kontainer kartu */
+        .container {
+          grid-template-columns: 1fr;
+          width: 100%;
+          margin-top: 45px;
+          gap: 20px;
+          padding: 10px;
+        }
+
+        /* Kartu */
+        .card {
+          border-radius: 20px;
+          width: 85%;
+          margin: 0 auto;
+          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+          height: 235px;
+        }
+
+        .card-color {
+          height: 160px;
+        }
+
+        .card-color img {
+          /* object-fit: contain; */
+          width: 100%;
+          height: 100%;
+          
+        }
+
+        .label-box {
+          font-size: 14px;
+          padding: 5px 10px;
+        }
+
+        /* Ornamen */
+        .ornamen-banjar {
+          width: 180px !important;
+          right: -30px !important;
+          bottom: -50px !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="{{ url_for('materi') }}">
+      <div class="back">
+        <img
+          src="/static/Image/back.png"
+          alt="gambar kembali"
+          class="gambar_back"
+        />
+      </div>
+    </a>
+
+    <div class="kotak_materi_diatas" style="top: -10px; height: 100px">
+      <div class="tulisan_materi_diatas" id="rumah_1">Kue Banjar</div>
+    </div>
+
+    <div class="container">
+      <!-- BUBUNGAN TINGGI -->
+      <a class="card" href="{{ url_for('wadai_cincin') }}">
+        <div class="card-body">
+          <div class="card-color hijau">
+            <img src="/static/Image/wadai_cincin.jpg" />
+          </div>
+          <div class="label-box">
+            Wadai Cincin
+            <img src="/static/Image/search.png" />
+          </div>
+        </div>
+      </a>
+
+
+      <!-- BALAI BINI -->
+      <a class="card" href="{{ url_for('wadai_putu_mayang') }}">
+        <div class="card-body">
+          <div class="card-color hijau2">
+            <img src="/static/Image/p21.jpeg" />
+          </div>
+          <div class="label-box">
+            Wadai Putu Mayang
+            <img src="/static/Image/search.png" />
+          </div>
+        </div>
+      </a>
+
+
+    <img src="/static/Image/ornamen.png" class="ornamen-banjar" />
+    <img
+      src="/static/Image/ornamen_2.png"
+      class="ornamen-banjar"
+      style="left: -200px; bottom: -130px; width: 700px"
+    />
+  </body>
+</html>

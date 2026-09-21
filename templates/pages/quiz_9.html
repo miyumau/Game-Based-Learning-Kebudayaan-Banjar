@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stage 9 - Quiz</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/quiz.css') }}"
+    />
+    <style>
+      /* ===============================
+        🌟 RESPONSIVE MOBILE FIX
+      ================================ */
+      @media (max-width: 768px) {
+        body {
+          text-align: center;
+          overflow-x: hidden;
+        }
+        /* Tombol Back */
+        .back {
+          position: absolute !important;
+          width: 48px;
+          height: 48px;
+          top: 12px;
+          left: 12px;
+          margin: 0 !important;
+          z-index: 12000;
+        }
+        .gambar_back {
+          width: 28px;
+          height: 28px;
+          top: 10px;
+          left: 10px;
+        }
+        /* Judul atas */
+        .kotak_materi_diatas {
+          width: 50%;
+          height: 60px;
+          margin-top: 20px;
+          border-radius: 40px;
+          font-size: 18px;
+        }
+        .tulisan_materi_diatas {
+          font-size: 22px;
+        }
+        /* Cerita container */
+        .container-cerita {
+          width: 90%;
+          height: auto;
+          min-height: 400px;
+          top: 130px;
+          padding: 25px 20px;
+        }
+        .cerita {
+          font-size: 20px !important;
+          line-height: 1.6;
+          text-align: justify;
+        }
+        /* Huruf pertama besar */
+        .cerita::first-letter {
+          font-size: 37.5px;
+          font-weight: 700;
+          color: #f5a623;
+          float: left;
+          margin-right: 6px;
+          margin-top: -20px;
+          margin-bottom: -10px;
+        }
+        #soal_lanjut {
+          position: relative;
+          margin-top: 25px;
+          font-size: 20px !important;
+          width: 80%;
+        }
+        /* Quiz container */
+        .quiz-container {
+          width: 90%;
+          padding: 25px;
+          top: 150px;
+        }
+        .question {
+          font-size: 20px;
+        }
+        .options button {
+          width: 100%;
+          font-size: 18px;
+          padding: 12px;
+        }
+        .next-btn {
+          width: 60%;
+          font-size: 18px;
+          padding: 10px;
+        }
+        .result {
+          font-size: 18px;
+        }
+        .result-box {
+          font-size: 18px;
+          padding: 15px;
+        }
+        .materi-btn {
+          font-size: 18px;
+          padding: 10px 20px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="{{ url_for('quiz') }}">
+      <div class="back">
+        <img
+          src="/static/Image/back.png"
+          alt="gambar kembali"
+          class="gambar_back"
+        />
+      </div>
+    </a>
+
+    <div class="kotak_materi_diatas">
+      <div class="tulisan_materi_diatas">Stage 9 - Quiz</div>
+    </div>
+
+    <div class="quiz-container" style="display: none">
+      <div id="quiz">
+        <div class="question" id="question"></div>
+        <div class="options" id="options"></div>
+        <button class="next-btn" id="nextBtn">Next</button>
+      </div>
+      <div class="result" id="result"></div>
+    </div>
+
+    <div class="container-cerita">
+      <div class="cerita-scroll">
+        <p class="cerita">
+          Setelah cukup berkeliling di rumah Balai Bini, nenek berkata,
+          "Sekarang kita uji apa yang sudah kamu pelajari selama ini, Nak. Ada
+          pesan rahasia yang harus kita temukan malam ini!" 🌙
+          <br /><br />
+          Ia menunjuk ke puncak tangga kayu ulin yang tinggi. "Di sana dulu
+          disimpan benda-benda penting keluarga Banjar, termasuk resep kuno kue
+          tradisional." <br /><br />
+          Kamu dan nenek menapaki tangga pelan-pelan. Di atas, di bawah cahaya
+          lampu yang redup, terlihat gulungan kain tua berisi gambar Putu Mayang
+          dan Wadai Cincin. Putu Mayang digambarkan seperti untaian tali
+          panjang, sementara Wadai Cincin memiliki empat lubang, bukan satu 🔍.
+          <br /><br />
+          "Setiap bentuk kue ini melambangkan filosofi hidup," jelas nenek.
+          "Putu Mayang menunjukkan hubungan yang tidak terputus, sementara Wadai
+          Cincin melambangkan keutuhan dan keseimbangan." <br /><br />
+          Nenek menepuk tanganku. "Tapi Nak, untuk benar-benar memahami pesan
+          ini, kamu harus mencari petunjuk yang tersembunyi di seluruh rumah
+          Bubungan Tinggi, dari lantai utama hingga Balai Bini. Setiap ukiran,
+          setiap kue, memiliki arti." 🏡 <br /><br />
+          Kamu mengamati atap tinggi Bubungan Tinggi, ukiran burung enggang dan
+          naga yang tersembunyi, tangga ganjil yang menuju Balai Bini, dan aroma
+          manis Wadai Cincin dan Putu Mayang yang baru dibuat. Semua terasa
+          terhubung. <br /><br />
+          "Sekarang, Nak," kata nenek sambil tersenyum, "coba ingat kembali, apa
+          yang telah kita pelajari tentang rumah ini dan kue-kue tradisional.
+          Petunjuk rahasia ada di sana, dan hanya yang memahami filosofi semua
+          elemen yang bisa menemukannya." ✨
+        </p>
+      </div>
+      <button id="soal_lanjut" onclick="soal_lanjut()">Lanjut</button>
+    </div>
+
+    <script>
+      // ==============================
+      // DATA PERTANYAAN QUIZ
+      // ==============================
+      const quizData = [
+        {
+          question: "Apa makna filosofi dari Putu Mayang?",
+          options: [
+            "Melambangkan hubungan yang tidak terputus",
+            "Melambangkan keutuhan hidup manusia",
+            "Melambangkan keseimbangan alam sekitar",
+            "Melambangkan ikatan sosial dan budaya",
+          ],
+          answer: "Melambangkan hubungan yang tidak terputus",
+        },
+        {
+          question:
+            "Berapa lubang yang ada pada Wadai Cincin tradisional seperti di gulungan kuno?",
+          options: ["Satu lubang", "Dua lubang", "Tiga lubang", "Empat lubang"],
+          answer: "Empat lubang",
+        },
+        {
+          question: "Apa tujuan nenek mengajak naik ke puncak Bubungan Tinggi?",
+          options: [
+            "Untuk mengecek kondisi tangga kayu ulin",
+            "Untuk melihat koleksi kue-kue tradisional",
+            "Untuk menemukan benda penting dan pesan rahasia",
+            "Untuk berfoto di atas atap rumah adat",
+          ],
+          answer: "Untuk menemukan benda penting dan pesan rahasia",
+        },
+        {
+          question: "Apa simbol yang ditunjukkan oleh Wadai Cincin?",
+          options: [
+            "Keutuhan dan keseimbangan hidup manusia",
+            "Kebersamaan keluarga dan kerabat",
+            "Perlindungan dari gangguan makhluk halus",
+            "Empat penjuru mata angin dan alam",
+          ],
+          answer: "Keutuhan dan keseimbangan hidup manusia",
+        },
+        {
+          question:
+            "Mengapa gulungan kain tua harus dibaca di tempat cahaya dan bayangan bersatu?",
+          options: [
+            "Agar adonan tidak rusak dan terkena debu",
+            "Agar warna kue terlihat lebih cerah",
+            "Agar pesan rahasia terlihat jelas",
+            "Agar bentuk kue terlihat sempurna",
+          ],
+          answer: "Agar pesan rahasia terlihat jelas",
+        },
+        {
+          question:
+            "Apa makna filosofi Putu Mayang dan Wadai Cincin yang disimpan di Balai Bini?",
+          options: [
+            "Menggambarkan hiasan ruangan agar terlihat menarik",
+            "Menggambarkan hubungan sosial dan keutuhan masyarakat",
+            "Menggambarkan sebagai warisan kuliner saja tanpa makna",
+            "Menggambarkan berbagai koleksi kue untuk tamu khusus",
+          ],
+          answer: "Menggambarkan hubungan sosial dan keutuhan masyarakat",
+        },
+        {
+          question: "Apa yang membuat tangga Bubungan Tinggi istimewa?",
+          options: [
+            "Tangga tersebut dibuat dari batu alam yang langka",
+            "Tangga tersebut berbentuk spiral seperti menara",
+            "Jumlah anak tangganya genap, melambangkan kedamaian",
+            "Jumlah anak tangganya ganjil, melambangkan keseimbangan",
+          ],
+          answer: "Jumlah anak tangganya ganjil, melambangkan keseimbangan",
+        },
+        {
+          question:
+            "Apa yang harus dicari untuk memahami pesan rahasia di rumah Bubungan Tinggi?",
+          options: [
+            "Mencari petunjuk tersembunyi dari aroma kue mana yang manis",
+            "Mencari petunjuk berapa jumlah jendela dan pintu pada rumah adat",
+            "Mencari petunjuk berapa jumlah lampu yang menyala di malam hari",
+            "Mencari petunjuk tersembunyi di ukiran, tangga, dan kue tradisional",
+          ],
+          answer:
+            "Mencari petunjuk tersembunyi di ukiran, tangga, dan kue tradisional",
+        },
+        {
+          question:
+            "Mengapa Putu Mayang digambarkan sebagai untaian panjang di gulungan kuno?",
+          options: [
+            "Untuk melambangkan ikatan dan kesinambungan hubungan",
+            "Untuk memperlihatkan seberapa mudah kue tersebut dikukus",
+            "Untuk melambangkan seberapa panjang kue putu mayang",
+            "Untuk menarik perhatian semua tamu yang ada istana",
+          ],
+          answer: "Untuk melambangkan ikatan dan kesinambungan hubungan",
+        },
+        {
+          question:
+            "Apa hubungan antara Wadai Cincin, Putu Mayang, dan Balai Bini?",
+          options: [
+            "Semua kue disimpan hanya sebagai hiasan dan dimakan sehari-hari",
+            "Semuanya tidak memiliki makna khusus, hanya untuk dinikmati bersama",
+            "Semua memiliki makna simbolik yang terkait dengan kebersamaan dan keluarga",
+            "Tidak ada hubungan sama sekali, hanya berdekatan secara fisik",
+          ],
+          answer:
+            "Semua memiliki makna simbolik yang terkait dengan kebersamaan dan keluarga",
+        },
+      ];
+
+      let currentQuestion = 0;
+      let score = 0;
+      let startTime; // Variabel waktu mulai
+
+      const questionEl = document.getElementById("question");
+      const optionsEl = document.getElementById("options");
+      const nextBtn = document.getElementById("nextBtn");
+      const resultEl = document.getElementById("result");
+
+      function loadQuestion() {
+        const current = quizData[currentQuestion];
+        questionEl.textContent = current.question;
+        optionsEl.innerHTML = "";
+        nextBtn.style.display = "none";
+        current.options.forEach((opt) => {
+          const btn = document.createElement("button");
+          btn.textContent = opt;
+          btn.onclick = () => checkAnswer(btn, opt);
+          optionsEl.appendChild(btn);
+        });
+      }
+
+      function checkAnswer(btn, selected) {
+        const correct = quizData[currentQuestion].answer;
+        const buttons = optionsEl.querySelectorAll("button");
+        buttons.forEach((b) => (b.disabled = true));
+        if (selected === correct) {
+          btn.classList.add("correct");
+          score++;
+        } else {
+          btn.classList.add("wrong");
+          buttons.forEach((b) => {
+            if (b.textContent === correct) b.classList.add("correct");
+          });
+        }
+        nextBtn.style.display = "inline-block";
+      }
+
+      nextBtn.addEventListener("click", () => {
+        currentQuestion++;
+        if (currentQuestion < quizData.length) {
+          loadQuestion();
+        } else {
+          finishQuiz();
+        }
+      });
+
+      function finishQuiz() {
+        document.getElementById("quiz").style.display = "none";
+
+        // 1. Hitung durasi waktu pengerjaan
+        const endTime = new Date();
+        const durasiDetik = Math.floor((endTime - startTime) / 1000);
+
+        // Batas minimal lulus 80%
+        const minCorrect = Math.ceil(quizData.length / 1.25);
+
+        // 2. Kirim ke database (Stage 9)
+        fetch("/api/submit_quiz", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            game_name: "quiz",
+            stage: 9,
+            score: score,
+            total_soal: quizData.length,
+            time_taken: durasiDetik,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            resultEl.innerHTML = `<strong>Kamu menjawab ${score}/${quizData.length} dengan benar!</strong><br>
+                                  <small>Waktu pengerjaan: ${durasiDetik} detik</small><br><br>`;
+
+            if (data.passed) {
+              resultEl.innerHTML += `
+                <div class="result-box success">
+                    🎉 Selamat! Kamu berhasil menjawab minimal ${minCorrect} soal dengan benar.<br>
+                    Stage berikutnya telah terbuka!
+                </div>`;
+              setTimeout(() => {
+                window.location.href = "{{ url_for('quiz') }}";
+              }, 3500);
+            } else {
+              resultEl.innerHTML += `
+                <div class="result-box fail">
+                    😢 Kamu hanya menjawab ${score} dari ${quizData.length} dengan benar.<br>
+                    <p>Pelajari kembali materinya sebelum mencoba lagi.</p>
+                    <a href="{{ url_for('materi') }}" class="materi-btn">📖 Lihat Materi</a>
+                </div>`;
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("Terjadi kesalahan saat menyimpan nilai.");
+          });
+      }
+
+      function shuffleQuestions(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+      }
+
+      function soal_lanjut() {
+        document.querySelector(".container-cerita").style.display = "none";
+        document.querySelector(".quiz-container").style.display = "block";
+        startTime = new Date(); // Mulai hitung waktu tepat saat kuis muncul
+      }
+
+      // Inisialisasi awal
+      shuffleQuestions(quizData);
+      loadQuestion();
+    </script>
+  </body>
+</html>

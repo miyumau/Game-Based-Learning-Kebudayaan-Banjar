@@ -1,0 +1,762 @@
+.back {
+  background-color: #e6cfa9;
+  height: 80px;
+  width: 80px;
+  border-radius: 90px;
+  position: sticky;
+  top: 25px;
+  left: 25px;
+  margin-left: -260px;
+  margin-top: -25px;
+  border: 3.5px solid black;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  transition: transform 0.1s, background-color 0.2s;
+}
+
+.back:hover {
+  background-color: rgb(218, 25, 25);
+  transform: scale(1.05);
+}
+
+.gambar_back {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+
+/* ====== KOTAK JUDUL DI ATAS ====== */
+.kotak_materi_diatas {
+  background-color: #85d4ff;
+  height: 100px;
+  width: 500px;
+  position: relative;
+  margin-left: 483px;
+  margin-bottom: 25px;
+  margin-top: -20px;
+  top: 7px;
+  left: 12.6%;
+  transform: translateX(-50%);
+  border-radius: 90px;
+  border: 4px solid black;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  z-index: 200;
+}
+
+.tulisan_materi_diatas {
+  font-size: 39px;
+  font-weight: 600;
+  color: black;
+  background-color: #85d4ff; /* warna biru muda */
+  padding: 10px 40px;
+  /* border: 3px solid black; */
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  margin: 15px auto; /* otomatis tengah secara horizontal */
+  text-align: center;
+}
+
+:root {
+  --bg: #e6e6e6;
+  --card: #fff9ea;
+  --accent: #ffd24d;
+  --muted: #9b9b9b;
+  --shadow: rgba(0, 0, 0, 0.18);
+}
+body {
+  background-color: #f7f1e5;
+  font-family: "Fredoka", sans-serif;
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
+
+.wrap {
+  width: 960px;
+  max-width: 95%;
+}
+
+.title {
+  background: #9fe3ff;
+  border-radius: 40px;
+  padding: 16px 24px;
+  text-align: center;
+  font-size: 34px;
+  font-weight: 700;
+  color: #0b3b46;
+  margin-bottom: 16px;
+}
+
+.board {
+  background: rgb(250, 231, 195);
+  border-radius: 28px;
+  padding: 48px;
+  border: 6px solid #000;
+  box-shadow: 10px 10px 0 var(--shadow);
+}
+
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.status {
+  font-size: 20px;
+}
+
+.lives {
+  font-size: 20px;
+  color: #d70000;
+}
+
+.draggables {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card-item {
+  width: 260px;
+  height: 250px;
+  background: #fff;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  border: 3px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.06);
+}
+
+.card-item img {
+  max-width: 260px;
+  max-height: 240px;
+  pointer-events: none;
+}
+
+.dropzone-area {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.dropzone {
+  min-height: 100px;
+  border-radius: 20px;
+  border: 3px dashed rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+  color: #333;
+  font-size: 20px;
+}
+
+.dropzone.over {
+  border-color: #0b7b9b;
+  background: rgba(159, 227, 255, 0.12);
+}
+
+.controls {
+  margin-top: 22px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.btn {
+  background: #4cd964;
+  color: black;
+  font-weight: 600;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.12);
+  transition: 0.2s;
+  border: 3px solid black;
+  margin-top: 20px;
+  transition: all 0.2s ease;
+  font-family: "Fredoka", sans-serif;
+}
+.btn:hover {
+  background: #37b94d;
+  transform: scale(1.05);
+}
+
+.btn-yellow {
+  background: #ffd24d;
+}
+.btn-yellow:hover {
+  background: #ffcc00;
+}
+
+/* Popup umum */
+.popup {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  background: white;
+  border-radius: 22px;
+  padding: 32px 40px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  display: none;
+  animation: popAppear 0.3s ease forwards;
+  border: 4px solid #b6ffb6;
+  max-width: 1060px;
+  z-index: 1000;
+  width: 260px;
+}
+.popup.show {
+  display: block;
+}
+
+.popup h2 {
+  font-size: 30px;
+  margin-bottom: 10px;
+  color: #1fa43e;
+}
+
+.popup p {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.popup .emoji {
+  font-size: 48px;
+  animation: spin 2s linear infinite;
+}
+
+.popup .btn-next {
+  background: #4cd964;
+  color: white;
+  font-weight: 700;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.12);
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.popup .btn-next:hover {
+  background: #37b94d;
+  transform: scale(1.05);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Popup gagal cute */
+.popup-fail {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  background: linear-gradient(180deg, #fff1f3 0%, #ffe8f0 100%);
+  border-radius: 24px;
+  padding: 32px 40px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  display: none;
+  animation: popAppear 0.3s ease forwards;
+  border: 4px solid #ffc1c8;
+  max-width: 360px;
+  width: 260px;
+}
+.popup-fail.show {
+  display: block;
+}
+.popup-fail h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #ff4b6e;
+}
+.popup-fail p {
+  font-size: 18px;
+  color: #444;
+  margin-bottom: 20px;
+  font-family: "Fredoka", sans-serif;
+  font-weight: 600;
+}
+.popup-fail .cute-icon {
+  font-size: 50px;
+  animation: bounce 1.2s infinite;
+}
+.popup-fail .btn-cute {
+  background: #ff9db5;
+  color: white;
+  font-weight: 700;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.12);
+  font-size: 16px;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+.popup-fail .btn-cute:hover {
+  background: #ff7a9c;
+  transform: scale(1.05);
+}
+
+@keyframes popAppear {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* Tombol bersebelahan */
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Popup salah (versi lebih cantik) */
+.popup-wrong {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  background: linear-gradient(145deg, #fff5e6, #ffe0b2);
+  border-radius: 25px;
+  box-shadow: 5px 8px 25px rgba(0, 0, 0, 0.2);
+  padding: 35px 25px;
+  text-align: center;
+  width: 300px;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  opacity: 0;
+  border: 3.4px solid black;
+}
+
+.popup-wrong.show {
+  display: block;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  animation: bounceIn 0.4s ease;
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: translate(-50%, -50%) scale(0.6);
+    opacity: 0;
+  }
+  60% {
+    transform: translate(-50%, -50%) scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.popup-wrong .emoji {
+  font-size: 50px;
+  margin-bottom: 12px;
+  animation: wiggle 1.2s infinite;
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+}
+
+.popup-wrong h3 {
+  margin-bottom: 10px;
+  font-family: "Fredoka", sans-serif;
+  font-size: 22px;
+  color: #d35400;
+}
+
+.popup-wrong p {
+  color: #5a4637;
+  font-family: "Fredoka", sans-serif;
+  margin-bottom: 20px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.btn-ok {
+  background: linear-gradient(90deg, #ffca28, #ffb300);
+  border: none;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-family: "Fredoka", sans-serif;
+  font-size: 15px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-weight: 600;
+  /* border: 1.4px solid black; */
+}
+
+.btn-ok:hover {
+  transform: scale(1.05);
+  box-shadow: 0 3px 8px rgba(255, 179, 0, 0.4);
+}
+
+/* 🌸 Kontainer teks cerita */
+.container-cerita {
+  position: absolute;
+  top: 56.3%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  width: 90%;
+  height: 450px;
+  background: #ffffff;
+  border-radius: 40px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* 🌷 Area teks scroll */
+.cerita-scroll {
+  flex: 1;
+  width: 100%;
+  overflow-y: auto;
+  padding-right: 10px;
+  margin-bottom: 70px;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+.cerita-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* 🌼 Teks cerita */
+.cerita {
+  font-size: 32px;
+  line-height: 1.8;
+  color: #333;
+  text-align: justify;
+  font-weight: 400;
+  padding: 10px 20px;
+  border-radius: 20px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 250, 230, 0.8) 100%
+  );
+  box-shadow: inset 0 0 10px rgba(255, 230, 150, 0.3);
+  transition: transform 0.3s ease;
+}
+.cerita:hover {
+  transform: scale(1.01);
+}
+.cerita::first-letter {
+  font-size: 57.5px;
+  font-weight: 700;
+  color: #f5a623;
+  float: left;
+  margin-right: 6px;
+}
+
+/* 🌈 Tombol lanjut */
+#soal_lanjut {
+  background-color: #ffe082;
+  color: #000;
+  font-family: "Fredoka", sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  border: 3px solid #000;
+  border-radius: 25px;
+  padding: 14px 45px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  position: absolute;
+  bottom: 25px;
+}
+#soal_lanjut:hover {
+  background-color: #fff59d;
+  transform: scale(1.05);
+}
+
+/* ============================= */
+/* 📱 Responsif untuk layar HP   */
+/* ============================= */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Tombol Back */
+  .back {
+    position: absolute !important;
+    width: 48px;
+    height: 48px;
+    top: 12px;
+    left: 12px;
+    margin: 0 !important;
+    z-index: 12000;
+  }
+  .gambar_back {
+    width: 28px;
+    height: 28px;
+    top: 10px;
+    left: 10px;
+  }
+
+  /* 🔹 Otomatis posisinya tengah dan lebar fleksibel */
+  .kotak_materi_diatas {
+    width: fit-content !important;
+    min-width: 180px;
+    height: 50px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .tulisan_materi_diatas {
+    font-size: clamp(14px, 4vw, 20px);
+    margin: 4px auto;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .board {
+    padding: 20px;
+    margin-top: 73px;
+  }
+
+  /* 🔹 Semua card seragam ukurannya */
+  .card-item {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  }
+  .card-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .dropzone-area {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .dropzone {
+    min-height: 80px;
+    font-size: 18px;
+  }
+
+  .controls {
+    flex-direction: column;
+  }
+
+  .container-cerita {
+    width: 80%;
+    height: auto;
+    min-height: 380px;
+    top: 430px;
+    padding: 25px 20px;
+  }
+  .cerita {
+    font-size: 20px !important;
+  }
+  .cerita::first-letter {
+    font-size: 37.5px;
+    font-weight: 700;
+    color: #f5a623;
+    float: left;
+    margin-right: 6px;
+    margin-top: -24px;
+    margin-bottom: -10px;
+  }
+  #soal_lanjut {
+    font-size: 15px;
+    padding: 10px 25px;
+  }
+  /* 🟩 Tambahan agar tulisan Stage 1 Matching di tengah atas */
+  .kotak_materi_diatas {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 10000;
+  }
+  /* Huruf pertama besar */
+  .cerita::first-letter {
+    font-size: 37.5px;
+    font-weight: 700;
+    color: #f5a623;
+    float: left;
+    margin: -0.7px 6px 0 0; /* aman untuk mobile */
+  }
+}
+
+/* ✨ Efek visual saat drag */
+.card-item.dragging {
+  opacity: 0.7;
+  transform: scale(1.1);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+.dropzone.over {
+  border-color: #0b7b9b;
+  background: rgba(159, 227, 255, 0.3);
+  transform: scale(1.02);
+  transition: all 0.2s ease;
+}
+
+/* efek gambar sementara di HP */
+.drag-preview {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 0.85;
+  width: 120px;
+  height: 120px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.05s linear;
+}
+.drag-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.time-bar-container {
+  width: 100%;
+  height: 14px;
+  background: linear-gradient(90deg, #a80000, #ff0000);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.time-bar {
+  width: 0%;
+  height: 100%;
+
+  background: linear-gradient(90deg, #00e100, #18b500);
+  transition: width 0.2s linear;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+/* ============================= */
+/* 🖥️ DESKTOP SESUAI DESAIN GAMBAR */
+/* ============================= */
+@media (min-width: 1024px) {
+  /* Board dilebarkan */
+  .wrap {
+    width: 1300px;
+    max-width: 95vw;
+  }
+
+  .board {
+    overflow: hidden;
+  }
+
+  /* Layout utama kiri-kanan */
+  .layout-desktop {
+    display: grid;
+    grid-template-columns: 3fr 1.3fr; /* kiri jauh lebih besar */
+    gap: 50px;
+    align-items: start;
+  }
+
+  /* DRAG AREA — JEJER 3 */
+  .draggables {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    justify-items: center;
+  }
+
+  .card-item {
+    width: 280px;
+    height: 170px;
+  }
+
+  /* PANEL KANAN */
+  .right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  /* DROPZONE KE BAWAH */
+  .dropzone-area {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .dropzone {
+    min-height: 90px;
+    font-size: 18px;
+  }
+
+  /* BUTTON DI BAWAH DROPZONE */
+  .controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+}

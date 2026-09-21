@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: "Fredoka", Arial, sans-serif;
+        margin: 0;
+        background-color: #f7f1e5;
+        text-align: end;
+      }
+      /* .leaderboard {
+        display: none;
+      } */
+
+      /* ===================== DESKTOP ===================== */
+      @media (min-width: 768px) {
+        html,
+        body {
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+        }
+
+        .desktop-wrapper {
+          width: 1920px;
+          height: 1080px;
+          transform-origin: top left;
+          position: relative;
+          overflow: hidden;
+        }
+
+        body {
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+        }
+
+        .desktop-wrapper {
+          transform: scale(calc(min(100vw / 1920, 100vh / 1080)));
+        }
+
+        /* ✅ Background selalu penuh layar */
+        .bg {
+          background-image: url("/static/Image/Background_Home2.jpg");
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: center center;
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          top: -220px;
+          left: 0;
+          z-index: -1;
+          opacity: 0.87;
+        }
+
+        /* ✅ Gambar tulisan di tengah layar */
+        .gambartulisan {
+          position: absolute;
+          top: 25%; /* sedikit ke atas biar tidak terlalu bawah */
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 650px;
+          height: 650px;
+          z-index: 0;
+        }
+
+        /* Tombol keluar (x) */
+        .buatx {
+          position: absolute;
+          width: 80px;
+          height: 80px;
+          top: 10px;
+          right: 50px;
+          z-index: 1;
+          background-color: #e6cfa9;
+          border-radius: 90px;
+          box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+          border: 3.5px solid black;
+          transition: transform 0.1s, opacity 0.1s;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .buatx:hover {
+          background-color: rgb(218, 25, 25);
+          transform: scale(1.05);
+        }
+
+        .x {
+          width: 50px;
+          height: 50px;
+          top: -39px;
+          left: -12px;
+        }
+
+        /* Profil */
+        .profil {
+          position: absolute;
+          width: 80px;
+          height: 80px;
+          top: 105px;
+          right: 160px;
+          z-index: 1;
+          background-color: #e6cfa9;
+          border-radius: 90px;
+          box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+          border: 3.5px solid black;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .profil:hover {
+          background-color: #b1b1b1;
+          transform: scale(1.05);
+        }
+
+        .gambarorang {
+          width: 50px;
+          height: 50px;
+          left: 21px;
+          top: -50px;
+        }
+
+        /* ✅ Materi di tengah kiri bawah tulisan */
+        .materi {
+          position: absolute;
+          width: 120px;
+          height: 120px;
+          top: 50%;
+          left: calc(50% - 150px); /* agak ke kiri dari tengah */
+          transform: translate(-50%, -50%);
+          z-index: 1;
+          background-color: #deba03;
+          border-radius: 90px;
+          box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+          border: 3.2px solid black;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .materi:hover {
+          background-color: #a38908;
+          transform: translate(-50%, -50%) scale(1.05);
+        }
+
+        .materi img {
+          width: 70px;
+          height: 70px;
+        }
+
+        /* ✅ Game di tengah kanan bawah tulisan */
+        .game {
+          position: absolute;
+          width: 120px;
+          height: 120px;
+          top: 50%;
+          left: calc(50% + 150px); /* agak ke kanan dari tengah */
+          transform: translate(-50%, -50%);
+          z-index: 1;
+          background-color: #fa8e7d;
+          border-radius: 90px;
+          box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+          border: 3.2px solid black;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .game:hover {
+          background-color: #b65749;
+          transform: translate(-50%, -50%) scale(1.05);
+        }
+
+        .game img {
+          width: 70px;
+          height: 70px;
+        }
+
+        /* MONITORING GURU (DI ATAS LEADERBOARD) */
+        .btn-guru-wrapper {
+          background-color: #e6cfa9;
+          height: 80px;
+          width: 80px;
+          border-radius: 90px;
+          right: 50px;
+          top: 450px; /* Di atas Leaderboard (yang topnya 550px) */
+          z-index: 1;
+          box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+          position: absolute;
+          border: 3.5px solid black;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .btn-guru-wrapper:hover {
+          background-color: #9abcd2;
+          transform: scale(1.05);
+        }
+
+        .gambar_guru {
+          width: 50px;
+          height: 50px;
+        }
+
+        /* Leaderboard */
+        .leaderboard {
+          background-color: #e6cfa9;
+          height: 80px;
+          width: 80px;
+          border-radius: 90px;
+          top: 550px;
+          right: 50px;
+          z-index: 1;
+          box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+          font-size: medium;
+          position: absolute;
+          border: 3.5px solid black;
+        }
+
+        .leaderboard:hover {
+          background-color: #b1b1b1;
+          transform: scale(1.05);
+        }
+
+        .gambar_leaderboard {
+          width: 60px;
+          height: 60px;
+          margin-right: 10px;
+          margin-top: 5px;
+        }
+
+        .setting {
+          background-color: #e6cfa9;
+          height: 80px;
+          width: 80px;
+          border-radius: 90px;
+          right: 50px;
+          top: 650px;
+          z-index: 1;
+          box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+          font-size: medium;
+          position: absolute;
+          border: 3.5px solid black;
+          cursor: pointer; /* Tambahan */
+        }
+
+        .setting:hover {
+          background-color: #b1b1b1;
+          transform: scale(1.05);
+        }
+
+        .gambar_setting {
+          width: 55px;
+          height: 55px;
+          margin-right: 12.5px;
+          margin-top: 12.5px;
+        }
+
+        .kotak_biru {
+          top: 420px !important;
+        }
+        .kotak_biru_muda {
+          top: 420px !important;
+        }
+      }
+
+      /* ===================== MOBILE ===================== */
+      @media (max-width: 767px) {
+        .bg {
+          background-image: url("/static/Image/home_2.png");
+          background-position: center center;
+          background-size: cover;
+          background-repeat: no-repeat;
+          width: 100vw;
+          height: 100vh;
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: -1;
+        }
+
+        body {
+          text-align: center;
+          overflow-x: hidden;
+          overflow-y: visible;
+          position: relative;
+        }
+
+        .buatx,
+        .profil,
+        .btn-guru-wrapper {
+          width: 60px;
+          height: 60px;
+          margin: 10px;
+          position: fixed;
+          top: 10px;
+          z-index: 100;
+        }
+
+        .buatx {
+          right: 10px;
+        }
+
+        .profil {
+          right: 80px;
+        }
+
+        .btn-guru-wrapper {
+          right: 150px; /* Samping Profil */
+          background-color: #e6cfa9;
+          border-radius: 50%;
+          border: 3px solid black;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .x {
+          width: 35px;
+          height: 35px;
+          position: absolute;
+          top: -1.7px;
+          left: -4.8px;
+        }
+
+        .gambarorang {
+          width: 35px;
+          height: 35px;
+          position: absolute;
+          top: 13px;
+          left: 12px;
+        }
+
+        .gambar_guru {
+          width: 30px;
+          height: 30px;
+        }
+
+        .tulisantema {
+          position: fixed;
+          top: 55%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .gambartulisan {
+          position: relative !important;
+          width: 90%;
+          height: 450px;
+          margin-left: -880px;
+          margin-top: -80px;
+        }
+
+        .tombol-wrapper {
+          position: relative;
+          z-index: 5;
+          padding-bottom: 180px;
+        }
+
+        .materi {
+          width: 90px;
+          height: 90px;
+          position: relative;
+          margin: 30px auto;
+          left: -83px;
+          top: 336.5px;
+          z-index: 5;
+        }
+
+        .game {
+          width: 90px;
+          height: 90px;
+          position: relative;
+          margin: 30px auto;
+          left: 85px;
+          top: 211px;
+          z-index: 5;
+        }
+
+        .materi img,
+        .game img {
+          width: 55px;
+          height: 55px;
+          right: 18px;
+          bottom: 18px;
+        }
+
+        .leaderboard,
+        .setting {
+          width: 65px;
+          height: 65px;
+          position: fixed;
+          right: 20px;
+          bottom: 80px;
+          z-index: 6;
+          margin-top: -37px !important;
+        }
+
+        .setting {
+          margin-top: -58px !important;
+          cursor: pointer; /* Tambahan */
+        }
+
+        .gambar_leaderboard {
+          width: 40px;
+          height: 40px;
+          margin-top: 10px;
+          margin-left: 10px;
+        }
+        .gambar_setting {
+          width: 40px;
+          height: 40px;
+          margin-top: 13px;
+          margin-left: 12.5px;
+        }
+
+        .buat_profil {
+          position: relative;
+          z-index: 7;
+          padding-bottom: 570px;
+          margin-top: -120px;
+        }
+
+        .buat_profil .kotak_biru {
+          width: 90%;
+          height: 520px;
+          margin-top: 20px;
+          z-index: 3;
+        }
+
+        .buat_profil .kotak_biru_muda {
+          width: 80%;
+          height: 480px;
+          margin-top: 20px;
+        }
+
+        html,
+        body {
+          overflow-x: hidden;
+        }
+      }
+
+      @media (max-width: 767px) and (orientation: landscape) {
+        .bg {
+          background-image: url("/static/Image/home_2.png") !important;
+          background-size: cover;
+          background-position: center;
+        }
+
+        .gambartulisan {
+          width: 60%;
+          height: auto;
+          margin-top: 30px;
+        }
+
+        .materi,
+        .game {
+          width: 80px;
+          height: 80px;
+          margin: 20px auto;
+        }
+      }
+    </style>
+
+    <title>Kebudayaan Banjar</title>
+  </head>
+
+  <body>
+    <div class="desktop-wrapper">
+      <div class="bg"></div>
+
+      <div class="buatx">
+        <a href="{{ url_for('login') }}" class="linkx" id="exitBtn">
+          <img src="/static/Image/x.png" class="x" alt="Tombol keluar" />
+        </a>
+      </div>
+
+      {% if session.get('role') == 'guru' %}
+      <div class="btn-guru-wrapper">
+        <a href="{{ url_for('halaman_guru') }}">
+          <img
+            src="/static/Image/icon_guru.png"
+            class="gambar_guru"
+            style="filter: hue-rotate(150deg) brightness(1.2)"
+            alt="Dashboard Guru"
+          />
+        </a>
+      </div>
+      {% endif %}
+
+      <div class="profil" onclick="profil()">
+        <a href="#" class="profiluser">
+          <img src="/static/Image/user.png" alt="Profil" class="gambarorang" />
+        </a>
+      </div>
+
+      <div class="tulisantema" id="tulisantema" style="display: block">
+        <img
+          src="/static/Image/tulisan.png"
+          alt="Tulisan Tema"
+          class="gambartulisan"
+        />
+      </div>
+
+      <div class="tombol-wrapper">
+        <div class="materi">
+          <a href="{{ url_for('materi') }}">
+            <div>
+              <img src="/static/Image/book.png" class="buku" alt="Materi" />
+            </div>
+          </a>
+        </div>
+
+        <div class="game">
+          <a href="{{ url_for('game') }}">
+            <div>
+              <img src="/static/Image/play.png" class="play" alt="Game" />
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="leaderboard">
+        <a href="{{ url_for('leaderboard') }}" class="leader">
+          <img
+            src="/static/Image/leaderboard.png"
+            alt="Leaderboard"
+            class="gambar_leaderboard"
+          />
+        </a>
+      </div>
+
+      <div class="setting" id="settingBtn">
+        <img
+          src="/static/Image/icon_mic.png"
+          alt="Pengaturan"
+          class="gambar_setting"
+        />
+      </div>
+
+      <div class="profil-overlay" id="profilHalaman">
+        <div class="profil-card">
+          <div class="tutup-profil" onclick="tutupProfil()">✖</div>
+
+          <div class="profil-header">
+            <div class="avatar-container">
+              <img src="/static/Image/user.png" alt="User Avatar" />
+            </div>
+            <h2>{{ session['username'] }}</h2>
+            <p>{{ session['user'] }}</p>
+          </div>
+
+          <div class="statistik-container">
+            <h3 style="text-align: center">🎮 Progress Permainan</h3>
+            <div class="statistik-grid">
+              <div class="stat-box quiz">
+                <span>Quiz</span>
+                <strong
+                  >Stage {{ max_stage_quiz if max_stage_quiz > 0 else 1
+                  }}</strong
+                >
+                <small>{{ score_quiz }} Poin</small>
+              </div>
+
+              {% if max_stage_tebak > 0 %}
+              <div class="stat-box tebak">
+                <span>Tebak Gambar</span>
+                <strong>Stage {{ max_stage_tebak }}</strong>
+                <small>{{ score_tebak }} Poin</small>
+              </div>
+              {% endif %} {% if max_stage_matching > 0 %}
+              <div class="stat-box matching">
+                <span>Matching</span>
+                <strong>Stage {{ max_stage_matching }}</strong>
+                <small>{{ score_match }} Poin</small>
+              </div>
+              {% endif %}
+
+              <div class="stat-box waktu">
+                <span>Waktu Bermain</span>
+                <strong id="displayWaktu">00:00:00</strong>
+                <small>Total Durasi</small>
+              </div>
+
+              <div
+                class="stat-box total-pts"
+                style="grid-column: span 2; border-left: 8px solid #9b59b6"
+              >
+                <span>Akumulasi Skor</span>
+                <strong style="font-size: 22px"
+                  >{{ score_quiz + score_tebak + score_match }} Pts</strong
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- <div style="text-align: center; margin-top: 20px">
+            <a href="{{ url_for('login') }}" class="btn-logout">Keluar Akun</a>
+          </div> -->
+        </div>
+      </div>
+    </div>
+
+    <audio
+      id="bgMusic"
+      src="/static/sound/ampar-ampar_pisang.mp3"
+      preload="auto"
+      loop
+    ></audio>
+
+    <script src="/static/js/script.js"></script>
+    <script>
+      // LOGIKA MUSIK
+      document.addEventListener("DOMContentLoaded", function () {
+        const bgMusic = document.getElementById("bgMusic");
+        const settingBtn = document.getElementById("settingBtn");
+
+        // Coba putar otomatis
+        bgMusic.play().catch(() => {
+          console.log("Menunggu interaksi pengguna untuk musik...");
+        });
+
+        function startMusic() {
+          bgMusic.play().then(() => {
+            document.removeEventListener("click", startMusic);
+          });
+        }
+        document.addEventListener("click", startMusic);
+
+        // FITUR KLIK SETTING UNTUK MATI/HIDUP MUSIK
+        settingBtn.addEventListener("click", function () {
+          if (bgMusic.paused) {
+            bgMusic.play();
+            settingBtn.style.opacity = "1";
+          } else {
+            bgMusic.pause();
+            settingBtn.style.opacity = "0.5"; // Indikator visual saat mati
+          }
+        });
+      });
+
+      // EXIT LOGIC
+      const exitBtn = document.getElementById("exitBtn");
+      if (exitBtn) {
+        exitBtn.addEventListener("click", function (event) {
+          event.preventDefault();
+          const confirmReset = confirm("Apakah kamu yakin ingin keluar?");
+          if (confirmReset) {
+            localStorage.removeItem("unlockedGames");
+            localStorage.removeItem("unlockedStages_quiz");
+            localStorage.removeItem("unlockedStages_tebak");
+            localStorage.removeItem("unlockedStages_matching");
+            setTimeout(() => {
+              window.location.href = "{{ url_for('login') }}";
+            }, 400);
+          }
+        });
+      }
+
+      function profil() {
+        document.getElementById("profilHalaman").style.display = "flex";
+        if (window.innerWidth < 768) {
+          document.getElementById("tulisantema").style.display = "none";
+        }
+      }
+
+      function tutupProfil() {
+        document.getElementById("profilHalaman").style.display = "none";
+        document.getElementById("tulisantema").style.display = "block";
+      }
+
+      function formatWaktu(detikTotal) {
+        let jam = Math.floor(detikTotal / 3600);
+        let menit = Math.floor((detikTotal % 3600) / 60);
+        let detik = detikTotal % 60;
+        jam = jam < 10 ? "0" + jam : jam;
+        menit = menit < 10 ? "0" + menit : menit;
+        detik = detik < 10 ? "0" + detik : detik;
+        return `${jam}:${menit}:${detik}`;
+      }
+
+      const totalDetik = Number("{{ total_detik | default(0) }}");
+      document.getElementById("displayWaktu").innerText =
+        formatWaktu(totalDetik);
+    </script>
+  </body>
+</html>
